@@ -72,6 +72,12 @@ input, select, textarea {
 	appearance: none;
 }
 
+iframe{
+	width: 100%;
+	height: 750px;
+	border: none;
+}
+
 /* Basic */
 
 	@-ms-viewport {
