@@ -72,11 +72,12 @@ input, select, textarea {
 	appearance: none;
 }
 
-iframe{
+iframe {
 	width: 75%;
 	height: 750px;
 	border: none;
-	margin: auto;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 /* Basic */
