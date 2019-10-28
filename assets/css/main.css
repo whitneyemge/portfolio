@@ -76,7 +76,7 @@ iframe{
 	width: 75%;
 	height: 750px;
 	border: none;
-	align-content: center;
+	margin-left: auto;
 }
 
 /* Basic */
