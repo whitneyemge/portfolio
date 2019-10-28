@@ -73,7 +73,7 @@ input, select, textarea {
 }
 
 iframe{
-	width: 100%;
+	width: 75%;
 	height: 750px;
 	border: none;
 }
