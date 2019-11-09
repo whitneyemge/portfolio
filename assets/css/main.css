@@ -72,6 +72,8 @@ input, select, textarea {
 	appearance: none;
 }
 
+ /* My additions */
+
 iframe {
 	width: 75%;
 	height: 750px;
@@ -79,6 +81,8 @@ iframe {
 	margin-left: 0 auto;
 	margin-right: 0 auto;
 }
+
+#mapid { height: 95%; }
 
 /* Basic */
 
