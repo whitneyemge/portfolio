@@ -1,3 +1,5 @@
+#mapid { height: 95%; }
+
 /* required styles */
 
 .leaflet-pane,
@@ -638,5 +640,3 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	margin-left: -12px;
 	border-right-color: #fff;
 	}
-
-#mapid { height: 95%; }
