@@ -18,10 +18,6 @@
 	}
 .leaflet-container {
 	overflow: hidden;
-	position: relative;
-	left: 0;
-	top: 0;
-	height: 95%
 	}
 .leaflet-tile,
 .leaflet-marker-icon,
