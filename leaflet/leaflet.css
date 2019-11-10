@@ -1,6 +1,6 @@
 
 /* required styles */
-#mapid { height: 80%; }
+
 .leaflet-pane,
 .leaflet-tile,
 .leaflet-marker-icon,
@@ -11,7 +11,7 @@
 .leaflet-zoom-box,
 .leaflet-image-layer,
 .leaflet-layer {
-	position: absolute;
+	position: relative;
 	left: 0;
 	top: 0;
 	}
