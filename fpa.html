@@ -40,6 +40,17 @@
 					id: 'mapbox.outdoors',
 					accessToken: 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ'
 				}).addTo(mymap);
+				// *load GeoJSON from an external file*
+				$.getJSON("assets/geojson/watrails.json",function(data){
+			    // *add GeoJSON layer to the map once the file is loaded. This is Leaflet's version of the map.data.loadGeoJson method in the Google Maps API.*
+			    L.geoJson(data,
+						{onEachFeature: addPopup}
+					).addTo(mymap);
+			  });
+				//*Popup function*
+				//function addPopup (feature, layer){
+					//layer.bindPopup("The state you clicked on is " + feature.properties.NAME)
+				//}
 
 			</script>
 			</div>
