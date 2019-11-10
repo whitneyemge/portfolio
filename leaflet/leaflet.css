@@ -14,6 +14,7 @@
 	position: absolute;
 	left: 0;
 	top: 0;
+	height: 95%;
 	}
 .leaflet-container {
 	overflow: hidden;
@@ -639,5 +640,3 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	margin-left: -12px;
 	border-right-color: #fff;
 	}
-
-#mapid { height: 95%; }
