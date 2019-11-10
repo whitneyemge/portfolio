@@ -1,6 +1,6 @@
 
 /* required styles */
-#mapid { height: 800px; }
+#mapid { height: 80%; }
 .leaflet-pane,
 .leaflet-tile,
 .leaflet-marker-icon,
