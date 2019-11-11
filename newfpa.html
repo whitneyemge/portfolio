@@ -22,12 +22,8 @@
         }).addTo(mymap);
 				// add data
 				$.getJSON("assets/geojson/bioNet.json",function(data){
-			    L.geoJson(data,)
-					).addTo(mymap);
+			    L.geoJson(data).addTo(mymap);
 				});
-				function addPopup (feature, layer){
-					layer.bindPopup("The state you clicked on is " + feature.properties.NAME)
-				}
 
       </script>
     </body>
