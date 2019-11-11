@@ -21,7 +21,7 @@
           id: 'mapbox.outdoors',
           accessToken: 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ'
         }).addTo(mymap);
-				$.getJSON("bioCorr.json",function(data){
+				$.getJSON("bioCorr.geojson",function(data){
 			    L.geoJson(data).addTo(mymap);
 				});
 
