@@ -22,8 +22,10 @@
         }).addTo(mymap);
 				// add data
 				$.getJSON("assets/geojson/bioNet.json",function(data){
-			    L.geoJson(data,).addTo(mymap);
-			  });
+			    L.geoJson(data,)
+					{onEachFeature: addPopup}
+					).addTo(mymap);
+				});
 
       </script>
     </body>
