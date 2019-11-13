@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" href="leaflet/leaflet.css"/>
 		<script src="leaflet/leaflet.js"></script>
-		<script src="jquery-3.4.1.min.js"></script>
+		<script src="assets/js/jquery-3.4.1.min.js"></script>
 
 	</head>
 	<body>
@@ -21,7 +21,7 @@
           id: 'mapbox.outdoors',
           accessToken: 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ'
         }).addTo(mymap);
-				$.getJSON("bioCorr.geojson",function(data){
+				$.getJSON("assets/geojson/crossStruct.geojson",function(data){
 			    L.geoJson(data).addTo(mymap);
 				});
 
