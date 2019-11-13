@@ -33,16 +33,50 @@
           accessToken: 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ'
         }).addTo(mymap);
 
-				<!-- Add data -->
+			//Add points data
 
 			$.getJSON("assets/geojson/crossStruct.geojson",function(data){
-			    L.geoJson(data).addTo(mymap);
+			    L.geoJson(data,
+						{onEachFeature: addPopup}
+					).addTo(mymap);
 				});
 
-			$.getJSON("assets/geojson/connPrior.geojson",function(data){
-				L.geoJson(data).addTo(mymap);
+			//Popup function
+
+			function addPopup (feature, layer){
+				layer.bindPopup(feature.properties.Location_Name)
+			}
+
+			//Add lines data
+
+			$.getJSON("assets/geojson/connPrior.geojson",function(connData){
+				L.geoJson(connData,
+					{onEachFeature: priorStyle}
+				).addTo(mymap);
 			});
 
+			//Color function
+
+			function priorStyle (feature) {
+			  var colorToUse;
+			  var line = feature.properties.SafetyRank;
+
+			  if (line === "Low") colorToUse = "#f1c40f";
+			  else if (line === "Med") colorToUse = "#e67e22";
+			  else if (line === "High") colorToUse = "#c0392b";
+			  else if (line === "None") colorToUse = "#616a6b";
+			  else colorToUse = "#fdfefe";
+
+			  return {
+			    "color": colorToUse,
+			    "weight": 5
+			  };
+			}
+
+			// Create layer and add it to the map
+				var priorLayer = L.geoJSON(connData, {
+					style: priorStyle
+		});
 
       </script>
 
