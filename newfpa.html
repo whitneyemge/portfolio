@@ -25,6 +25,16 @@
 			    L.geoJson(data).addTo(mymap);
 				});
 
+			}).addTo(mymap);
+			$.getJSON("assets/geojson/connPrior.geojson",function(data){
+				L.geoJson(data).addTo(mymap);
+			});
+
+		}).addTo(mymap);
+		$.getJSON("assets/geojson/sigHwys.geojson",function(data){
+			L.geoJson(data).addTo(mymap);
+		});
+
       </script>
     </body>
   </html>
