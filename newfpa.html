@@ -63,7 +63,7 @@
 			//Add lines data
 			$.getJSON("assets/geojson/connPrior.geojson",function(data){
 				connectionPrior = L.geoJson(data,{
-					function lineStyle(feature) {
+					onEachFeature: function lineStyle(feature) {
 						var colorToUse;
 						var line = feature.properties.EcoRank;
 
