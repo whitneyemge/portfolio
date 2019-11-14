@@ -52,17 +52,36 @@
 				//Create paw icon
 				var pawIcon = L.icon({
 					iconUrl: 'images/zoo.png',
-					iconSize: [36,36],
-					iconAnchor: [18,18],
+					iconSize: [30,30],
+					iconAnchor: [15,15],
 					popupAnchor: [0,-6]
 				});
 
+				//Null variable to hold highway line data
+				var connectionPrior = null;
+
 			//Add lines data
 			$.getJSON("assets/geojson/connPrior.geojson",function(data){
-				L.geoJson(data,
-				).addTo(mymap);
-			});
+				connectionPrior = L.geoJson(data,{
+					style: lineStyle;
+				}
+			}).addTo(mymap);
+		});
 
+			//Set function for line colors
+			function lineStyle(feature) {
+				var colorToUse;
+				var line = feature.properties.EcoRank;
+
+				if (line === "Low") colorToUse = "yellow";
+				else if (line === "Med") colorToUse = "orange";
+				else if (line === "High") colorToUse = "red";
+
+				return {
+					"color": colorToUse;
+					"weight": 5
+				};
+			}
 
 
       </script>
