@@ -57,20 +57,11 @@
 					popupAnchor: [0,-6]
 				});
 
-				//Null variable to hold highway line data
-				// var connectionPrior = null;
-
-			//Add lines data
+				//Add lines data
 			$.getJSON("assets/geojson/connPrior.geojson",function(data){
-					L.geoJson(data,{
-					style: function(feature) {
-						l = feature.properties.EcoRank;
-						return l = "Low" ? {color: '#F1C40F'} :
-						l = "Med" ? {color: '#D35400'} :
-						l = "High" ? {color: '#C0392B'};
-					}
-			}).addTo(mymap);
-		});
+				L.geoJson(data,
+				).addTo(mymap);
+			});
 
 			//Set function for line colors
 			// function lineStyle(feature) {
