@@ -34,17 +34,28 @@
           accessToken: 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ'
 				}).addTo(mymap);
 
-			//Add points data
+				//Null variable to hold crossing point data
+				var crossingPoints = null;
+
+				//Add points data
 			$.getJSON("assets/geojson/crossStruct.geojson",function(data){
-				 L.geoJson(data,
-				 					{onEachFeature: addPopup}
-				 				).addTo(mymap);
+				 crossingPoints = L.geoJson(data,{
+				 					onEachFeature: function (feature, layer) {
+										layer.bindPopup(feature.properties.Location_Name);
+									}, pointToLayer: function (feature, latlng) {
+										var marker = L.marker(latlng,{icon: pawIcon});
+										return marker;
+									}
+				 				}).addTo(mymap);
 				 		  });
 
-							function addPopup (feature, layer){
-								layer.bindPopup(feature.properties.Location_Name)
-							};
-
+				//Create paw icon
+				var pawIcon = L.icon({
+					iconUrl: 'images/zoo.png',
+					iconSize: [36,36],
+					iconAnchor: [18,18],
+					popupAnchor: [0,-6]
+				});
 
 			//Add lines data
 			$.getJSON("assets/geojson/connPrior.geojson",function(data){
