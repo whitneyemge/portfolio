@@ -1,3 +1,4 @@
+
 <html>
 	<head>
 		<title>Forest Practice Applications and Trails</title>
@@ -34,49 +35,24 @@
 				}).addTo(mymap);
 
 			//Add points data
-
 			$.getJSON("assets/geojson/crossStruct.geojson",function(data){
-			    L.geoJson(data,
-						{onEachFeature: addPopup}
-					).addTo(mymap);
-				});
+			   L.geoJson(data,
+				 					{onEachFeature: addPopup}
+				 				).addTo(mymap);
+				 		  });
 
-			//Popup function
+							function addPopup (feature, layer){
+								layer.bindPopup(feature.properties.Location_Name)
+							}
 
-			function addPopup (feature, layer){
-				layer.bindPopup(feature.properties.Location_Name)
-			}
 
 			//Add lines data
-
-			$.getJSON("assets/geojson/connPrior.geojson",function(connData){
-				L.geoJson(connData,
-					{onEachFeature: priorStyle}
+			$.getJSON("assets/geojson/connPrior.geojson",function(data){
+				connPrior = L.geoJson(data,
 				).addTo(mymap);
 			});
 
-			//Color function
 
-			function priorStyle (feature) {
-			  var colorToUse;
-			  var line = feature.properties.SafetyRank;
-
-			  if (line === "Low") colorToUse = "#f1c40f";
-			  else if (line === "Med") colorToUse = "#e67e22";
-			  else if (line === "High") colorToUse = "#c0392b";
-			  else if (line === "None") colorToUse = "#616a6b";
-			  else colorToUse = "#fdfefe";
-
-			  return {
-			    "color": colorToUse,
-			    "weight": 5
-			  };
-			}
-
-			// Create layer and add it to the map
-				var priorLayer = L.geoJSON(connData, {
-					style: priorStyle
-		});
 
       </script>
 
@@ -88,7 +64,7 @@
 					</ul>
 				</div>
 			</footer>
-			</div>
+
 
     </body>
   </html>
