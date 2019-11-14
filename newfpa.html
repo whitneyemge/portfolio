@@ -63,25 +63,38 @@
 			//Add lines data
 			$.getJSON("assets/geojson/connPrior.geojson",function(data){
 				connectionPrior = L.geoJson(data,{
-					style: lineStyle;
-				}
+					function lineStyle(feature) {
+						var colorToUse;
+						var line = feature.properties.EcoRank;
+
+						if (line === "Low") colorToUse = "yellow";
+						else if (line === "Med") colorToUse = "orange";
+						else if (line === "High") colorToUse = "red";
+						else colorToUse = "grey";
+
+						return {
+							"color": colorToUse;
+							"weight": 5
+						};
+					}
 			}).addTo(mymap);
 		});
 
 			//Set function for line colors
-			function lineStyle(feature) {
-				var colorToUse;
-				var line = feature.properties.ECORANK;
-
-				if (line === "Low") colorToUse = "yellow";
-				else if (line === "Med") colorToUse = "orange";
-				else if (line === "High") colorToUse = "red";
-
-				return {
-					"color": colorToUse;
-					"weight": 5
-				};
-			}
+			// function lineStyle(feature) {
+			// 	var colorToUse;
+			// 	var line = feature.properties.EcoRank;
+			//
+			// 	if (line === "Low") colorToUse = "yellow";
+			// 	else if (line === "Med") colorToUse = "orange";
+			// 	else if (line === "High") colorToUse = "red";
+			// 	else colorToUse = "grey";
+			//
+			// 	return {
+			// 		"color": colorToUse;
+			// 		"weight": 5
+			// 	};
+			// }
 
 
       </script>
