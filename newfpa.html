@@ -65,9 +65,9 @@
 					L.geoJson(data,{
 					style: function(feature) {
 						l = feature.properties.EcoRank;
-						return l = "Low" {color: '#F1C40F'} :
-						l = "Med" {color: '#D35400'} :
-						l = "High" {color: '#C0392B'};
+						return l = "Low" ? {color: '#F1C40F'} :
+						l = "Med" ? {color: '#D35400'} :
+						l = "High" ? {color: '#C0392B'};
 					}
 			}).addTo(mymap);
 		});
