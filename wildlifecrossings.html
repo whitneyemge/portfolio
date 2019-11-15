@@ -49,12 +49,13 @@
 				 crossingPoints = L.geoJson(data,{
 				 					onEachFeature: function (feature, layer) {
 										layer.bindPopup("Name: " + feature.properties.Location_Name);
-									}, pointToLayer: function (feature, latlng) {
+										},
+									pointToLayer: function (feature, latlng) {
 										var marker = L.marker(latlng,{icon: pawIcon});
 										return marker;
-									}
-				 				}).addTo(mymap);
-				 		  });
+										}
+				 					}).addTo(mymap);
+				 		  	});
 
 				//Create paw icon
 				var pawIcon = L.icon({
@@ -66,7 +67,10 @@
 
 				//Add lines data
 				$.getJSON("assets/geojson/connPrior.geojson",function(data){
-					L.geoJson(data,).addTo(mymap);
+						L.geoJson(data,{
+							L.polyline(latlngs, {color: 'black'}).addTo(mymap);
+						}
+					).addTo(mymap);
 				});
 
       		</script>
