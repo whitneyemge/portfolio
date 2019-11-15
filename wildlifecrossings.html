@@ -5,7 +5,6 @@
 	Paw icon source: Font Awesome, https://fontawesome.com/
 	Fullscreen div source: https://github.com/Leaflet/Leaflet.fullscreen
 -->
-
 <html>
 	<head>
 		<title>Wildlife Crossings</title>
@@ -22,14 +21,14 @@
 	</head>
 	<body>
 
-		<!-- Title and info -->
-		      <section class="wrapper style1 align-center">
-								<div class="inner">
-									<h2>Wildlife Crossing Structures in Washington</h2>
-									<p>This map shows the locations of major highways and wildlife crossing structures in the state of Washington. These structures are important for two reasons. First, they allow wildlife to cross highways safely, which reduces collisions with automobiles. Second, when these structures are located along wildlife corridors, they reduce habitat fragmentation and promote biodiversity.</p>
-									<p>Each paw icon represents a wildlife crossing structure, which includes overpasses, underpasses or culverts, jumpouts, and wildlife guards. The datasets were downloaded as KML files from the <a href="http://geo.wa.gov/" target="_blank">Washington Geospatial Open Data Portal</a> and converted to GeoJSON using <a href="http://geojson.io/#map=2/20.0/0.0" target="_blank">geojson.io</a>. Links to the data layers appear below the map. The Mapbox Outdoors tile layer was chosen to show wilderness areas, which provide habitat for the wildlife using the crossing structures.</p>
+	<!-- Title and info -->
+		<section class="wrapper style1 align-center">
+			<div class="inner">
+				<h2>Wildlife Crossing Structures in Washington</h2>
+				<p>This map shows the locations of major highways and wildlife crossing structures in the state of Washington. These structures are important for two reasons. First, they allow wildlife to cross highways safely, which reduces collisions with automobiles. Second, when these structures are located along wildlife corridors, they reduce habitat fragmentation and promote biodiversity.</p>
+				<p>Each paw icon represents a wildlife crossing structure, which includes overpasses, underpasses or culverts, jumpouts, and wildlife guards. The datasets were downloaded as KML files from the <a href="http://geo.wa.gov/" target="_blank">Washington Geospatial Open Data Portal</a> and converted to GeoJSON using <a href="http://geojson.io/#map=2/20.0/0.0" target="_blank">geojson.io</a>. Links to the data layers appear below the map. The Mapbox Outdoors tile layer was chosen to show wilderness areas, which provide habitat for the wildlife using the crossing structures.</p>
 
-		<!-- Leaflet map -->
+	<!-- Leaflet map -->
 
     <div id="mapid"></div>
 
@@ -46,7 +45,7 @@
 				var crossingPoints = null;
 
 				//Add points data
-			$.getJSON("assets/geojson/crossStruct.geojson",function(data){
+				$.getJSON("assets/geojson/crossStruct.geojson",function(data){
 				 crossingPoints = L.geoJson(data,{
 				 					onEachFeature: function (feature, layer) {
 										layer.bindPopup("Name: " + feature.properties.Location_Name);
@@ -66,33 +65,31 @@
 				});
 
 				//Add lines data
-			$.getJSON("assets/geojson/connPrior.geojson",function(data){
-				L.geoJson(data,
+				$.getJSON("assets/geojson/connPrior.geojson",function(data){
+					L.geoJson(data,).addTo(mymap);
+				});
 
-				).addTo(mymap);
-			});
-
-      </script>
-		</div>
-</section>
-			<!-- Sources -->
-			      <section class="wrapper style1 align-center">
-									<div class="inner">
-										<h3>Data Sources</h3>
-										<p><a href="http://geo.wa.gov/datasets/1be1a218e6034b35a4642e61553e33a0_0" target="_blank">WSDOT - Wildlife Crossing Structures</a></p>
-										<p><a href="http://geo.wa.gov/datasets/WSDOT::wsdot-habitat-connectivity-investment-priorities" target="_blank">WSDOT - Habitat Connectivity Investment Priorities</a></p>
-									</div>
-						</section>
-
-			<!-- Home Button -->
-			<footer class="wrapper style1 align-center">
-				<div class="inner">
-					<ul class="actions stacked">
-						<li><a href="https://whitneyemge.github.io/portfolio/" class="button">Back to Home</a></li>
-					</ul>
+      		</script>
 				</div>
-			</footer>
+			</section>
 
+<!-- Sources -->
+				<section class="wrapper style1 align-center">
+					<div class="inner">
+						<h3>Data Sources</h3>
+						<p><a href="http://geo.wa.gov/datasets/1be1a218e6034b35a4642e61553e33a0_0" target="_blank">WSDOT - Wildlife Crossing Structures</a></p>
+						<p><a href="http://geo.wa.gov/datasets/WSDOT::wsdot-habitat-connectivity-investment-priorities" target="_blank">WSDOT - Habitat Connectivity Investment Priorities</a></p>
+					</div>
+				</section>
+
+<!-- Home Button -->
+				<footer class="wrapper style1 align-center">
+					<div class="inner">
+						<ul class="actions stacked">
+							<li><a href="https://whitneyemge.github.io/portfolio/" class="button">Back to Home</a></li>
+						</ul>
+					</div>
+				</footer>
 
     </body>
   </html>
