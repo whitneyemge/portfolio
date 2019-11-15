@@ -48,7 +48,7 @@
 				$.getJSON("assets/geojson/crossStruct.geojson",function(data){
 				 crossingPoints = L.geoJson(data,{
 				 					onEachFeature: function (feature, layer) {
-										layer.bindPopup("Name: " + feature.properties.Location_Name);
+										layer.bindPopup("Name: " + feature.properties.Location_Name + "<br>Structure Type: " + feature.properties.StructureType);
 										},
 									pointToLayer: function (feature, latlng) {
 										var marker = L.marker(latlng,{icon: pawIcon});
@@ -68,7 +68,12 @@
 				//Add lines data
 				$.getJSON("assets/geojson/connPrior.geojson",function(data){
 						L.geoJson(data,{
-							polyline(latlngs, {color: 'black'})
+							onEachFeature: function (feature, layer) {
+								layer.bindPopup("<b>State Route Number: </b>" + feature.properties.StateRouteNumber + "<br><b>Priority Rank: </b>" + feature.properties.MaxRank);
+								},
+							style: function (feature) {
+								return {color: "black", weight: 1};
+								}
 							}
 						).addTo(mymap);
 					});
