@@ -45,7 +45,7 @@
 						//2. create the information that will display in the popup
 						//var description = e.features[0].properties.mag;
 						var description = "<h3>"+quake.features[0].properties.title+"</h3>"+"<p>Magnitude: " + quake.features[0].properties.mag + "<br>Location: " + quake.features[0].properties.place + "<br>" +
-				 		'<a href="'+ quake.features[0].properties.url + '">More Information</a> + "</p>";
+				 		"More Information: " + quake.features[0].properties.url + "</p>";
 						//3. make the popup
 						new mapboxgl.Popup()
 										.setLngLat(coordinates)
