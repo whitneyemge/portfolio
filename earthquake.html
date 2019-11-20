@@ -2,8 +2,6 @@
 	Story by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-	Paw icon source: Font Awesome, https://fontawesome.com/
-	Fullscreen div source: https://github.com/Leaflet/Leaflet.fullscreen
 -->
 <html>
 	<head>
@@ -12,11 +10,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="assets/css/main.css" />
 
-    <link rel="stylesheet" href="leaflet/leaflet.css"/>
-		<script src="leaflet/leaflet.js"></script>
-		<script src="assets/js/jquery-3.4.1.min.js"></script>
-		<link rel="stylesheet" href="dist/leaflet.fullscreen.css"/>
-		<script src="dist/Leaflet.fullscreen.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
+		<link href='https://api.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
 
 	</head>
 	<body>
@@ -31,8 +26,24 @@
 
     <div id="mapid"></div>
 
-      <script>
+    <script>
 
+			mapboxg1.accessToken = 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ';
+
+      var map = new mapboxgl.Map({
+			  container: 'map', // HTML container id
+			  style: 'mapbox://styles/emgew/ck34k3bv708wp1co4kv9b2nj1', // style URL
+			  center: [-21.9270884, 64.1436456], // starting position as [lng, lat]
+			  zoom: 13
+			});
+
+			var popup = new mapboxgl.Popup()
+			    .setHTML('<h3>Reykjavik Roasters</h3><p>A good coffee shop</p>');
+
+			var marker = new mapboxgl.Marker()
+				.setLngLat([-21.9270884, 64.1436456])
+				.setPopup(popup)
+				.addTo(map);
 
       </script>
 		 </div>
