@@ -7,8 +7,8 @@
 	</head>
 
 	<body>
-		<!-- the div for the map -->
-		<div id='map' style='width: 90vw; height: 75vh;'></div>
+		<!-- div for earthquake map -->
+		<div id='equake' style='width: 90vw; height: 75vh;'></div>
 
 		<script>
 
@@ -16,9 +16,8 @@
 
 			//The map variable, set initial style, center/zoom
 			var map = new mapboxgl.Map({
-			    container: 'map',
+			    container: 'equake',
 			    style: 'mapbox://styles/mapbox/streets-v9',
-			    center: [-122, 47],
 			    zoom: 0
 			});
 
@@ -43,7 +42,6 @@
 						//1. set the coordinates of the popup (doesn't display the coordinates in the popup), case-sensitive
 						var coordinates = quake.features[0].geometry.coordinates;
 						//2. create the information that will display in the popup
-						//var description = e.features[0].properties.mag;
 						var description = "<h3>"+quake.features[0].properties.title+"</h3>"+"<p>Magnitude: " + quake.features[0].properties.mag + "<br>Location: " + quake.features[0].properties.place + "<br>" +
 				 		"More Information: " + quake.features[0].properties.url + "</p>";
 						//3. make the popup
@@ -52,6 +50,40 @@
 										.setHTML(description)
 										.addTo(map);
 			});
+
+		</script>
+
+		<br>
+
+		<!-- div for other map -->
+			<div id='buoys' style='width: 90vw; height: 75vh;'></div>
+
+		<script>
+
+			mapboxgl.accessToken = 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ';
+
+			//The map variable, set initial style, center/zoom
+			var bmap = new mapboxgl.Map({
+					container: 'buoys',
+					style: 'mapbox://styles/mapbox/streets-v9',
+					zoom: 0
+			});
+
+			//on map load, run function to load the geojson
+			map.on('load', function(){
+				//add a source layer for earthquakes
+				map.addSource('buoys', {
+							"type": "kml",
+							"data": "https://www.ndbc.noaa.gov/kml/marineobs_by_pgm.kml"
+					});
+					//add the earthquakes to the map
+					map.addLayer({
+						"id":"bmarker",
+						"type":"square",
+						"source":"buoys"
+					});
+			});
+
 
 		</script>
 	</body>
