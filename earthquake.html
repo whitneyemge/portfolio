@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!-- the mapbox libraries -->
+		<title>Earthquakes and Buoy Live Feeds</title>
+		<!-- page style -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!-- mapbox libraries -->
 		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
 		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
+		<!--google map library -->
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUUesWC4WFt3IXWafrVz7u2J9Eheke9Ys&callback=initMap"></script>
 	</head>
 
 	<body>
+		<!-- Title and info -->
+			<section class="wrapper style1 align-center">
+				<div class="inner">
+					<h2>Live Earthquake and Buoy Feeds</h2>
+					<p>These maps show...</p>
+				</div>
+			</section>
+
 		<!-- div for earthquake map -->
 		<div id='equake' style='width: 90vw; height: 75vh;'></div>
 
@@ -69,11 +83,30 @@
 
 //Live KML feed from National Oceanic and Atmospheric Administration's National Data Buoy Center: https://www.ndbc.noaa.gov/
 			var buoylayer = new google.maps.KmlLayer({
-				url: 'https://www.ndbc.noaa.gov/kml/marineobs_by_pgm.kml',
+				url: 'https://www.ndbc.noaa.gov/kml/buoycams.kml',
 				map: map
 					});
 				}
 
 		</script>
+
+		<!-- Sources -->
+						<section class="wrapper style1 align-center">
+							<div class="inner">
+								<h3>Data Sources</h3>
+								<p><a href="" target="_blank">TEXT</a>
+								<br><a href="" target="_blank">TEXT</a></p>
+							</div>
+						</section>
+
+		<!-- Home Button -->
+						<footer class="wrapper style1 align-center">
+							<div class="inner">
+								<ul class="actions stacked">
+									<li><a href="https://whitneyemge.github.io/portfolio/" class="button">Back to Home</a></li>
+								</ul>
+							</div>
+						</footer>
+
 	</body>
 </html>
