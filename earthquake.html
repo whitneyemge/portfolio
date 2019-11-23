@@ -29,21 +29,18 @@
 
 			mapboxgl.accessToken = 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ';
 
-			//The map variable, set initial style, center/zoom
 			var map = new mapboxgl.Map({
 			    container: 'equake',
 			    style: 'mapbox://styles/mapbox/streets-v9',
 			    zoom: 0
 			});
 
-			//on map load, run function to load the geojson
 			map.on('load', function(){
-				//add a source layer for earthquakes
 				map.addSource('earthquakes', {
 							"type": "geojson",
 							"data": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson"
-					});
-					//add the earthquakes to the map
+				});
+
 					map.addLayer({
 						"id":"equakes",
 						"type":"circle",
@@ -51,15 +48,10 @@
 					});
 			});
 
-			//add a handler for clicking/popups. 'click' is event listening for, 'equakes' is layer affected, function is the action it should do on the click
-			//Thanks to: https://www.mapbox.com/mapbox-gl-js/example/popup-on-click/
 			map.on('click', 'equakes', function (quake) {
-						//1. set the coordinates of the popup (doesn't display the coordinates in the popup), case-sensitive
 						var coordinates = quake.features[0].geometry.coordinates;
-						//2. create the information that will display in the popup
 						var description = "<h3>"+quake.features[0].properties.title+"</h3>"+"<p>Magnitude: " + quake.features[0].properties.mag + "<br>Location: " + quake.features[0].properties.place + "<br>" +
 				 		"More Information: " + quake.features[0].properties.url + "</p>";
-						//3. make the popup
 						new mapboxgl.Popup()
 										.setLngLat(coordinates)
 										.setHTML(description)
@@ -70,43 +62,43 @@
 
 		<br>
 
-		<!-- div for other map -->
-			<div id='buoys' style='width: 90vw; height: 75vh;'></div>
+		<!-- div for buoy map -->
+		<div id='buoys' style='width: 90vw; height: 75vh;'></div>
 
 		<script>
 
-		function initMap() {
-			var map = new google.maps.Map(
-					document.getElementById('buoys'), {
-						zoom: 0
-					});
+			function initMap() {
+				var map = new google.maps.Map(
+						document.getElementById('buoys'), {
+							zoom: 0
+			});
 
-//Live KML feed from National Oceanic and Atmospheric Administration's National Data Buoy Center: https://www.ndbc.noaa.gov/
-			var buoylayer = new google.maps.KmlLayer({
-				url: 'https://www.ndbc.noaa.gov/kml/buoycams.kml',
-				map: map
+			//Live KML feed from National Oceanic and Atmospheric Administration's National Data Buoy Center: https://www.ndbc.noaa.gov/
+				var buoylayer = new google.maps.KmlLayer({
+					url: 'https://www.ndbc.noaa.gov/kml/buoycams.kml',
+					map: map
 					});
 				}
 
 		</script>
 
 		<!-- Sources -->
-						<section class="wrapper style1 align-center">
-							<div class="inner">
-								<h3>Data Sources</h3>
-								<p><a href="" target="_blank">TEXT</a>
-								<br><a href="" target="_blank">TEXT</a></p>
-							</div>
-						</section>
+		<section class="wrapper style1 align-center">
+			<div class="inner">
+				<h3>Data Sources</h3>
+				<p><a href="" target="_blank">TEXT</a>
+				<br><a href="" target="_blank">TEXT</a></p>
+			</div>
+		</section>
 
 		<!-- Home Button -->
-						<footer class="wrapper style1 align-center">
-							<div class="inner">
-								<ul class="actions stacked">
-									<li><a href="https://whitneyemge.github.io/portfolio/" class="button">Back to Home</a></li>
-								</ul>
-							</div>
-						</footer>
+		<footer class="wrapper style1 align-center">
+			<div class="inner">
+				<ul class="actions stacked">
+					<li><a href="https://whitneyemge.github.io/portfolio/" class="button">Back to Home</a></li>
+				</ul>
+			</div>
+		</footer>
 
 	</body>
 </html>
