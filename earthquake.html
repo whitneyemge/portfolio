@@ -4,6 +4,7 @@
 		<!-- the mapbox libraries -->
 		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
 		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUUesWC4WFt3IXWafrVz7u2J9Eheke9Ys&callback=initMap"></script>
 	</head>
 
 	<body>
@@ -60,30 +61,18 @@
 
 		<script>
 
-			mapboxgl.accessToken = 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ';
-
-			//The map variable, set initial style, center/zoom
-			var bmap = new mapboxgl.Map({
-					container: 'buoys',
-					style: 'mapbox://styles/mapbox/streets-v9',
-					zoom: 0
-			});
-
-			//on map load, run function to load the geojson
-			map.on('load', function(){
-				//add a source layer for earthquakes
-				map.addSource('buoys', {
-							"type": "kml",
-							"data": "https://www.ndbc.noaa.gov/kml/marineobs_by_pgm.kml"
+		function initMap() {
+			var map = new google.maps.Map(
+					document.getElementById('buoys'), {
+						zoom: 0
 					});
-					//add the earthquakes to the map
-					map.addLayer({
-						"id":"bmarker",
-						"type":"square",
-						"source":"buoys"
-					});
-			});
 
+//Live KML feed from National Oceanic and Atmospheric Administration's National Data Buoy Center: https://www.ndbc.noaa.gov/
+			var buoylayer = new google.maps.KmlLayer({
+				url: 'https://www.ndbc.noaa.gov/kml/marineobs_by_pgm.kml',
+				map: map
+					});
+				}
 
 		</script>
 	</body>
