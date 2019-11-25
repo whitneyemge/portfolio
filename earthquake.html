@@ -23,7 +23,6 @@
 			</section>
 
 		<!-- div for earthquake map -->
-
 		<div id='equake' style='width: 90vw; height: 75vh;'></div>
 
 		<script>
@@ -43,9 +42,13 @@
 				});
 
 					map.addLayer({
-						"id":"equakes",
-						"type":"circle",
-						"source":"earthquakes"
+						"id": "equakes",
+						"type": "circle",
+						"source": "earthquakes",
+						paint: {
+							"circle-color": "#7b241c",
+							"circle-opacity": 0.9
+						}
 					});
 			});
 
