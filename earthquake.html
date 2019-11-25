@@ -23,7 +23,6 @@
 			</section>
 
 		<!-- div for earthquake map -->
-		<div class ="inner">
 		<div id='equake' style='width: 90vw; height: 75vh;'></div>
 
 		<script>
@@ -39,18 +38,63 @@
 			map.on('load', function(){
 				map.addSource('earthquakes', {
 							"type": "geojson",
-							"data": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson"
+							"data": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson",
+							cluster: true,
+							clusterMaxZoom: 10,
+							clusterRadius: 20
+						})
 				});
 
 					map.addLayer({
 						"id": "equakes",
 						"type": "circle",
 						"source": "earthquakes",
+						"filter": ["has", "point_count"],
 						paint: {
-							"circle-color": "#a04000",
-							"circle-opacity": 0.9
+							"circle-color": [
+								"step",
+								["get", "point_count"],
+								"#51bbd6",
+								5,
+								"a04000",
+								10,
+								"#f1f075",
+							],
+							"circle-radius": [
+								"step",
+								["get", "point_count"],
+								2,
+								5,
+								4,
+								10,
+								6,
+							]
 						}
 					});
+
+map.addLayer({
+	id: "cluster-count",
+	type: "symbol",
+	source: "earthquakes",
+	filter: ["has", "point_count"],
+	layout: {
+		"text-field": "{point_count_abbreviated}",
+		"text-font": ["Arial Unicode MS Bold"],
+		"text-size": 12
+	}
+});
+
+			map.addLayer({
+				id: "unclustered-point",
+				type: "circle",
+				source: "earthquakes",
+				filter: ["!", ["has", "point_count"]],
+				paint: {
+					"circle-color": "blue",
+					"circle-radius": 4,
+					"circle-stroke-width": 1,
+					"circle-stroke-color": "green"
+				}
 			});
 
 			map.on('click', 'equakes', function (quake) {
