@@ -23,6 +23,7 @@
 			</section>
 
 		<!-- div for earthquake map -->
+		<div class ="inner">
 		<div id='equake' style='width: 90vw; height: 75vh;'></div>
 
 		<script>
@@ -32,7 +33,7 @@
 			var map = new mapboxgl.Map({
 			    container: 'equake',
 			    style: 'mapbox://styles/emgew/ck3dwngd90q0y1cmwwo8z7863',
-			    zoom: 0
+			    zoom: 1
 			});
 
 			map.on('load', function(){
@@ -46,7 +47,7 @@
 						"type": "circle",
 						"source": "earthquakes",
 						paint: {
-							"circle-color": "#7b241c",
+							"circle-color": "#a04000",
 							"circle-opacity": 0.9
 						}
 					});
@@ -54,7 +55,7 @@
 
 			map.on('click', 'equakes', function (quake) {
 						var coordinates = quake.features[0].geometry.coordinates;
-						var description = "<h3>"+quake.features[0].properties.title+"</h3>"+"<p>Magnitude: " + quake.features[0].properties.mag + "<br>Location: " + quake.features[0].properties.place + "<br>" +
+						var description = "<h4>"+"Earthquake Details"+"</h4>"+"<p>Magnitude: " + quake.features[0].properties.mag + "<br>Location: " + quake.features[0].properties.place + "<br>" +
 				 		"More Information: " + quake.features[0].properties.url + "</p>";
 						new mapboxgl.Popup()
 										.setLngLat(coordinates)
@@ -74,8 +75,8 @@
 			function initMap() {
 				var map = new google.maps.Map(
 						document.getElementById('buoys'), {
-							zoom: 0,
-							mapTypeId: 'hybrid'
+							zoom: 1,
+							mapTypeId: 'terrain'
 			});
 
 			//Live KML feed from National Oceanic and Atmospheric Administration's National Data Buoy Center: https://www.ndbc.noaa.gov/
