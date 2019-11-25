@@ -10,7 +10,7 @@
 		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
 		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
 		<!--google map library -->
-		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUUesWC4WFt3IXWafrVz7u2J9Eheke9Ys&callback=initMap"></script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"></script>
 	</head>
 
 	<body>
@@ -23,6 +23,7 @@
 			</section>
 
 		<!-- div for earthquake map -->
+
 		<div id='equake' style='width: 90vw; height: 75vh;'></div>
 
 		<script>
@@ -31,7 +32,7 @@
 
 			var map = new mapboxgl.Map({
 			    container: 'equake',
-			    style: 'mapbox://styles/mapbox/streets-v9',
+			    style: 'mapbox://styles/emgew/ck3dwngd90q0y1cmwwo8z7863',
 			    zoom: 0
 			});
 
@@ -70,7 +71,8 @@
 			function initMap() {
 				var map = new google.maps.Map(
 						document.getElementById('buoys'), {
-							zoom: 0
+							zoom: 0,
+							mapTypeId: 'hybrid'
 			});
 
 			//Live KML feed from National Oceanic and Atmospheric Administration's National Data Buoy Center: https://www.ndbc.noaa.gov/
