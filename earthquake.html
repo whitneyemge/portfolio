@@ -10,7 +10,7 @@
 		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
 		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
 		<!--google map library -->
-		<script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"></script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUUesWC4WFt3IXWafrVz7u2J9Eheke9Ys&callback=initMap"></script>
 	</head>
 
 	<body>
@@ -132,7 +132,7 @@
 				var map = new google.maps.Map(
 					document.getElementById('buoys'), {
 						zoom: 1,
-						mapTypeId: 'terrain'
+						styles: 'assets/geojson/googlestyle.json'
 			});
 
 			//Live KML feed from National Oceanic and Atmospheric Administration's National Data Buoy Center: https://www.ndbc.noaa.gov/
@@ -140,7 +140,7 @@
 					url: 'https://www.ndbc.noaa.gov/kml/buoycams.kml',
 					map: map
 					});
-				}
+}
 
 		</script>
 </div>
