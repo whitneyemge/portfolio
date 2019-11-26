@@ -98,14 +98,24 @@
 
 			map.on('click', 'unclustered-point', function (quake) {
 						var coordinates = quake.features[0].geometry.coordinates;
-						var description = "<h4>"+"Earthquake Details"+"</h4>"+"<p>Magnitude: " + quake.features[0].properties.mag + "<br>Location: " + quake.features[0].properties.place + "<br>" +
-				 		"More Information: " + quake.features[0].properties.url + "</p>";
+						var description =
+							"<h4>"+"Earthquake Details" + "</h4>"
+							+"<p>Magnitude: " + quake.features[0].properties.mag
+							+"<br>Location: " + quake.features[0].properties.place
+							+"<br>" + '<a href="'+ quake.features[0].properties.url + '"target="_blank">More Information</a>'
+							+ "</p>";
 						new mapboxgl.Popup()
 										.setLngLat(coordinates)
 										.setHTML(description)
 										.addTo(map);
 			});
+			map.on('mouseenter', 'unclustered-point', function (quake) {
+				map.getCanvas().style.cursor = 'pointer';
+			});
+			map.on('mouseleave', 'unclustered-point', function () {
+				map.getCanvas().style.cursor = '';
 		});
+	});
 
 		</script>
 
