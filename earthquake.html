@@ -50,28 +50,23 @@
 				source: "earthquakes",
 				filter: ["has", "point_count"],
 				paint: {
-				// Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
-				// with three steps to implement three types of circles:
-				//   * Blue, 20px circles when point count is less than 100
-				//   * Yellow, 30px circles when point count is between 100 and 750
-				//   * Pink, 40px circles when point count is greater than or equal to 750
 				"circle-color": [
 				"step",
 				["get", "point_count"],
-				"#51bbd6",
-				100,
-				"#f1f075",
-				750,
-				"#f28cb1"
+				"#f1c40f",
+				10,
+				"#d35400",
+				20,
+				"#c0392b"
 				],
 				"circle-radius": [
 				"step",
 				["get", "point_count"],
+				8,
+				10,
+				16,
 				20,
-				100,
-				30,
-				750,
-				40
+				24
 				]
 				}
 				});
@@ -94,14 +89,14 @@
 					source: "earthquakes",
 					filter: ["!", ["has", "point_count"]],
 					paint: {
-					"circle-color": "#11b4da",
+					"circle-color": "#1e8449",
 					"circle-radius": 4,
 					"circle-stroke-width": 1,
-					"circle-stroke-color": "#fff"
+					"circle-stroke-color": "#fdfefe"
 					}
 					});
 
-			map.on('click', 'equakes', function (quake) {
+			map.on('click', 'unclustered-point', function (quake) {
 						var coordinates = quake.features[0].geometry.coordinates;
 						var description = "<h4>"+"Earthquake Details"+"</h4>"+"<p>Magnitude: " + quake.features[0].properties.mag + "<br>Location: " + quake.features[0].properties.place + "<br>" +
 				 		"More Information: " + quake.features[0].properties.url + "</p>";
