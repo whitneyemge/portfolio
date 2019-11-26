@@ -30,7 +30,7 @@
 			var map = new mapboxgl.Map({
 			    container: 'equake',
 			    style: 'mapbox://styles/emgew/ck3dwngd90q0y1cmwwo8z7863',
-			    zoom: 1
+			    zoom: 0
 			});
 
 			//Thanks to Mapbox GL JS Create and style clusters: https://docs.mapbox.com/mapbox-gl-js/example/cluster/
@@ -127,21 +127,20 @@
 		<div id='map' style='height: 75vh;'></div>
 
 		<script>
-
+		var buoymap;
 		var src='https://www.ndbc.noaa.gov/kml/buoycams.kml';
 
-			function initMap() {
-				var map = new google.maps.Map(document.getElementById('map'), {
-						zoom: 4,
-						mapTypeId: 'terrain'
-			});
+		function initMap() {
+		        map = new google.maps.Map(document.getElementById('buoymap'), {
+		          zoom: 2,
+		          mapTypeId: 'terrain'
+		        });
 
-			//Live KML feed from National Oceanic and Atmospheric Administration's National Data Buoy Center: https://www.ndbc.noaa.gov/
-				var buoyLayer = new google.maps.KmlLayer(src, {
-					preserveViewport: false,
-					map: map
-					});
-				}
+		        var kmlLayer = new google.maps.KmlLayer(src, {
+		          preserveViewport: false,
+		          map: map
+		        });
+		      }
 
 		</script>
 </div>
