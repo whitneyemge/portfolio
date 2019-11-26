@@ -131,14 +131,13 @@
 		var src='https://www.ndbc.noaa.gov/kml/buoycams.kml';
 
 		function initMap() {
-		        map = new google.maps.Map(document.getElementById('buoymap'), {
-		          zoom: 2,
+		        bmap = new google.maps.Map(document.getElementById('map'), {
 		          mapTypeId: 'terrain'
 		        });
 
 		        var kmlLayer = new google.maps.KmlLayer(src, {
 		          preserveViewport: false,
-		          map: map
+		          map: bmap
 		        });
 		      }
 
