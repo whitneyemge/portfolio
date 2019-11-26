@@ -15,15 +15,13 @@
 
 	<body>
 		<!-- Title and info -->
-			<section class="wrapper style1 align-center">
+			<section class="wrapper style1 align-left">
 				<div class="inner">
 					<h2>Live Earthquake and Buoy Feeds</h2>
 					<p>This first map displays live data from the USGS of all earthquakes around the globe that occurred within the past seven days with a magnitude of at least 2.5. </p>
-				</div>
-			</section>
 
 		<!-- div for earthquake map -->
-		<div id='equake' style='width: 90vw; height: 75vh;'></div>
+		<div id='equake' style='height: 75vh;'></div>
 
 		<script>
 
@@ -123,8 +121,10 @@
 
 		<br>
 
+				<p>This second map displays the live camera feeds from NOAA buoys.</p>
+
 		<!-- div for buoy map -->
-		<div id='buoys' style='width: 90vw; height: 75vh;'></div>
+		<div id='buoys' style='height: 75vh;'></div>
 
 		<script>
 
@@ -143,13 +143,14 @@
 				}
 
 		</script>
-
+</div>
+</section>
 		<!-- Sources -->
 		<section class="wrapper style1 align-center">
 			<div class="inner">
 				<h3>Data Sources</h3>
-				<p><a href="" target="_blank">TEXT</a>
-				<br><a href="" target="_blank">TEXT</a></p>
+				<p><a href="https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php" target="_blank">USGS GeoJSON Earthquake Feed</a>
+				<br><a href="https://www.ndbc.noaa.gov/buoycams.shtml" target="_blank">NOAA's National Data Buoy Center BuoyCAMs</a></p>
 			</div>
 		</section>
 
