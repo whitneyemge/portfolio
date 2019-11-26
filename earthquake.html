@@ -124,23 +124,24 @@
 				<p>This second map displays the live camera feeds from NOAA buoys.</p>
 
 		<!-- div for buoy map -->
-		<div id='buoys' style='height: 75vh;'></div>
+		<div id='map' style='height: 75vh;'></div>
 
 		<script>
 
+		var src='https://www.ndbc.noaa.gov/kml/buoycams.kml';
+
 			function initMap() {
-				var map = new google.maps.Map(
-					document.getElementById('buoys'), {
-						zoom: 1,
+				var map = new google.maps.Map(document.getElementById('map'), {
+						zoom: 4,
 						mapTypeId: 'terrain'
 			});
 
 			//Live KML feed from National Oceanic and Atmospheric Administration's National Data Buoy Center: https://www.ndbc.noaa.gov/
-				var buoylayer = new google.maps.KmlLayer({
-					url: 'https://www.ndbc.noaa.gov/kml/buoycams.kml',
+				var buoyLayer = new google.maps.KmlLayer(src, {
+					preserveViewport: false,
 					map: map
 					});
-}
+				}
 
 		</script>
 </div>
