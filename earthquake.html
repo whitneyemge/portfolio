@@ -133,7 +133,7 @@
 		    mapTypeId: 'terrain'
 		  });
 
-			var src = 'https://www.ndbc.noaa.gov/kml/buoycams.kml';
+			var src = 'https://www.ndbc.noaa.gov/kml/buoycams.kml?timestamp='+new Date().getTime();
 		  var buoyLayer = new google.maps.KmlLayer(src, {
 				preserveViewport: false,
 				refreshInterval: 1440,
