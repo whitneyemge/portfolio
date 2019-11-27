@@ -61,7 +61,7 @@
 						"circle-radius": [
 							"step",
 							["get", "point_count"],
-								8,
+								9,
 								10,
 								16,
 								20,
@@ -89,7 +89,7 @@
 						filter: ["!", ["has", "point_count"]],
 						paint: {
 							"circle-color": "#1e8449",
-							"circle-radius": 4,
+							"circle-radius": 5,
 							"circle-stroke-width": 1,
 							"circle-stroke-color": "#fdfefe"
 						}
@@ -127,19 +127,18 @@
 		<div id='map' style='height: 75vh;'></div>
 
 		<script>
-		var buoymap;
-		var src='https://www.ndbc.noaa.gov/kml/buoycams.kml';
 
 		function initMap() {
-		        bmap = new google.maps.Map(document.getElementById('map'), {
-		          mapTypeId: 'terrain'
-		        });
+		  var buoyMap = new google.maps.Map(document.getElementById('map'), {
+		    mapTypeId: 'terrain'
+		  });
 
-		        var kmlLayer = new google.maps.KmlLayer(src, {
-		          preserveViewport: false,
-		          map: bmap
-		        });
-		      }
+		  var buoyLayer = new google.maps.KmlLayer({
+		    url: 'https://www.ndbc.noaa.gov/kml/buoycams.kml',
+				preserveViewport: false,
+		    map: buoyMap
+		  });
+		}
 
 		</script>
 </div>
