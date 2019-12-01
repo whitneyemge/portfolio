@@ -47,11 +47,17 @@
 				 crossingPoints = L.geoJson(data,{
 				 					onEachFeature: function (feature, layer) {
 										layer.bindPopup("Owner: " + feature.properties.OWNER + "<br>Manager: " + feature.properties.MANAGER + "<br>Management Type: " + feature.properties.MANAGEMENT_TYPE);
-										}
-									// pointToLayer: function (feature, latlng) {
-									// 	var marker = L.marker(latlng,{icon: pawIcon});
-									// 	return marker;
-									// 	}
+									},
+									style: function(feature){
+										var polyColor,
+											type = feature.properties.OWNER;
+												if (owner === "City or Municipal Government") polyColor = "#99d594";
+												else if (owner === "Federal Government") polyColor = "#ffffbf";
+												else if (owner === "State Government") polyColor = "#fc8d59";
+												else if (owner === "County Government") polyColor = "#000000";
+												else polyColor = "ffffff";
+											return {color: "#ffffff", weight: 1.5, fillColor: polyColor, fillOpacity: 0.6};
+									}
 				 					}).addTo(mymap);
 				 		  	});
 
