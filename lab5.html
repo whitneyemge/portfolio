@@ -1,0 +1,102 @@
+<!--
+	Story by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	Fullscreen div source: https://github.com/Leaflet/Leaflet.fullscreen
+-->
+<html>
+	<head>
+		<title>WA Public Lands</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="assets/css/main.css" />
+
+    <link rel="stylesheet" href="leaflet/leaflet.css"/>
+		<script src="leaflet/leaflet.js"></script>
+		<script src="assets/js/jquery-3.4.1.min.js"></script>
+		<link rel="stylesheet" href="dist/leaflet.fullscreen.css"/>
+		<script src="dist/Leaflet.fullscreen.js"></script>
+
+	</head>
+	<body>
+
+	<!-- Title and info -->
+		<section class="wrapper style1 align-center">
+			<div class="inner">
+				<h2>HEADER</h2>
+				<p>This map shows...</p>
+
+	<!-- Leaflet map -->
+
+    <div id="mapid"></div>
+
+      <script>
+        var mymap = L.map('mapid', {fullscreenControl: {pseudoFullscreen: false}}).setView([47.598194, -120.683628], 7);
+				L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          maxZoom: 18,
+          id: 'mapbox.outdoors',
+          accessToken: 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ'
+				}).addTo(mymap);
+
+				//Null variable to hold crossing point data
+				// var crossingPoints = null;
+
+				//Add points data
+				$.getJSON("assets/geojson/MPL.geojson",function(data){
+				 crossingPoints = L.geoJson(data,{
+				 					onEachFeature: function (feature, layer) {
+										layer.bindPopup("Owner: " + feature.properties.OWNER + "<br>Manager: " + feature.properties.MANAGER + "<br>Management Type: " + feature.properties.MANAGEMENT_TYPE);
+										}
+									// pointToLayer: function (feature, latlng) {
+									// 	var marker = L.marker(latlng,{icon: pawIcon});
+									// 	return marker;
+									// 	}
+				 					}).addTo(mymap);
+				 		  	});
+
+				//Create paw icon
+				// var pawIcon = L.icon({
+				// 	iconUrl: 'images/zoo.png',
+				// 	iconSize: [30,30],
+				// 	iconAnchor: [15,15],
+				// 	popupAnchor: [0,-6]
+				// });
+
+				//Add lines data
+				// $.getJSON("assets/geojson/connPrior.geojson",function(data){
+				// 		L.geoJson(data,{
+				// 			onEachFeature: function (feature, layer) {
+				// 				layer.bindPopup("<b>State Route Number: </b>" + feature.properties.StateRouteNumber + "<br><b>Priority Rank: </b>" + feature.properties.MaxRank);
+				// 				},
+				// 			style: function (feature) {
+				// 				return {color: "black", weight: 2};
+				// 				}
+				// 			}
+				// 		).addTo(mymap);
+				// 	});
+
+      		</script>
+				</div>
+			</section>
+
+<!-- Sources -->
+				<section class="wrapper style1 align-center">
+					<div class="inner">
+						<h3>Data Sources</h3>
+						<p><a href="" target="_blank">SOURCE</a>
+						<br><a href="" target="_blank">SOURCE</a></p>
+					</div>
+				</section>
+
+<!-- Home Button -->
+				<footer class="wrapper style1 align-center">
+					<div class="inner">
+						<ul class="actions stacked">
+							<li><a href="https://whitneyemge.github.io/portfolio/" class="button">Back to Home</a></li>
+						</ul>
+					</div>
+				</footer>
+
+    </body>
+  </html>
