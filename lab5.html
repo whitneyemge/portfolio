@@ -39,48 +39,23 @@
           accessToken: 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ'
 				}).addTo(mymap);
 
-				//Null variable to hold crossing point data
-				// var crossingPoints = null;
-
-				//Add points data
+				//Add polygon data
 				$.getJSON("assets/geojson/MPL.geojson",function(data){
-				 crossingPoints = L.geoJson(data,{
-				 					onEachFeature: function (feature, layer) {
-										layer.bindPopup("Owner: " + feature.properties.OWNER + "<br>Manager: " + feature.properties.MANAGER + "<br>Management Type: " + feature.properties.MANAGEMENT_TYPE);
-									},
+				  L.geoJson(data,{
 									style: function(feature){
 										var polyColor,
-											type = feature.properties.OWNER;
-												if (owner === "City or Municipal Government") polyColor = "#99d594";
-												else if (owner === "Federal Government") polyColor = "#ffffbf";
-												else if (owner === "State Government") polyColor = "#fc8d59";
-												else if (owner === "County Government") polyColor = "#000000";
-												else polyColor = "ffffff";
-											return {color: "#ffffff", weight: 1.5, fillColor: polyColor, fillOpacity: 0.6};
+											owner = feature.properties.OWNER;
+												if (owner === "City or Municipal Government") polyColor = "#f39c12";
+												else if (owner === "Federal Government") polyColor = "#2980b9";
+												else if (owner === "State Government") polyColor = "#9b59b6";
+												else if (owner === "County Government") polyColor = " #c0392b";
+											return {color: "#ffffff", weight: 0.3, fillColor: polyColor, fillOpacity: 0.8};
+									},
+									onEachFeature: function (feature, layer) {
+										layer.bindPopup("Owner: " + feature.properties.OWNER + "<br>Manager: " + feature.properties.MANAGER + "<br>Management Type: " + feature.properties.MANAGEMENT_TYPE);
 									}
 				 					}).addTo(mymap);
 				 		  	});
-
-				//Create paw icon
-				// var pawIcon = L.icon({
-				// 	iconUrl: 'images/zoo.png',
-				// 	iconSize: [30,30],
-				// 	iconAnchor: [15,15],
-				// 	popupAnchor: [0,-6]
-				// });
-
-				//Add lines data
-				// $.getJSON("assets/geojson/connPrior.geojson",function(data){
-				// 		L.geoJson(data,{
-				// 			onEachFeature: function (feature, layer) {
-				// 				layer.bindPopup("<b>State Route Number: </b>" + feature.properties.StateRouteNumber + "<br><b>Priority Rank: </b>" + feature.properties.MaxRank);
-				// 				},
-				// 			style: function (feature) {
-				// 				return {color: "black", weight: 2};
-				// 				}
-				// 			}
-				// 		).addTo(mymap);
-				// 	});
 
       		</script>
 				</div>
