@@ -2,7 +2,8 @@
 	Story by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-	Fullscreen div source: https://github.com/Leaflet/Leaflet.fullscreen
+	Fullscreen plugin source: https://github.com/Leaflet/Leaflet.fullscreen
+	Draw plugin source: https://github.com/Leaflet/Leaflet.draw/tree/develop/docs
 -->
 <html>
 	<head>
@@ -78,15 +79,6 @@
           accessToken: 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ'
 				}).addTo(mymap);
 
-				var drawnItems = new L.FeatureGroup();
-	      mymap.addLayer(drawnItems);
-	      var drawControl = new L.Control.Draw({
-	          edit: {
-	              featureGroup: drawnItems
-	          }
-	      });
-	      mymap.addControl(drawControl);
-
 				//Add polygon data
 				$.getJSON("assets/geojson/MPL.geojson",function(data){
 				  L.geoJson(data,{
@@ -134,8 +126,42 @@
 									geojson = L.geoJson (data, {
 										style: style,
 										onEachFeature: onEachFeature
-									}).addTo (map);
+									}).addTo(map);
 				 		  	});
+
+								var drawnItems = new L.FeatureGroup();
+									mymap.addLayer(drawnItems);
+
+								var drawControl = new L.Control.Draw({
+										edit: {
+												featureGroup: drawnItems,
+										}
+								});
+								mymap.addControl(drawControl);
+
+								mymap.on(L.Draw.Event.CREATED, function (e) {
+									var type = e.layerType,
+										layer = e.layer;
+
+									if (type === 'marker') {
+										layer.bindPopup('A popup!');
+									}
+
+									drawnItems.addLayer(layer);
+								});
+
+								mymap.on(L.Draw.Event.EDITED, function (e) {
+									var layers = e.layers;
+									var countOfEditedLayers = 0;
+										layers.eachLayer(function (layer) {
+											countOfEditedLayers++;
+								});
+								console.log("Edited " + countOfEditedLayers + " layers");
+							});
+
+							L.DomUtil.get('changeColor').onclick = function () {
+							drawControl.setDrawingOptions({rectangle: {shapeOptions: {color: '#004a80'}}});
+							};
 
       		</script>
 				</div>
