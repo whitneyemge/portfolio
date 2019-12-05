@@ -86,10 +86,10 @@
 									style: function(feature){
 										var polyColor,
 											owner = feature.properties.OWNER;
-												if (owner === "City or Municipal Government") polyColor = "#f39c12";
+												if (owner === "City or Municipal Government") polyColor = "#F1800F";
 												else if (owner === "Federal Government") polyColor = "#2980b9";
-												else if (owner === "State Government") polyColor = "#9b59b6";
-												else if (owner === "County Government") polyColor = " #c0392b";
+												else if (owner === "State Government") polyColor = "#8E0FF1";
+												else if (owner === "County Government") polyColor = "#F10F46";
 											return {color: "#ffffff", weight: 0.3, fillColor: polyColor, fillOpacity: 0.8};
 									},
 									onEachFeature: function (feature, layer) {
