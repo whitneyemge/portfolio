@@ -5,6 +5,7 @@
 	Fullscreen plugin source: https://github.com/Leaflet/Leaflet.fullscreen
 	Draw plugin source: https://github.com/Leaflet/Leaflet.draw/tree/develop/docs
 -->
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>WA Public Lands</title>
@@ -57,6 +58,8 @@
 	     <script src="leaflet/src/edit/handler/EditToolbar.Edit.js"></script>
 	     <script src="leaflet/src/edit/handler/EditToolbar.Delete.js"></script>
 
+			 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUUesWC4WFt3IXWafrVz7u2J9Eheke9Ys&callback=initMap"></script>
+
 	</head>
 	<body>
 
@@ -68,10 +71,10 @@
 
 	<!-- Leaflet map -->
 
-    <div id="mapid"></div>
+    <div id="mapid" style='height: 75vh;'></div>
 
       <script>
-        var mymap = L.map('mapid', {fullscreenControl: {pseudoFullscreen: false}}).setView([47.598194, -120.683628], 7);
+        var mymap = L.map('mapid').setView([47.598194, -120.683628], 7);
 				L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
           attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
           maxZoom: 18,
@@ -146,56 +149,83 @@
 										info.update();
 									}
 								});
-</script>
-<br>
-<script>
-//Add drawing map with plugin
-    <div id="map"></div>
-var vgimap = L.map('map', {fullscreenControl: {pseudoFullscreen: false}}).setView([47.598194, -120.683628], 7);
-L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-	maxZoom: 18,
-	id: 'mapbox.outdoors',
-	accessToken: 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ'
-}).addTo(vgimap);
 
-								var drawnItems = new L.FeatureGroup();
-									vgimap.addLayer(drawnItems);
-
-								var drawControl = new L.Control.Draw({
-										edit: {
-												featureGroup: drawnItems,
-										}
-								});
-								vgimap.addControl(drawControl);
-
-								vgimap.on(L.Draw.Event.CREATED, function (e) {
-									var type = e.layerType,
-										layer = e.layer;
-
-									if (type === 'marker') {
-										layer.bindPopup('A popup!');
-									}
-
-									drawnItems.addLayer(layer);
-								});
-
-								vgimap.on(L.Draw.Event.EDITED, function (e) {
-									var layers = e.layers;
-									var countOfEditedLayers = 0;
-										layers.eachLayer(function (layer) {
-											countOfEditedLayers++;
-								});
-								console.log("Edited " + countOfEditedLayers + " layers");
-							});
-
-							L.DomUtil.get('changeColor').onclick = function () {
-								drawControl.setDrawingOptions({rectangle: {shapeOptions: {color: '#004a80'}}});
-							};
+//Add drawing plugin
+							// 	var drawnItems = new L.FeatureGroup();
+							// 		mymap.addLayer(drawnItems);
+							//
+							// 	var drawControl = new L.Control.Draw({
+							// 			edit: {
+							// 					featureGroup: drawnItems,
+							// 			}
+							// 	});
+							// 	mymap.addControl(drawControl);
+							//
+							// 	mymap.on(L.Draw.Event.CREATED, function (e) {
+							// 		var type = e.layerType,
+							// 			layer = e.layer;
+							//
+							// 		if (type === 'marker') {
+							// 			layer.bindPopup('A popup!');
+							// 		}
+							//
+							// 		drawnItems.addLayer(layer);
+							// 	});
+							//
+							// 	mymap.on(L.Draw.Event.EDITED, function (e) {
+							// 		var layers = e.layers;
+							// 		var countOfEditedLayers = 0;
+							// 			layers.eachLayer(function (layer) {
+							// 				countOfEditedLayers++;
+							// 	});
+							// 	console.log("Edited " + countOfEditedLayers + " layers");
+							// });
+							//
+							// L.DomUtil.get('changeColor').onclick = function () {
+							// 	drawControl.setDrawingOptions({rectangle: {shapeOptions: {color: '#004a80'}}});
+							// };
 
       		</script>
-				</div>
-			</section>
+</div>
+</section>
+<br>
+<section class="wrapper style1 align-center">
+	<div class="inner">
+		<p>This map shows...</p>
+
+		<div id='map' style='height: 75vh;'></div>
+
+	 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUUesWC4WFt3IXWafrVz7u2J9Eheke9Ys&libraries=drawing">
+
+
+		 function initMap() {
+		   var map = new google.maps.Map(document.getElementById('map'), {
+		     center: {lat: -34.397, lng: 150.644},
+		     zoom: 8
+		   });
+
+		   var drawingManager = new google.maps.drawing.DrawingManager({
+		     drawingMode: google.maps.drawing.OverlayType.MARKER,
+		     drawingControl: true,
+		     drawingControlOptions: {
+		       position: google.maps.ControlPosition.TOP_CENTER,
+		       drawingModes: ['marker', 'circle', 'polygon', 'polyline', 'rectangle']
+		     },
+		     markerOptions: {icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'},
+		     circleOptions: {
+		       fillColor: '#ffff00',
+		       fillOpacity: 1,
+		       strokeWeight: 5,
+		       clickable: false,
+		       editable: true,
+		       zIndex: 1
+		     }
+		   });
+		   drawingManager.setMap(map);
+		 }
+	</script>
+ </div>
+</section>
 
 <!-- Sources -->
 				<section class="wrapper style1 align-center">

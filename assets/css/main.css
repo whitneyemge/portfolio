@@ -86,6 +86,10 @@ iframe {
 	height: 95%;
 }
 
+#map {
+	height: 95%;
+}
+
 /* Basic */
 
 	@-ms-viewport {
