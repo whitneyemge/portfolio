@@ -101,6 +101,17 @@
 									}
 				 				}).addTo(mymap);
 
+								$.getJSON("assets/geojson/dnrlands.geojson",function(data){
+									L.geoJson(data,{
+													onEachFeature: function (feature, layer) {
+														layer.bindPopup("Owner: WA State Dept. of Natural Resources" + "<br>Parcel Type: " + feature.properties.PARCEL_TYPE_CD + "<br>Surface Rights: " + feature.properties.SURFACE_RIGHTS_FLG + "<br>Mineral Rights: " + feature.properties.MINERAL_TRUST_CD + "<br>Timber Rights: " + feature.properties.TIMBER_TRUST_CD);
+														layer.on({
+															mouseover: highlightFeature,
+															mouseout: resetHighlight
+														})
+													}
+												}).addTo(mymap);
+
 //Add feature highlight
 									function highlightFeature(e) {
 									    var layer = e.target;
