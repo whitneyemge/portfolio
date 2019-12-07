@@ -20,7 +20,7 @@
 
 		<link rel="stylesheet" href="leaflet/src/leaflet.draw.css"/>
 
-	     <script src="leaflet-src.js"></script>
+	     <script src="leaflet/leaflet-src.js"></script>
 
 	     <script src="leaflet/src/Leaflet.draw.js"></script>
 	     <script src="leaflet/src/Leaflet.Draw.Event.js"></script>
@@ -80,8 +80,10 @@
 				}).addTo(mymap);
 
 				//Add polygon data
+				var landowner = null;
+
 				$.getJSON("assets/geojson/MPL.geojson",function(data){
-					var landowner = L.geoJson (data);
+					landowner = L.geoJson (data);
 					geojson = L.geoJson(data,{
 									style: function(feature){
 										var polyColor,
@@ -90,7 +92,7 @@
 												else if (owner === "Federal Government") polyColor = "#2980b9";
 												else if (owner === "State Government") polyColor = "#8E0FF1";
 												else if (owner === "County Government") polyColor = "#F10F46";
-											return {color: "#ffffff", weight: 0.3, fillColor: polyColor, fillOpacity: 0.8};
+											return {color: "#ffffff", weight: 0.3, fillColor: polyColor, fillOpacity: 0.7};
 									},
 									onEachFeature: function (feature, layer) {
 										layer.bindPopup("Owner: " + feature.properties.OWNER + "<br>Manager: " + feature.properties.MANAGER + "<br>Management Type: " + feature.properties.MANAGEMENT_TYPE);
@@ -101,18 +103,26 @@
 									}
 				 				}).addTo(mymap);
 
-								$.getJSON("assets/geojson/snoqualmiednrlands.geojson",function(data){
-									L.geoJson(data,{
-													// onEachFeature: function (feature, layer) {
-													// 	layer.bindPopup("Owner: WA State Dept. of Natural Resources" + "<br>Parcel Type: " + feature.properties.PARCEL_TYPE_CD + "<br>Surface Rights: " + feature.properties.SURFACE_RIGHTS_FLG + "<br>Mineral Rights: " + feature.properties.MINERAL_TRUST_CD + "<br>Timber Rights: " + feature.properties.TIMBER_TRUST_CD);
-													// 	layer.on({
-													// 		mouseover: highlightFeature,
-													// 		mouseout: resetHighlight
-													// 	})
-													// }
-												}).addTo(mymap);
+					//Add DNR lands polygon data
+					// var dnrLand = null;
+					//
+					// $.getJSON("assets/geojson/snoqualmiednrlands.geojson",function(data){
+					// 	dnrLand = L.geoJson (data);
+					// 	geojson = L.geoJson(data,{
+					// 		style: function (feature) {
+					// 			return {color: "#ffffff", weight: 0.3, fillColor: "#3df312", fillOpacity: 0.8};
+					// 		},
+					// 		onEachFeature: function (feature, layer) {
+					// 			layer.bindPopup("Owner: WA State Dept. of Natural Resources" + "<br>Parcel Type: " + feature.properties.PARCEL_TYPE_CD + "<br>Surface Rights: " + feature.properties.SURFACE_RIGHTS_FLG + "<br>Mineral Rights: " + feature.properties.MINERAL_TRUST_CD + "<br>Timber Rights: " + feature.properties.TIMBER_TRUST_CD);
+					// 				layer.on({
+					// 					mouseover: highlightFeature,
+					// 					mouseout: resetHighlight
+					// 				})
+					// 		}
+					// 	})
+					// }).addTo(mymap);
 
-//Add feature highlight
+									//Add feature highlight
 									function highlightFeature(e) {
 									    var layer = e.target;
 
@@ -120,7 +130,7 @@
 									        weight: 0.4,
 									        color: '#ffffff',
 									        dashArray: '',
-									        fillOpacity: 0.7
+									        fillOpacity: 0.6
 									    	});
 
 									    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
@@ -136,19 +146,30 @@
 										info.update();
 									}
 								});
+</script>
+<br>
+<script>
+//Add drawing map with plugin
+    <div id="map"></div>
+var vgimap = L.map('map', {fullscreenControl: {pseudoFullscreen: false}}).setView([47.598194, -120.683628], 7);
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+	maxZoom: 18,
+	id: 'mapbox.outdoors',
+	accessToken: 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ'
+}).addTo(vgimap);
 
-//Add drawing plugin
 								var drawnItems = new L.FeatureGroup();
-									mymap.addLayer(drawnItems);
+									vgimap.addLayer(drawnItems);
 
 								var drawControl = new L.Control.Draw({
 										edit: {
 												featureGroup: drawnItems,
 										}
 								});
-								mymap.addControl(drawControl);
+								vgimap.addControl(drawControl);
 
-								mymap.on(L.Draw.Event.CREATED, function (e) {
+								vgimap.on(L.Draw.Event.CREATED, function (e) {
 									var type = e.layerType,
 										layer = e.layer;
 
@@ -159,7 +180,7 @@
 									drawnItems.addLayer(layer);
 								});
 
-								mymap.on(L.Draw.Event.EDITED, function (e) {
+								vgimap.on(L.Draw.Event.EDITED, function (e) {
 									var layers = e.layers;
 									var countOfEditedLayers = 0;
 										layers.eachLayer(function (layer) {
@@ -171,8 +192,6 @@
 							L.DomUtil.get('changeColor').onclick = function () {
 								drawControl.setDrawingOptions({rectangle: {shapeOptions: {color: '#004a80'}}});
 							};
-
-//Legend
 
       		</script>
 				</div>
