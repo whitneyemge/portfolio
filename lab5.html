@@ -1,11 +1,10 @@
+<!DOCTYPE html>
 <!--
 	Story by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 	Fullscreen plugin source: https://github.com/Leaflet/Leaflet.fullscreen
-	Draw plugin source: https://github.com/Leaflet/Leaflet.draw/tree/develop/docs
 -->
-<!DOCTYPE html>
 <html>
 	<head>
 		<title>WA Public Lands</title>
@@ -20,10 +19,11 @@
 		<link rel="stylesheet" href="dist/leaflet.fullscreen.css"/>
 		<script src="dist/Leaflet.fullscreen.js"></script>
 
-
 		<!-- mapbox libraries -->
-		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
-		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
+		<script src='https://api.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
+			<link href='https://api.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
+		<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.0/mapbox-gl-draw.js'></script>
+			<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.0/mapbox-gl-draw.css' type='text/css'/>
 
 	</head>
 	<body>
@@ -103,37 +103,49 @@
 <section class="wrapper style1 align-center">
 	<div class="inner">
 		<p>This map shows...</p>
+</div>
+</section>
 
-		<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
-		<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.9/mapbox-gl-draw.js'></script>
-		<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.9/mapbox-gl-draw.css' type='text/css'/>
-
-		<div id='vgimap' position='relative' style='height: 75vh;'></div>
+		<div id='vgimap' style='height: 75vh;'></div>
 
 		<script>
 
 		mapboxgl.accessToken = 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ';
 
 		var map = new mapboxgl.Map({
-		container: 'vgimap', // container id
-		style: 'mapbox://styles/mapbox/satellite-v9',
-		center: [-120.683628, 47.598194],
-		zoom: 7
+		  container: 'vgimap',
+		  style: 'mapbox://styles/mapbox/streets-v8',
+		  center: [-120.683628, 47.598194,],
+		  zoom: 9
 		});
 
-		var draw = new MapboxDraw({
-		displayControlsDefault: false,
-		controls: {
-		polygon: true,
-		trash: true
-		}
-		});
-		map.addControl(draw);
+		//Add draw controls
+	var draw = new MapboxDraw({
+		 displayControlsDefault: false,
+		 controls: {
+				 polygon: true,
+				 trash: true
+		 }
+	});
 
+	map.addControl(draw);
+
+	//Add listeners
+	map.on('draw.create', updateArea);
+	map.on('draw.delete', updateArea);
+	map.on('draw.update', updateArea);
+
+	//This function is called when a draw event is triggered (create, delete, update)
+	//API ref for all that you can do with the draw control: https://github.com/mapbox/mapbox-gl-draw/blob/master/docs/API.md
+	function updateArea(e) {
+			var data = draw.getAll();
+			//We are simply logging all the geometries into console
+			//Your first shape's points data can be found in features->0->geometry->coordinates
+			console.log(data);
+			//You can use http://turfjs.org/ to get bounding boxes, area, etc for these shapes
+	}
 
 	</script>
- </div>
-</section>
 
 <!-- Sources -->
 				<section class="wrapper style1 align-center">
