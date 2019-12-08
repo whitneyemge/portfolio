@@ -13,57 +13,18 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="assets/css/main.css" />
 
+		<!-- leaflet libraries -->
     <link rel="stylesheet" href="leaflet/leaflet.css"/>
 		<script src="leaflet/leaflet.js"></script>
 		<script src="assets/js/jquery-3.4.1.min.js"></script>
 		<link rel="stylesheet" href="dist/leaflet.fullscreen.css"/>
 		<script src="dist/Leaflet.fullscreen.js"></script>
 
-		<link rel="stylesheet" href="leaflet/src/leaflet.draw.css"/>
 
-	     <script src="leaflet/leaflet-src.js"></script>
+		<!-- mapbox libraries -->
+		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
+		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
 
-	     <script src="leaflet/src/Leaflet.draw.js"></script>
-	     <script src="leaflet/src/Leaflet.Draw.Event.js"></script>
-
-	     <script src="leaflet/src/edit/handler/Edit.Poly.js"></script>
-	     <script src="leaflet/src/edit/handler/Edit.SimpleShape.js"></script>
-	     <script src="leaflet/src/edit/handler/Edit.Rectangle.js"></script>
-	     <script src="leaflet/src/edit/handler/Edit.Marker.js"></script>
-	   	<script src="leaflet/src/edit/handler/Edit.CircleMarker.js"></script>
-	   	<script src="leaflet/src/edit/handler/Edit.Circle.js"></script>
-
-	     <script src="leaflet/src/draw/handler/Draw.Feature.js"></script>
-	     <script src="leaflet/src/draw/handler/Draw.Polyline.js"></script>
-	     <script src="leaflet/src/draw/handler/Draw.Polygon.js"></script>
-	     <script src="leaflet/src/draw/handler/Draw.SimpleShape.js"></script>
-	     <script src="leaflet/src/draw/handler/Draw.Rectangle.js"></script>
-	     <script src="leaflet/src/draw/handler/Draw.Circle.js"></script>
-	     <script src="leaflet/src/draw/handler/Draw.Marker.js"></script>
-	     <script src="leaflet/src/draw/handler/Draw.CircleMarker.js"></script>
-
-	     <script src="leaflet/src/ext/TouchEvents.js"></script>
-	     <script src="leaflet/src/ext/LatLngUtil.js"></script>
-	     <script src="leaflet/src/ext/GeometryUtil.js"></script>
-	     <script src="leaflet/src/ext/LineUtil.Intersect.js"></script>
-	     <script src="leaflet/src/ext/Polyline.Intersect.js"></script>
-	     <script src="leaflet/src/ext/Polygon.Intersect.js"></script>
-
-	     <script src="leaflet/src/Control.Draw.js"></script>
-	     <script src="leaflet/src/Tooltip.js"></script>
-	     <script src="leaflet/src/Toolbar.js"></script>
-
-	     <script src="leaflet/src/draw/DrawToolbar.js"></script>
-	     <script src="leaflet/src/edit/EditToolbar.js"></script>
-	     <script src="leaflet/src/edit/handler/EditToolbar.Edit.js"></script>
-	     <script src="leaflet/src/edit/handler/EditToolbar.Delete.js"></script>
-
-			 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUUesWC4WFt3IXWafrVz7u2J9Eheke9Ys&callback=initMap"></script>
-			 <style>
-				 #map {
-					 height: 75vh;
-				 }
-			 </style>
 	</head>
 	<body>
 
@@ -78,7 +39,7 @@
     <div id="mapid" style='height: 75vh;'></div>
 
       <script>
-        var mymap = L.map('mapid').setView([47.598194, -120.683628], 7);
+        var mymap = L.map('mapid', {fullscreenControl: {pseudoFullscreen: false}}).setView([47.598194, -120.683628], 7);
 				L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
           attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
           maxZoom: 18,
@@ -110,25 +71,6 @@
 									}
 				 				}).addTo(mymap);
 
-					//Add DNR lands polygon data
-					// var dnrLand = null;
-					//
-					// $.getJSON("assets/geojson/snoqualmiednrlands.geojson",function(data){
-					// 	dnrLand = L.geoJson (data);
-					// 	geojson = L.geoJson(data,{
-					// 		style: function (feature) {
-					// 			return {color: "#ffffff", weight: 0.3, fillColor: "#3df312", fillOpacity: 0.8};
-					// 		},
-					// 		onEachFeature: function (feature, layer) {
-					// 			layer.bindPopup("Owner: WA State Dept. of Natural Resources" + "<br>Parcel Type: " + feature.properties.PARCEL_TYPE_CD + "<br>Surface Rights: " + feature.properties.SURFACE_RIGHTS_FLG + "<br>Mineral Rights: " + feature.properties.MINERAL_TRUST_CD + "<br>Timber Rights: " + feature.properties.TIMBER_TRUST_CD);
-					// 				layer.on({
-					// 					mouseover: highlightFeature,
-					// 					mouseout: resetHighlight
-					// 				})
-					// 		}
-					// 	})
-					// }).addTo(mymap);
-
 									//Add feature highlight
 									function highlightFeature(e) {
 									    var layer = e.target;
@@ -154,80 +96,41 @@
 									}
 								});
 
-//Add drawing plugin
-							// 	var drawnItems = new L.FeatureGroup();
-							// 		mymap.addLayer(drawnItems);
-							//
-							// 	var drawControl = new L.Control.Draw({
-							// 			edit: {
-							// 					featureGroup: drawnItems,
-							// 			}
-							// 	});
-							// 	mymap.addControl(drawControl);
-							//
-							// 	mymap.on(L.Draw.Event.CREATED, function (e) {
-							// 		var type = e.layerType,
-							// 			layer = e.layer;
-							//
-							// 		if (type === 'marker') {
-							// 			layer.bindPopup('A popup!');
-							// 		}
-							//
-							// 		drawnItems.addLayer(layer);
-							// 	});
-							//
-							// 	mymap.on(L.Draw.Event.EDITED, function (e) {
-							// 		var layers = e.layers;
-							// 		var countOfEditedLayers = 0;
-							// 			layers.eachLayer(function (layer) {
-							// 				countOfEditedLayers++;
-							// 	});
-							// 	console.log("Edited " + countOfEditedLayers + " layers");
-							// });
-							//
-							// L.DomUtil.get('changeColor').onclick = function () {
-							// 	drawControl.setDrawingOptions({rectangle: {shapeOptions: {color: '#004a80'}}});
-							// };
-
-      		</script>
-</div>
-</section>
+      </script>
+		</div>
+	</section>
 <br>
 <section class="wrapper style1 align-center">
 	<div class="inner">
 		<p>This map shows...</p>
 
-		<div id='map' style='height: 75vh;'></div>
+		<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
+		<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.9/mapbox-gl-draw.js'></script>
+		<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.9/mapbox-gl-draw.css' type='text/css'/>
 
-		<script src="https://maps.googleapis.com/maps/api/js?libraries=drawing"></script>
+		<div id='vgimap' position='relative' style='height: 75vh;'></div>
 
 		<script>
 
-			function initMap() {
-			  var map = new google.maps.Map(document.getElementById('map'), {
-			    center: {lat: -34.397, lng: 150.644},
-			    zoom: 8
-			  });
+		mapboxgl.accessToken = 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ';
 
-			  // var drawingManager = new google.maps.drawing.DrawingManager({
-			  //   drawingMode: google.maps.drawing.OverlayType.MARKER,
-			  //   drawingControl: true,
-			  //   drawingControlOptions: {
-			  //     position: google.maps.ControlPosition.TOP_CENTER,
-			  //     drawingModes: ['marker', 'circle', 'polygon', 'polyline', 'rectangle']
-			  //   },
-			  //   markerOptions: {icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'},
-			  //   circleOptions: {
-			  //     fillColor: '#ffff00',
-			  //     fillOpacity: 1,
-			  //     strokeWeight: 5,
-			  //     clickable: false,
-			  //     editable: true,
-			  //     zIndex: 1
-			  //   }
-			  // });
-			  // drawingManager.setMap(map);
-			}
+		var map = new mapboxgl.Map({
+		container: 'vgimap', // container id
+		style: 'mapbox://styles/mapbox/satellite-v9',
+		center: [-120.683628, 47.598194],
+		zoom: 7
+		});
+
+		var draw = new MapboxDraw({
+		displayControlsDefault: false,
+		controls: {
+		polygon: true,
+		trash: true
+		}
+		});
+		map.addControl(draw);
+
+
 	</script>
  </div>
 </section>
