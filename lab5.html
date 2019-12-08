@@ -125,11 +125,17 @@
 		map.on('load', function(){
 			map.addSource('mpldata', {
         'type': 'geojson',
-        'data': 'assets/geojson/MPL.geojson'
+        'data': 'https://github.com/whitneyemge/portfolio/blob/master/assets/geojson/MPL.geojson'
      });
 		 	map.addLayer({
 				'id':'mpl',
-				'source':'mpldata'
+				'type': 'fill',
+				'source':'mpldata',
+				'layout': {
+					'visibility': 'visible'
+				},
+				'paint': {'fill-color': 'blue',
+				'fill-opacity': 0.5}
 			});
 		})
 
