@@ -31,8 +31,10 @@
 	<!-- Title and info -->
 		<section class="wrapper style1 align-center">
 			<div class="inner">
-				<h2>HEADER</h2>
-				<p>This map shows...</p>
+				<h2>Washington Public Land Use Preferences</h2>
+			<div class="inner align-left">
+				<p>Many areas of public land have multiple uses, for example the same land could be used for both logging and recreation activities, which results in the potential for conflicts between stakeholder groups. The map below shows all public lands in Washington State, excluding land owned by the Department of Natural Resources.</p>
+			</div>
 
 	<!-- Leaflet map -->
 
@@ -97,20 +99,18 @@
 								});
 
       </script>
-		</div>
-	</section>
-<br>
-<section class="wrapper style1 align-center">
-	<div class="inner">
-		<p>This map shows...</p>
 </div>
-</section>
+<div class="inner align-left">
+<p>This page was designed to collect volunteered geographic information (VGI) from participants regarding their preferred land use types on public lands. The map and text below are an example of a method by which VGI could be collected through a web application to analyze land use preferences and potential areas of conflict.</p>
+</div>
+<section class="spotlight style1 orient-left">
+  <div class="content">
 
-	<button id="purple-color" onclick="changeColor('purple')">Change to Recreation</button>
-	<button id="brown-color" onclick="changeColor('brown')">Change to Agriculture</button>
-	<button id="green-color" onclick="changeColor('green')">Change to Forestry</button>
+	<button id="purple-color" onclick="changeColor('purple')">Recreation</button>
+	<button id="brown-color" onclick="changeColor('brown')">Agriculture</button>
+	<button id="green-color" onclick="changeColor('green')">Forestry</button>
 
-	<div id='vgimap' style='height: 100vh;'></div>
+	<div id='vgimap' style='height: 75vh;'></div>
 
 		<script>
 
@@ -118,10 +118,20 @@
 
 		var map = new mapboxgl.Map({
 		  container: 'vgimap',
-		  style: 'mapbox://styles/mapbox/streets-v8',
-		  center: [-120.683628, 47.598194,],
+		  style: 'mapbox://styles/mapbox/outdoors-v9',
+		  center: [-120.900353, 47.202257],
 		  zoom: 8
 		});
+		map.on('load', function(){
+			map.addSource('mpldata', {
+        'type': 'geojson',
+        'data': 'assets/geojson/MPL.geojson'
+     });
+		 	map.addLayer({
+				'id':'mpl',
+				'source':'mpldata'
+			});
+		})
 
 		//Thanks to https://bl.ocks.org/dnseminara/0790e53cef9867e848e716937727ab18 for styling
 		//Add draw controls
@@ -461,7 +471,18 @@
 	}
 
 	</script>
+	</div>
 
+
+	<div class="content align-left">
+    <p>The map to the left shows an area of Washington state that includes public lands used for recreation, agriculture, and forestry.</p>
+		<p>Click on either the line or polygon icons and draw shapes on the map to identify places where you prefer certain land use types. Once you draw a feature, click one of the buttons above to indicate which type of land use it represents.</p>
+  </div>
+	</section>
+<div class="inner align-left">
+	<p>Participants would draw polygons over certain areas and associate the polygons with different land use types. A spatial analysis of the VGI would identify areas with a high possibility of conflict based on incompatible land use types. The markers could also be expanded to include participant values as they pertain to different areas of land. The results of this study could promote a better understanding of public land use conflict, and the values behind the conflict, which could have implications for the ways in which natural resources in Washington State are managed.</p>
+	</div>
+	</section>
 <!-- Sources -->
 				<section class="wrapper style1 align-center">
 					<div class="inner">
