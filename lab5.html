@@ -142,7 +142,7 @@
 			map.on('load', function(){
 				map.addSource('dnrdata', {
 					'type': 'geojson',
-					'data': 'assets/geojson/snoqualmiednrlands.geojson'
+					'data': 'assets/geojson/dnrclip.json'
 			 });
 				map.addLayer({
 					'id':'dnr',
@@ -152,7 +152,7 @@
 						'visibility': 'visible'
 					},
 					'paint': {
-						'fill-color': 'red',
+						'fill-color': '#4575b4',
 						'fill-opacity': 0.4,
 						'fill-outline-color': 'rgba(0,0,0,0)'}
 				});
