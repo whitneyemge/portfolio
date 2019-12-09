@@ -64,7 +64,7 @@
 											return {color: "#ffffff", weight: 0.3, fillColor: polyColor, fillOpacity: 0.7};
 									},
 									onEachFeature: function (feature, layer) {
-										layer.bindPopup("Owner: " + feature.properties.OWNER + "<br>Manager: " + feature.properties.MANAGER + "<br>Management Type: " + feature.properties.MANAGEMENT_TYPE);
+										layer.bindPopup("Area Name: " + feature.properties.NAME + "<br>Owner: " + feature.properties.OWNER + "<br>Manager: " + feature.properties.MANAGER + "<br>Management Type: " + feature.properties.MANAGEMENT);
 										layer.on({
 											mouseover: highlightFeature,
 											mouseout: resetHighlight
