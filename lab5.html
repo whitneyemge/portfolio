@@ -105,7 +105,7 @@
 <section class="spotlight style1 orient-left">
   <div class="content">
 
-	<button class="small" id="purple-color" onclick="changeColor('purple')">Recreation</button>
+	<button class="small" id="pink-color" onclick="changeColor('pink')">Recreation</button>
 	<button class="small" id="orange-color" onclick="changeColor('orange')">Agriculture</button>
 	<button class="small" id="green-color" onclick="changeColor('green')">Forestry</button>
 
@@ -133,8 +133,10 @@
 				'layout': {
 					'visibility': 'visible'
 				},
-				'paint': {'fill-color': 'blue',
-				'fill-opacity': 0.5}
+				'paint': {
+					'fill-color': '#230338',
+					'fill-opacity': 0.4,
+					'fill-outline-color': 'rgba(0,0,0,0)'}
 			});
 		})
 
@@ -422,12 +424,12 @@
 	//change colors
 	    function changeColor(color) {
 	        if (drawFeatureID !== '' && typeof draw === 'object') {
-	            if (color === 'purple') {
-	                draw.setFeatureProperty(drawFeatureID, 'portColor', '#8e44ad');
+	            if (color === 'pink') {
+	                draw.setFeatureProperty(drawFeatureID, 'portColor', '#c70d3a');
 	            } else if (color === 'orange') {
-	                draw.setFeatureProperty(drawFeatureID, 'portColor', '#e67e22');
+	                draw.setFeatureProperty(drawFeatureID, 'portColor', '#ed5107');
 	            } else if (color === 'green') {
-	                draw.setFeatureProperty(drawFeatureID, 'portColor', '#196f3d');
+	                draw.setFeatureProperty(drawFeatureID, 'portColor', '#02383c');
 	            }
 
 	            var feat = draw.get(drawFeatureID);
