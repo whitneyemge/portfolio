@@ -39,6 +39,9 @@
 
     <div id="mapid" style='height: 75vh;'></div>
 
+		<link rel="stylesheet" href="leaflet/leaflet-legend.css" />
+	  <script src="leaflet/leaflet-legend.js"></script>
+
       <script>
         var mymap = L.map('mapid', {fullscreenControl: {pseudoFullscreen: false}}).setView([47.598194, -120.683628], 7);
 				L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -48,6 +51,18 @@
           accessToken: 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ'
 				}).addTo(mymap);
 
+				//Thanks to zostera https://github.com/zostera/leaflet-legend for the legend
+				L.control.legend({
+    			items: [
+        		{color: '#2980b9', label: 'Federal'},
+        		{color: '#F1800F', label: 'State'},
+						{color: '#F10F46', label: 'County'},
+						{color: '#8E0FF1', label: 'City or Municipal'}
+    			],
+    			collapsed: false,
+    			// insert different label for the collapsed legend button.
+    			buttonHtml: 'legend'
+				}).addTo(mymap);
 
 				//Add DNR landowner data
 				var dnrLandowner = new L.LayerGroup();
