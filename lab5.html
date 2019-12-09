@@ -107,7 +107,7 @@
   <div class="content">
 
 	<button class="small" id="purple-color" onclick="changeColor('purple')">Recreation</button>
-	<button class="small" id="brown-color" onclick="changeColor('brown')">Agriculture</button>
+	<button class="small" id="orange-color" onclick="changeColor('orange')">Agriculture</button>
 	<button class="small" id="green-color" onclick="changeColor('green')">Forestry</button>
 
 	<div id='vgimap' style='height: 75vh;'></div>
@@ -424,11 +424,11 @@
 	    function changeColor(color) {
 	        if (drawFeatureID !== '' && typeof draw === 'object') {
 	            if (color === 'purple') {
-	                draw.setFeatureProperty(drawFeatureID, 'portColor', 'purple');
-	            } else if (color === 'brown') {
-	                draw.setFeatureProperty(drawFeatureID, 'portColor', 'brown');
+	                draw.setFeatureProperty(drawFeatureID, 'portColor', '#8e44ad');
+	            } else if (color === 'orange') {
+	                draw.setFeatureProperty(drawFeatureID, 'portColor', '#e67e22');
 	            } else if (color === 'green') {
-	                draw.setFeatureProperty(drawFeatureID, 'portColor', 'green');
+	                draw.setFeatureProperty(drawFeatureID, 'portColor', '#196f3d');
 	            }
 
 	            var feat = draw.get(drawFeatureID);
