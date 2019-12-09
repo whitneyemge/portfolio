@@ -105,7 +105,7 @@
 <section class="spotlight style1 orient-left">
   <div class="content">
 
-	<button class="small" background-color="#c70d3a" id="pink-color" onclick="changeColor('pink')">Recreation</button>
+	<button class="small" id="pink-color" onclick="changeColor('pink')">Recreation</button>
 	<button class="small" id="orange-color" onclick="changeColor('orange')">Agriculture</button>
 	<button class="small" id="green-color" onclick="changeColor('green')">Forestry</button>
 
@@ -138,7 +138,27 @@
 					'fill-opacity': 0.4,
 					'fill-outline-color': 'rgba(0,0,0,0)'}
 			});
+			map.on('load', function(){
+				map.addSource('dnrdata', {
+					'type': 'geojson',
+					'data': 'assets/geojson/snoqualmiednrlands.geojson'
+			 });
+				map.addLayer({
+					'id':'dnr',
+					'type': 'fill',
+					'source':'dnrdata',
+					'layout': {
+						'visibility': 'visible'
+					},
+					'paint': {
+						'fill-color': '#4575b4',
+						'fill-opacity': 0.4,
+						'fill-outline-color': 'rgba(0,0,0,0)'}
+				});
 		})
+
+		map.addControl(new mapboxgl.FullscreenControl());
+		map.addControl(new mapboxgl.NavigationControl());
 
 		//Thanks to https://bl.ocks.org/dnseminara/0790e53cef9867e848e716937727ab18 for styling
 		//Add draw controls
