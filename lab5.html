@@ -32,7 +32,7 @@
 			<div class="inner">
 				<h2>Washington Public Land Use Preferences</h2>
 			<div class="inner align-left">
-				<p>Many areas of public land have multiple uses, for example the same land could be used for both logging and recreation activities, which results in the potential for conflicts between stakeholder groups. The map below shows all public lands in Washington State, excluding land owned by the Department of Natural Resources.</p>
+				<p>Many areas of public land have multiple uses, for example the same land could be used for both logging and recreation activities, which results in the potential for conflicts between stakeholder groups. The map below shows all public lands in Washington State.</p>
 			</div>
 
 	<!-- Leaflet map -->
@@ -48,7 +48,30 @@
           accessToken: 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ'
 				}).addTo(mymap);
 
-				//Add polygon data
+
+				//Add DNR landowner data
+				var dnrLandowner = new L.LayerGroup();
+
+				var dnrStyle = {
+					color: '#ffffff',
+					weight: 0.2,
+					fillColor: '#8E0FF1',
+					fillOpacity: 0.7,
+				};
+
+				$.getJSON("assets/geojson/dnr.json",function(data){
+					var geojson = L.geoJson (data, {
+
+						style: dnrStyle,
+
+						onEachFeature: function (feature, layer) {
+							layer.bindPopup("Owner: Department of Natural Resources " + "<br>Ownership Status: " + feature.properties.PARCEL_TYP);
+						}
+					});
+					geojson.addTo(mymap);
+					});
+
+				//Add non-DNR landowner data
 				var landowner = null;
 
 				$.getJSON("assets/geojson/mpl.json",function(data){
@@ -61,7 +84,7 @@
 												else if (owner === "Federal Government") polyColor = "#2980b9";
 												else if (owner === "State Government") polyColor = "#8E0FF1";
 												else if (owner === "County Government") polyColor = "#F10F46";
-											return {color: "#ffffff", weight: 0.3, fillColor: polyColor, fillOpacity: 0.7};
+											return {color: "#ffffff", weight: 0.2, fillColor: polyColor, fillOpacity: 0.7};
 									},
 									onEachFeature: function (feature, layer) {
 										layer.bindPopup("Area Name: " + feature.properties.NAME + "<br>Owner: " + feature.properties.OWNER + "<br>Manager: " + feature.properties.MANAGER + "<br>Management Type: " + feature.properties.MANAGEMENT);
@@ -71,6 +94,7 @@
 										})
 									}
 				 				}).addTo(mymap);
+
 
 									//Add feature highlight
 									function highlightFeature(e) {
@@ -142,7 +166,7 @@
 			map.on('load', function(){
 				map.addSource('dnrdata', {
 					'type': 'geojson',
-					'data': 'assets/geojson/dnrclip.json'
+					'data': 'assets/geojson/dnr.json'
 			 });
 				map.addLayer({
 					'id':'dnr',
