@@ -51,7 +51,7 @@
 				//Add polygon data
 				var landowner = null;
 
-				$.getJSON("assets/geojson/MPL.geojson",function(data){
+				$.getJSON("assets/geojson/mpl.json",function(data){
 					landowner = L.geoJson (data);
 					geojson = L.geoJson(data,{
 									style: function(feature){
