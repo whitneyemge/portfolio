@@ -84,6 +84,28 @@
 					geojson.addTo(mymap);
 					});
 
+					//Add feature highlight
+					function highlightFeature(e) {
+							var layer = e.target;
+
+								layer.setStyle({
+									weight: 0.4,
+									color: '#ffffff',
+									fillOpacity: 0.6
+								});
+
+							if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+									layer.bringToFront();
+							}
+						}
+
+						var geojson;
+
+					function resetHighlight(e) {
+						geojson.resetStyle(e.target);
+					}
+				});
+
 				//Add non-DNR landowner data
 				var landowner = new L.LayerGroup();
 
@@ -153,7 +175,9 @@
 		  container: 'vgimap',
 		  style: 'mapbox://styles/mapbox/outdoors-v9',
 		  center: [-120.900353, 47.202257],
-		  zoom: 8
+		  zoom: 8,
+			minZoom: 8,
+			maxZoom: 12
 		});
 		map.on('load', function(){
 			map.addSource('mpldata', {
