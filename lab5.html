@@ -175,14 +175,21 @@
 
 		mapboxgl.accessToken = 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ';
 
+		var bounds = [
+			[-121.375795, 47.051364], //SW
+			[-120.441242, 47.598882] //NE
+		];
+
 		var map = new mapboxgl.Map({
 		  container: 'vgimap',
 		  style: 'mapbox://styles/mapbox/outdoors-v9',
-		  center: [-120.900353, 47.202257],
-		  zoom: 8,
-			minZoom: 8,
-			maxZoom: 12
+		  // center: [-120.900353, 47.202257],
+		  zoom: 6,
+			minZoom: 6,
+			maxZoom: 14,
+			maxBounds: bounds
 		});
+
 		map.on('load', function(){
 			map.addSource('mpldata', {
         'type': 'geojson',
