@@ -118,21 +118,18 @@
 												layer.setStyle({
 									        weight: 0.4,
 									        color: '#ffffff',
-									        dashArray: '',
 									        fillOpacity: 0.6
 									    	});
 
 									    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
 									        layer.bringToFront();
 									    }
-											info.update(layer.feature.properties);
 										}
 
 										var geojson;
 
 									function resetHighlight(e) {
     								geojson.resetStyle(e.target);
-										info.update();
 									}
 								});
 
