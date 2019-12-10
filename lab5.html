@@ -60,7 +60,6 @@
 						{color: '#8E0FF1', label: 'City or Municipal'}
     			],
     			collapsed: false,
-    			// insert different label for the collapsed legend button.
     			buttonHtml: 'legend'
 				}).addTo(mymap);
 
@@ -75,23 +74,22 @@
 				};
 
 				$.getJSON("assets/geojson/dnr.json",function(data){
+					var dnrLandowner = L.geoJson (data);
 					var geojson = L.geoJson (data, {
-
 						style: dnrStyle,
-
 						onEachFeature: function (feature, layer) {
-							layer.bindPopup("Owner: Department of Natural Resources " + "<br>Ownership Status: " + feature.properties.PARCEL_TYP);
+							layer.bindPopup("Owner: Department of Natural Resources " + "<br>Ownership Status: " + feature.properties.PARCEL_TYP)
 						}
 					});
 					geojson.addTo(mymap);
 					});
 
 				//Add non-DNR landowner data
-				var landowner = null;
+				var landowner = new L.LayerGroup();
 
 				$.getJSON("assets/geojson/mpl.json",function(data){
-					landowner = L.geoJson (data);
-					geojson = L.geoJson(data,{
+					var landowner = L.geoJson (data);
+					var geojson = L.geoJson(data,{
 									style: function(feature){
 										var polyColor,
 											owner = feature.properties.OWNER;
