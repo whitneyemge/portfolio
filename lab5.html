@@ -76,13 +76,15 @@
 				$.getJSON("assets/geojson/dnr.json",function(data){
 					var dnrLandowner = L.geoJson (data);
 					var geojson = L.geoJson (data, {
-						style: dnrStyle,
+					style: dnrStyle,
 						onEachFeature: function (feature, layer) {
-							layer.bindPopup("Owner: Department of Natural Resources " + "<br>Ownership Status: " + feature.properties.PARCEL_TYP)
+							layer.bindPopup("Owner: Department of Natural Resources " + "<br>Ownership Status: " + feature.properties.PARCEL_TYP);
+							layer.on({
+								mouseover: highlightFeature,
+								mouseout: resetHighlight
+							})
 						}
-					});
-					geojson.addTo(mymap);
-					});
+					}).addTo(mymap);
 
 					//Add feature highlight
 					function highlightFeature(e) {
@@ -104,14 +106,14 @@
 					function resetHighlight(e) {
 						geojson.resetStyle(e.target);
 					}
-				});
+					});
 
 				//Add non-DNR landowner data
 				var landowner = new L.LayerGroup();
 
 				$.getJSON("assets/geojson/mpl.json",function(data){
 					var landowner = L.geoJson (data);
-					var geojson = L.geoJson(data,{
+					var geojson2 = L.geoJson(data,{
 									style: function(feature){
 										var polyColor,
 											owner = feature.properties.OWNER;
@@ -146,10 +148,10 @@
 									    }
 										}
 
-										var geojson;
+										var geojson2;
 
 									function resetHighlight(e) {
-    								geojson.resetStyle(e.target);
+    								geojson2.resetStyle(e.target);
 									}
 								});
 
