@@ -36,10 +36,10 @@
 
 					if (radius <= 100) {
 					      L.circle(e.latlng, radius, {color: 'green'}).addTo(map);
-					  },
+					  }
 					  else{
 					      L.circle(e.latlng, radius, {color: 'red'}).addTo(map);
-					  };
+					  }
 
 	map.on('locationfound', onLocationFound);
 
