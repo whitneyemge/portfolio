@@ -18,8 +18,10 @@
 
 	<script>
 
-	alert('This page will...');
+	//Thanks to https://www.quackit.com/javascript/javascript_alert_box.cfm for the alert window code
+	alert('Welcome! This page will ask for your location information. This information is used to determine whether you are viewing the map during daylight hours in your location, so that either a light or dark basemap will be displayed.');
 
+	//Add Leaflet map
 	var map = L.map('map').fitWorld();
 
 	var light = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZWpzbGFnZXIiLCJhIjoiZUMtVjV1ZyJ9.2uJjlUi0OttNighmI-8ZlQ', {
@@ -46,6 +48,7 @@
 	    L.marker(e.latlng).addTo(map)
 	        .bindPopup("You are within " + Math.round(radius * 3.28084) + " feet from this point").openPopup();
 
+					//Change radius color depending on location accuracy
 					if (radius <= 100) {
 					      L.circle(e.latlng, radius, {color: 'green'}).addTo(map);
 					  }
@@ -53,10 +56,12 @@
 					      L.circle(e.latlng, radius, {color: 'red'}).addTo(map);
 					  }
 
+						//Determine if current time is after sunrise or sunset
 						var times = SunCalc.getTimes(new Date(), e.latitude, e.longitude);
 						var sunrise = times.sunrise.getHours();
 						var sunset = times.sunset.getHours();
 
+						//Choose baselayer based on time
 						var currentTime = new Date().getHours();
     					if (sunrise < currentTime && currentTime < sunset){
       					map.removeLayer(dark);
@@ -68,6 +73,7 @@
     					}
 		}
 
+	//Location error message
 	map.on('locationfound', onLocationFound);
 
 	function onLocationError(e) {
