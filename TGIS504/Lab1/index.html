@@ -42,8 +42,6 @@
 	    zoomOffset: -1,
 		});
 
-	L.control.layers(light, dark).addTo(map);
-
 	function onLocationFound(e) {
 	    var radius = e.accuracy;
 
@@ -85,6 +83,8 @@
 	map.on('locationerror', onLocationError);
 
 	map.locate({setView: true, maxZoom: 16});
+
+	L.control.layers(light, dark).addTo(map);
 
 	</script>
 
