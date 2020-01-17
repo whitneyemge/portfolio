@@ -84,7 +84,13 @@
 
 	map.locate({setView: true, maxZoom: 16});
 
-	L.control.layers(light, dark).addTo(map);
+	//Add basemap layer control for user
+	var baseMaps = {
+		"Dark": dark,
+		"Light": light
+	};
+
+	L.control.layers(baseMaps).addTo(map);
 
 	</script>
 
