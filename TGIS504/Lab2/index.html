@@ -17,6 +17,10 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+
 </head>
 <body>
     <div id="map"></div>
@@ -76,7 +80,36 @@
       });
    });
 
-
+   L.easyButton({
+     states:[
+       {
+         stateName: 'unloaded',
+         icon: 'fa-location-arrow',
+         title: 'load image',
+         onClick: function(control){
+           control.state("loading");
+           control._map.on('locationfound', function(e){
+             this.setView(e.latlng, 17);
+             control.state('loaded');
+           });
+           control._map.on('locationerror', function(){
+             control.state('error');
+           });
+           control._map.locate()
+         }
+       }, {
+         stateName: 'loading',
+         icon: 'fa-spinner fa-spin'
+       }, {
+         stateName: 'loaded',
+         icon: 'fa-thumbs-up'
+       }, {
+         stateName: 'error',
+         icon: 'fa-frown-o',
+         title: 'location not found'
+       }
+     ]
+   }).addTo(map);
 
 </script>
 
