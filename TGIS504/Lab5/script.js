@@ -78,8 +78,8 @@ var barChart = new Chart(ctb, {
 });
 
 var cities = ["Bellingham", "Seattle", "Tacoma", "Olympia", "Portland"]
-var list_price = []
-var sell_price = []
+var list_price = [415, 685, 300, 357, 449]
+var sell_price = [407, 673, 291, 321, 415]
 
 var cth = document.getElementById("homeChart");
 var homeChart = new Chart(ctb, {
