@@ -23,7 +23,7 @@ var homeChart = new Chart(cth, {
     options: {
       title: {
         display: true,
-        text: "House listing and selling prices"
+        text: "House listing and selling prices (in thousands of dollars)"
       }
     }
 });
