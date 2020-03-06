@@ -76,3 +76,32 @@ var barChart = new Chart(ctb, {
       legend: { display: false }
       }
 });
+
+var cities = ["Bellingham", "Seattle", "Tacoma", "Olympia", "Portland"]
+var list_price = []
+var sell_price = []
+
+var cth = document.getElementById("homeChart");
+var homeChart = new Chart(ctb, {
+    type: 'bar',
+    data: {
+      labels: cities,
+      datasets: [
+        {
+          label: "Listing Price",
+          backgroundColor: "#3e95cd",
+          data: list_price
+        }, {
+          label: "Selling Price",
+          backgroundColor: "#8e5ea2",
+          data: sell_price
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'House listing and selling prices'
+      }
+    }
+});
