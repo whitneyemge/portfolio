@@ -56,7 +56,7 @@ var myChart = new Chart(ctx, {
 });
 
 var countries = ["China", "South Korea", "Italy", "Iran", "Japan", "France", "Spain", "United States", "Hong Kong"];
-var mort_rates = [3.9, 0.3, 3.8, 3.7, 1.9, 1.6, 0.9, 6.9, 1.9]
+var mort_rates = [3.9, 0.3, 3.8, 3.7, 1.9, 1.6, 0.9, 6.9, 1.9];
 
 // Bar chart
 var ctb = document.getElementById("barChart");
@@ -75,5 +75,4 @@ var barChart = new Chart(ctb, {
     options: {
       legend: { display: false }
       }
-    }
 });
