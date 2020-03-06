@@ -82,7 +82,7 @@ var list_price = [415, 685, 300, 357, 449]
 var sell_price = [407, 673, 291, 321, 415]
 
 var cth = document.getElementById("homeChart");
-var homeChart = new Chart(ctb, {
+var homeChart = new Chart(cth, {
     type: 'bar',
     data: {
       labels: cities,
