@@ -59,33 +59,27 @@ var co2Chart = new Chart(ctx, {
           {
               label: "1990",
               data: ninety,
-              borderColor: "rgba(95, 7, 7, 1)",
-              backgroundColor: "rgba(95, 7, 7, 0.3)",
-              fillOpacity: 0.2,
+              borderColor: "rgba(7, 95, 54, 1)",
           },
           {
               label: "1995",
               data: ninetyfive,
-              borderColor: "rgba(79, 7, 95, 1)",
-              backgroundColor: "rgba(79, 7, 95, 0.3)",
+              borderColor: "rgba(7, 77, 95, 1)",
           },
           {
               label: '2000',
               data: two,
               borderColor: "rgba(14, 7, 95, 1)",
-              backgroundColor: "rgba(14, 7, 95, 0.3)",
           },
           {
               label: '2005',
               data: twofive,
-              borderColor: "rgba(7, 77, 95, 1)",
-              backgroundColor: "rgba(7, 77, 95, 0.3)",
+              borderColor: "rgba(79, 7, 95, 1)",
           },
           {
               label: '2010',
               data: twoten,
-              borderColor: "rgba(7, 95, 54, 1)",
-              backgroundColor: "rgba(7, 95, 54, 0.3)",
+              borderColor: "rgba(95, 7, 7, 1)",
           }
       ]
     }
