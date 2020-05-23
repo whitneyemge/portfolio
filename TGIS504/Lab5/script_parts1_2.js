@@ -55,20 +55,20 @@ var myChart = new Chart(ctx, {
   }
 });
 
-var countries = ["China", "South Korea", "Italy", "Iran", "Japan", "France", "Spain", "United States", "Hong Kong"];
-var mort_rates = [3.9, 0.3, 3.8, 3.7, 1.9, 1.6, 0.9, 6.9, 1.9];
+var pokemonTypes = ["bug", "dark", "dragon", "electric", "fairy", "fighting", "fire", "flying", "ghost", "grass", "ground", "ice", "normal", "poison", "psychic", "rock", "steel", "water"];
+var typeNums = [69, 30, 19, 43, 16, 26, 46, 4, 31, 69, 31, 23, 96, 27, 56, 43, 26, 111];
 
 // Bar chart
 var ctb = document.getElementById("barChart");
 var barChart = new Chart(ctb, {
     type: 'bar',
     data: {
-      labels: countries,
+      labels: pokemonTypes,
       datasets: [
         {
-          label: "Percent of reported cases that have been fatal",
+          label: "Number of Pokemon",
           backgroundColor: "#3e95cd",
-          data: mort_rates
+          data: typeNums
         }
       ]
     },
