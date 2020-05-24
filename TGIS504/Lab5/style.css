@@ -19,13 +19,14 @@ h2 {
   font-weight: 200;
   font-size: 1.2em;
   margin: 0 0 50px;
-  color: #999;
+  text-align: center;
 }
 
 a {
   margin-top: 50px;
   display: block;
   color: #3e95cd;
+  text-align: center;
 }
 
 canvas {
