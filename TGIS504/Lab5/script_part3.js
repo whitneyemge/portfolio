@@ -37,6 +37,10 @@ var forestChart = new Chart(cth, {
         xAxes: [{
           gridLines: {
             display: false
+          },
+          scaleLabel: {
+            display: true,
+            labelString: "Country"
           }
         }]
       }
@@ -113,6 +117,10 @@ var co2Chart = new Chart(ctx, {
         xAxes: [{
           gridLines: {
             display: false
+          },
+          scaleLabel: {
+            display: true,
+            labelString: "Year"
           }
         }]
       }
