@@ -33,6 +33,11 @@ var forestChart = new Chart(cth, {
             display: true,
             labelString: "Forest Area (% of land area)"
           }
+        }],
+        xAxes: [{
+          gridLines: {
+            display: false
+          }
         }]
       }
     }
@@ -103,6 +108,11 @@ var co2Chart = new Chart(ctx, {
           scaleLabel: {
             display: true,
             labelString: "Carbon Dioxide Emissions (kt)"
+          }
+        }],
+        xAxes: [{
+          gridLines: {
+            display: false
           }
         }]
       }
