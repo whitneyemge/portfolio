@@ -11,25 +11,29 @@ var forestChart = new Chart(cth, {
       datasets: [
         {
           label: "1990",
-          backgroundColor: "#4dc247",
+          backgroundColor: "#78c679",
           data: nineteenninety
         },
         {
           label: "2000",
-          backgroundColor: "#2e742b",
+          backgroundColor: "#31a354",
           data: twothousand
         },
         {
           label: "2010",
-          backgroundColor: "#0f270e",
+          backgroundColor: "#006837",
           data: twothousandten
         }
       ]
     },
     options: {
-      title: {
-        display: true,
-        text: "Forest Area (% of land area)"
+      scales:{
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: "Forest Area (% of land area)"
+          }
+        }]
       }
     }
 });
@@ -94,9 +98,13 @@ var co2Chart = new Chart(ctx, {
       ]
     },
     options: {
-      title: {
-        display: true,
-        text: "Carbon Dioxide Emissions (kt)"
+      scales:{
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: "Carbon Dioxide Emissions (kt)"
+          }
+        }]
       }
     }
   });
