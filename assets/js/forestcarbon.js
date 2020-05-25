@@ -27,6 +27,10 @@ var forestChart = new Chart(cth, {
       ]
     },
     options: {
+      title: {
+        display: true,
+        text: "Percent Forest Land 1990-2010"
+      },
       scales:{
         yAxes: [{
           scaleLabel: {
@@ -107,6 +111,10 @@ var co2Chart = new Chart(ctx, {
       ]
     },
     options: {
+      title: {
+        display: true,
+        text: "Carbon Emissions 1990-2010"
+      },
       scales:{
         yAxes: [{
           scaleLabel: {
