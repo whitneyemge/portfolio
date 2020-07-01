@@ -18,10 +18,6 @@
 		<!-- mapbox drawing libraries -->
 		<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.0/mapbox-gl-draw.js'></script>
 		<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.0/mapbox-gl-draw.css' type='text/css'/>
-
-		<!-- Geoman.io drawing libraries -->
-		<script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
-		<link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css" />
 	</head>
 
 	<body>
@@ -63,46 +59,47 @@
 
 								<section>
 									<h2>Map</h2>
-									<!--fix button appearance-->
+
 									<button class="small" id="pink-color" onclick="changeColor('pink')">Recreation</button>
 									<button class="small" id="orange-color" onclick="changeColor('orange')">Agriculture</button>
 									<button class="small" id="green-color" onclick="changeColor('green')">Forestry</button>
 
+									<!-- add map div -->
 									<div id='vgimap' style='height: 75vh;'></div>
 
+									<!-- begin script -->
 										<script>
 
+										// mapbox access token
 										mapboxgl.accessToken = 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2thN25hdGw1MDV0ajJxb2o4bjY3bmkzeSJ9.WdNbq8KLGQXG-XWkdVqhnQ';
 
-										// var bounds = [
-										// 	[-121.375795, 47.051364], //SW
-										// 	[-120.441242, 47.598882] //NE
-										// ];
+										require('mapbox-gl-draw-free-mode');
 
+										// add map to page
 										var map = new mapboxgl.Map({
 										  container: 'vgimap',
 										  style: 'mapbox://styles/emgew/cka5l6m1s17cr1imz0gwap4ey',
 										  center: [-117.870, 48.588],
-										  zoom: 8,
-											//minZoom: 6,
-											//maxZoom: 14,
-											 //maxBounds: bounds
+										  zoom: 8
 										});
 
+										// add fullscreen and navigation options
 										map.addControl(new mapboxgl.FullscreenControl());
 										map.addControl(new mapboxgl.NavigationControl());
 
 										//Thanks to https://bl.ocks.org/dnseminara/0790e53cef9867e848e716937727ab18 for styling
-										//Add draw controls
+
+										//Add draw controls and shape design specs
 									var draw = new MapboxDraw({
 										userProperties: true,
 										controls: {
-												'combine_features': false,
-												'uncombine_features': false,
+												'combine_features': true,
+												'uncombine_features': true,
 												'polygon': true,
 												'trash': true,
 												'point': false,
-												'line': false
+												'line': false,
+												'circle': true,
 										},
 										styles: [
 												{
@@ -371,9 +368,10 @@
 										]
 								})
 
-									map.addControl(draw);
+									// add draw variables to map
+									map.addControl(draw, 'top-left');
 
-									//change colors
+									// change shape colors
 									    function changeColor(color) {
 									        if (drawFeatureID !== '' && typeof draw === 'object') {
 									            if (color === 'pink') {
@@ -397,7 +395,7 @@
 									        }
 									    }
 
-									    /* Event Handlers for Draw Tools */
+									    // event handlers for draw tools
 									    map.on('draw.create', function() {
 									        newDrawFeature = true;
 									    });
@@ -418,26 +416,24 @@
 
 									    });
 
-									//Add listeners
+									// add listeners
 									map.on('draw.create', updateArea);
 									map.on('draw.delete', updateArea);
 									map.on('draw.update', updateArea);
 
-									//This function is called when a draw event is triggered (create, delete, update)
+									// this function is called when a draw event is triggered (create, delete, update)
 									function updateArea(e) {
 											var data = draw.getAll();
 											console.log(data);
 									}
 
 									</script>
-
 								</section>
-
 							</div>
 
 							<p>
 							<a href="#" class="button">Submit</a>
-						</p>
+							</p>
 
 								<!-- <section>
 									<h2>How about some links?</h2>
