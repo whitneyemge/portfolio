@@ -18,7 +18,6 @@
 		<!-- mapbox drawing libraries -->
 		<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.0/mapbox-gl-draw.js'></script>
 		<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.0/mapbox-gl-draw.css' type='text/css'/>
-		<script src='assets/js/mapbox-gl-draw-freehand.js'></script>
 	</head>
 
 	<body>
@@ -62,7 +61,7 @@
 									<h2>Map</h2>
 
 									<!-- land use type buttons -->
-									<button class="small stripe-1" id="pink-color" onclick="changeColor('pink')">Recreation (Motorized)</button>
+									<button class="small" id="pink-color" onclick="changeColor('pink')">Recreation (Motorized)</button>
 									<button class="small" id="orange-color" onclick="changeColor('orange')">Agriculture</button>
 									<button class="small" id="green-color" onclick="changeColor('green')">Timber Harvest</button>
 									<button class="small" id="yellow-color" onclick="changeColor('yellow')">Conservation</button>
@@ -377,7 +376,14 @@
 									    function changeColor(color) {
 									        if (drawFeatureID !== '' && typeof draw === 'object') {
 									            if (color === 'pink') {
-									                draw.setFeatureProperty(drawFeatureID, 'portColor', '#c70d3a');
+									                draw.setFeatureProperty(drawFeatureID, 'portColor', repeating-linear-gradient(
+  '45deg,
+  #606dbc,
+  #606dbc 10px,
+  #465298 10px,
+  #465298 20px'
+)
+);
 									            }
 															else if (color === 'orange') {
 									                draw.setFeatureProperty(drawFeatureID, 'portColor', '#ed5107');
