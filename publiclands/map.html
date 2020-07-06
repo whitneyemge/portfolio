@@ -376,14 +376,14 @@
 									    function changeColor(color) {
 									        if (drawFeatureID !== '' && typeof draw === 'object') {
 									            if (color === 'pink') {
-									                draw.setFeatureProperty(drawFeatureID, 'portColor', repeating-linear-gradient(
-  '45deg,
-  #606dbc,
-  #606dbc 10px,
-  #465298 10px,
-  #465298 20px'
-)
-);
+									                draw.setFeatureProperty(drawFeatureID, 'portColor' {
+																		background: repeating-linear-gradient(
+																		  '45deg',
+																		  '#606dbc',
+																		  '#606dbc' '10px',
+																		  '#465298' '10px',
+																		  '#465298' '20px'
+																		)})
 									            }
 															else if (color === 'orange') {
 									                draw.setFeatureProperty(drawFeatureID, 'portColor', '#ed5107');
