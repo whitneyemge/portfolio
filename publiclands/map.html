@@ -65,6 +65,7 @@
 									<button class="small" id="pink-color" onclick="changeColor('pink')">Recreation</button>
 									<button class="small" id="orange-color" onclick="changeColor('orange')">Agriculture</button>
 									<button class="small" id="green-color" onclick="changeColor('green')">Forestry</button>
+									<button class="small" id="yellow-color" onclick="changeColor('yellow')">Conservation</button>
 
 									<!-- add map div -->
 									<div id='vgimap' style='height: 75vh;'></div>
@@ -75,7 +76,7 @@
 										// mapbox access token
 										mapboxgl.accessToken = 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2thN25hdGw1MDV0ajJxb2o4bjY3bmkzeSJ9.WdNbq8KLGQXG-XWkdVqhnQ';
 
-										require('mapbox-gl-draw-free-mode');
+										//require('mapbox-gl-draw-free-mode');
 
 										// add map to page
 										var map = new mapboxgl.Map({
@@ -381,7 +382,9 @@
 									                draw.setFeatureProperty(drawFeatureID, 'portColor', '#ed5107');
 									            } else if (color === 'green') {
 									                draw.setFeatureProperty(drawFeatureID, 'portColor', '#02383c');
-									            }
+									            } else if (color === 'yellow') {
+																draw.setFeatureProperty(drawFeatureID, 'portColor', '#f5c71a')
+															}
 
 									            var feat = draw.get(drawFeatureID);
 									            draw.add(feat)
