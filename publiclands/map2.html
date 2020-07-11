@@ -78,10 +78,10 @@
 										var drawnItems = L.featureGroup().addTo(map);
 										var drawControl = new L.Control.Draw({
 										 draw: {
-										  circle: false,
-										  rectangle: false,
-										  polyline: false,
-										  polygon: false
+										  circle: true,
+										  rectangle: true,
+										  polyline: true,
+										  polygon: true
 										 },
 										 edit: {featureGroup: drawnItems}
 										}).addTo(map);
