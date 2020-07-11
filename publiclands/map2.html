@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<!--
+	Minimaxing by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Public Land Use Preferences</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+
+		<!-- mapbox libraries -->
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+	   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+	   crossorigin=""/>
+		 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+   crossorigin=""></script>
+	</head>
+
+	<body>
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper">
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+
+								<header id="header">
+									<h1>Land Use Preference Mapping</h1>
+									<nav id="nav">
+										<!-- <a href="index.html">Homepage</a>
+										<a href="twocolumn1.html" class="current-page-item">Two Column #1</a>
+										<a href="twocolumn2.html">Two Column #2</a>
+										<a href="onecolumn.html">One Column</a>
+										<a href="threecolumn.html">Three Column</a> -->
+									</nav>
+								</header>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			<!-- Main -->
+
+			<div id="main">
+				<div class="container">
+					<div class="row main-row">
+						<div class="col-12">
+
+							<section>
+								<h2>Instructions</h2>
+								<p>The map below shows the Colville National Forest in Washington State. Click on either the line or polygon icons and draw shapes on the map to represent places where you prefer certain land use types. Once you draw a feature, click either the recreation, agriculture, or forestry button above the map to indicate which type of land use the polygon or line represents.</p>
+							</section>
+
+								<section>
+									<h2>Map</h2>
+
+										<div id='map' style='height: 75vh;'></div>
+
+										<!-- begin script -->
+											<script>
+
+										L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+										    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+										    maxZoom: 18,
+										    id: 'mapbox://styles/emgew/cka5l6m1s17cr1imz0gwap4ey',
+										    tileSize: 512,
+										    zoomOffset: -1,
+										    accessToken: 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2thN25hdGw1MDV0ajJxb2o4bjY3bmkzeSJ9.WdNbq8KLGQXG-XWkdVqhnQ'
+										}).addTo(mymap);
+
+										//Leaflet.draw
+										var drawnItems = L.featureGroup().addTo(map);
+										var drawControl = new L.Control.Draw({
+										 draw: {
+										  circle: false,
+										  rectangle: false,
+										  polyline: false,
+										  polygon: false
+										 },
+										 edit: {featureGroup: drawnItems}
+										}).addTo(map);
+
+										map.on('draw:created', function (event) {
+										    var layer = event.layer,
+										        feature = layer.feature = layer.feature || {}; // Intialize layer.feature
+
+										    feature.type = feature.type || "Feature"; // Intialize feature.type
+										    var props = feature.properties = feature.properties || {}; // Intialize feature.properties
+										    props.title = "my title";
+										    props.content = "my content";
+										    drawnItems.addLayer(layer);
+										});
+
+										function saveIdIW() {
+										  var sName = $('#shapeName').val();
+										  var sDesc = $('#shapeDesc').val();
+										  var drawings = drawnItems.getLayers(); //drawnItems is a container for the drawn objects
+										  drawings[drawings.length - 1].title = sName;
+										  drawings[drawings.length - 1].content = sDesc;
+										  map.closePopup();
+										};
+
+										//Export
+										document.getElementById('export').onclick = function(e) {
+										  // Extract GeoJson from featureGroup
+										  var data = drawnItems.toGeoJSON();
+										  // Stringify the GeoJson
+										  var convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
+										  // Create export
+										  document.getElementById('export').setAttribute('href', 'data:' + convertedData);
+										  document.getElementById('export').setAttribute('download', 'drawnItems.geojson');
+										}
+
+									</script>
+								</section>
+							</div>
+
+							<p>
+							<a href="#" class="button">Submit</a>
+							</p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			<!-- Footer -->
+				<div id="footer-wrapper">
+					<div class="container">
+						<div class="row">
+							<div class="col-8 col-12-medium">
+
+								<section>
+									<h2>Data Sources</h2>
+									<div>
+										<div class="row">
+											<div class="col-3 col-6-medium col-12-small">
+												<ul class="link-list">
+													<li><a href="https://data.fs.usda.gov/geodata/webapps/EDW_DataExtract/" target="_blank">USDA Forest Service</a></li>
+													<li><a href="http://geo.wa.gov/datasets/wa-rco::wa-rco-trails-2017" target="_blank">WA State Recreation and Conservation Office</a></li>
+												</ul>
+											</div>
+
+										</div>
+									</div>
+								</section>
+
+							</div>
+
+						</div>
+						<div class="row">
+							<div class="col-12">
+
+								<div id="copyright">
+									&copy; Untitled. All rights reserved. | Design: <a href="http://html5up.net">HTML5 UP</a>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
