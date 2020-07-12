@@ -89,13 +89,14 @@
 										//Leaflet.draw
 										var drawnItems = new L.FeatureGroup();
 							      	map.addLayer(drawnItems);
+
 							      var drawControl = new L.Control.Draw({
 												draw: {
 													polygon: true,
 													circle: true,
 													rectangle: true,
 													marker: false,
-													line: false,
+													polyline: false
 												},
 												edit: {
 							              featureGroup: drawnItems
