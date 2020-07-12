@@ -102,17 +102,6 @@
 						            featureGroup.addLayer(e.layer);
 						        });
 
-										//edit the targeted polygon
-										function onEachFeature (feature, layer) {
-										     editableLayers.addLayer(layer);
-										     layer.on('click', function(e){
-										          if(selectedFeature)
-										               selectedFeature.editing.disable();
-										          selectedFeature = e.target;
-										          e.target.editing.enable();
-										     });
-										}
-
 									// popup https://gis.stackexchange.com/questions/232585/changing-data-and-style-with-select-in-leaflet-popup
 									// function onEachFeature(feature, layer) {
 									//
