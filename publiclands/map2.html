@@ -85,7 +85,7 @@
 											}).addTo(map);
 
 										//Leaflet.draw
-										var featureGroup = L.featureGroup().addTo(map);
+										// var featureGroup = L.featureGroup().addTo(map);
 
 						        var drawControl = new L.Control.Draw({
 												draw: {
@@ -93,7 +93,7 @@
 													marker: false
 												},
 												edit: {
-						                featureGroup: featureGroup
+						                featureGroup: drawnItems
 						            }
 						        }).addTo(map);
 
