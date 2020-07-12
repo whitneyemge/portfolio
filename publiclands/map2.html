@@ -113,12 +113,16 @@
 											drawnItems.addLayer(layer);
 									});
 
-									layer.on('click', function(event){
-									  editableLayers.eachLayer(function(layer) {
-									    layer.editing.disable()
-									  })
-									  event.target.editing.enable();
-									});
+									// allow editing
+									function onEachFeature (feature, layer) {
+										editableLayers.addLayer(layer);
+										layer.on('click', function(e){
+											if(selectedFeature)
+												selectedFeature.editing.disable();
+											selectedFeature = e.target;
+											e.target.editing.enable();
+										});
+									}
 
 									// popup https://gis.stackexchange.com/questions/232585/changing-data-and-style-with-select-in-leaflet-popup
 									function onEachFeature(feature, layer) {
