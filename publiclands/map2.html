@@ -100,21 +100,8 @@
 										// adds each feature drawn to group: https://bl.ocks.org/danswick/d30c44b081be31aea483
 										map.on('draw:created', function(e) {
 						            featureGroup.addLayer(e.layer);
-												var popup = L.popup()
-													.setLatLng(layer.getLatLng())
-													.setContent('<span><b>Shape Name</b></span><br/><input id="shapeName" type="text"/><br/><br/><span><b>Shape Description<b/></span><br/><textarea id="shapeDesc" cols="25" rows="5"></textarea><br/><br/><input type="button" id="okBtn" value="Save" onclick="savePopup()"/>')
-													.openOn(map);
 						        });
-										//https://gis.stackexchange.com/questions/131447/adding-comments-using-leaflet-draw
-										function savePopup(){
-									    var sName = $('#shapeName').val();
-									    var sDesc = $('#shapeDesc').val();
-									    var drawings = drawnItems.getLayers();
-									    drawings[drawings.length - 1].title = sName;
-									    drawings[drawings.length -1].content =sDesc;
-									    map.closePopup();
 
-									};
 
 									// popup https://gis.stackexchange.com/questions/232585/changing-data-and-style-with-select-in-leaflet-popup
 									// function onEachFeature(feature, layer) {
