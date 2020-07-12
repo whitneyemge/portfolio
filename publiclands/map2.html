@@ -102,6 +102,7 @@
 						            featureGroup.addLayer(e.layer);
 						        });
 
+										//https://gis.stackexchange.com/questions/111464/addig-title-to-marker-or-shape-using-leaflet-draw
 										map.on('draw:created', function (e) {
 										     var idIW = L.popup();
 										     var content = '<span><b>Shape Name</b></span><br/><input id="shapeName" type="text"/><br/><br/><span><b>Shape Description<b/></span><br/><textarea id="shapeDesc" cols="25" rows="5"></textarea><br/><br/><input type="button" id="okBtn" value="Save" onclick="saveIdIW()"/>';
