@@ -126,6 +126,15 @@
 											  map.closePopup();
 											};
 
+											//event function
+											function onclick(e) {
+											  e.layer.bindPopup('A popup!');
+											}
+
+											//bind listener to layers
+											drawnItems.once("click",onclick) //fires only for the first polygon you click on
+											                                  //drawnLayers.on("click",onclick) would fire always when you click on the polygon
+
 											//Export
 											// document.getElementById('export').onclick = function(e) {
 											//   // Extract GeoJson from featureGroup
