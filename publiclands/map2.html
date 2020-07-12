@@ -113,76 +113,118 @@
 											drawnItems.addLayer(layer);
 									});
 
-									// change shape colors
-											function changeColor(color) {
-													if (drawFeatureID !== '' && typeof draw === 'object') {
-															if (color === 'purple') {
-																	draw.setFeatureProperty(drawFeatureID, 'portColor', '#cab2d6');
-															}
-																else if (color === 'dkpurple') {
-																		draw.setFeatureProperty(drawFeatureID, 'portColor', '#6a3d9a');
-																} else if (color === 'orange') {
-																		draw.setFeatureProperty(drawFeatureID, 'portColor', '#fdbf6f');
-																} else if (color === 'dkorange') {
-																		draw.setFeatureProperty(drawFeatureID, 'portColor', '#ff7f00');
-																} else if (color === 'green') {
-																		draw.setFeatureProperty(drawFeatureID, 'portColor', '#b2df8a')
-																} else if (color === 'dkgreen') {
-																		draw.setFeatureProperty(drawFeatureID, 'portColor', '#33a02c');
-																} else if (color === 'red') {
-																		draw.setFeatureProperty(drawFeatureID, 'portColor', '#fb9a99');
-																} else if (color === 'dkred') {
-																		draw.setFeatureProperty(drawFeatureID, 'portColor', '#e31a1c');
-																} else if (color === 'blue') {
-																		draw.setFeatureProperty(drawFeatureID, 'portColor', '#a6cee3');
-																} else if (color === 'dkblue') {
-																		draw.setFeatureProperty(drawFeatureID, 'portColor', '#1f78b4');
-															}
+									// popup https://gis.stackexchange.com/questions/232585/changing-data-and-style-with-select-in-leaflet-popup
+									function onEachFeature(feature, layer) {
 
-															var feat = draw.get(drawFeatureID);
-															draw.add(feat)
-													}
-											}
+											var popup = '<select name="select" onchange="restyleLayer(this.value)">'
+									    popup += '<option value="Nope" selected>None</option>'
+									    popup += '<option value="Democrat">Democrat</option>'
+									    popup += '<option value="Republican">Republican</option>'
+									    popup += '</select>'
+											layer.bindPopup(popup);
 
-											// callback for draw.update and draw.selectionchange
-											var setDrawFeature = function(e) {
-													if (e.features.length && e.features[0].type === 'Feature') {
-															var feat = e.features[0];
-															drawFeatureID = feat.id;
-													}
-											}
+										}
 
-											// event handlers for draw tools
-											map.on('draw.create', function() {
-													newDrawFeature = true;
-											});
+									var states_geojson = L.geoJSON(states, {
+									    style: function(feature) {
+									    					return getColor(feature.properties.party)},
+									    onEachFeature: onEachFeature
+									}).addTo(map);
 
-											map.on('draw.update', setDrawFeature);
+									function getColor(party) {
+									        console.log(party)
+									        switch (party) {
+									            case 'Republican': return {color: "#ff0000"};
+									            case 'Democrat':   return {color: "#0000ff"};
+									            case 'Nope': return {color: 'grey'};
+									        }
+									    }
 
-											map.on('draw.selectionchange', setDrawFeature);
+									function restyleLayer(party) {
 
-											map.on('click', function(e) {
-													if (!newDrawFeature) {
-															var drawFeatureAtPoint = draw.getFeatureIdsAt(e.point);
+									    states_geojson.eachLayer(function(layer) {
 
-															//if another drawFeature is not found - reset drawFeatureID
-															drawFeatureID = drawFeatureAtPoint.length ? drawFeatureAtPoint[0] : '';
-													}
+									        // update the actual layer to the property from the select
+									        layer.feature.properties.party = party;
 
-													newDrawFeature = false;
+									        var myFillColor = getColor(party);
 
-											});
-
-									// add listeners
-									map.on('draw.create', updateArea);
-									map.on('draw.delete', updateArea);
-									map.on('draw.update', updateArea);
-
-									// this function is called when a draw event is triggered (create, delete, update)
-									function updateArea(e) {
-											var data = draw.getAll();
-											console.log(data);
+									        layer.setStyle({
+									            fillColor: myFillColor
+									        });
+									    });
 									}
+
+									// change shape colors
+									// 		function changeColor(color) {
+									// 				if (drawFeatureID !== '' && typeof draw === 'object') {
+									// 						if (color === 'purple') {
+									// 								draw.setFeatureProperty(drawFeatureID, 'portColor', '#cab2d6');
+									// 						}
+									// 							else if (color === 'dkpurple') {
+									// 									draw.setFeatureProperty(drawFeatureID, 'portColor', '#6a3d9a');
+									// 							} else if (color === 'orange') {
+									// 									draw.setFeatureProperty(drawFeatureID, 'portColor', '#fdbf6f');
+									// 							} else if (color === 'dkorange') {
+									// 									draw.setFeatureProperty(drawFeatureID, 'portColor', '#ff7f00');
+									// 							} else if (color === 'green') {
+									// 									draw.setFeatureProperty(drawFeatureID, 'portColor', '#b2df8a')
+									// 							} else if (color === 'dkgreen') {
+									// 									draw.setFeatureProperty(drawFeatureID, 'portColor', '#33a02c');
+									// 							} else if (color === 'red') {
+									// 									draw.setFeatureProperty(drawFeatureID, 'portColor', '#fb9a99');
+									// 							} else if (color === 'dkred') {
+									// 									draw.setFeatureProperty(drawFeatureID, 'portColor', '#e31a1c');
+									// 							} else if (color === 'blue') {
+									// 									draw.setFeatureProperty(drawFeatureID, 'portColor', '#a6cee3');
+									// 							} else if (color === 'dkblue') {
+									// 									draw.setFeatureProperty(drawFeatureID, 'portColor', '#1f78b4');
+									// 						}
+									//
+									// 						var feat = draw.get(drawFeatureID);
+									// 						draw.add(feat)
+									// 				}
+									// 		}
+									//
+									// 		// callback for draw.update and draw.selectionchange
+									// 		var setDrawFeature = function(e) {
+									// 				if (e.features.length && e.features[0].type === 'Feature') {
+									// 						var feat = e.features[0];
+									// 						drawFeatureID = feat.id;
+									// 				}
+									// 		}
+									//
+									// 		// event handlers for draw tools
+									// 		map.on('draw.create', function() {
+									// 				newDrawFeature = true;
+									// 		});
+									//
+									// 		map.on('draw.update', setDrawFeature);
+									//
+									// 		map.on('draw.selectionchange', setDrawFeature);
+									//
+									// 		map.on('click', function(e) {
+									// 				if (!newDrawFeature) {
+									// 						var drawFeatureAtPoint = draw.getFeatureIdsAt(e.point);
+									//
+									// 						//if another drawFeature is not found - reset drawFeatureID
+									// 						drawFeatureID = drawFeatureAtPoint.length ? drawFeatureAtPoint[0] : '';
+									// 				}
+									//
+									// 				newDrawFeature = false;
+									//
+									// 		});
+									//
+									// // add listeners
+									// map.on('draw.create', updateArea);
+									// map.on('draw.delete', updateArea);
+									// map.on('draw.update', updateArea);
+									//
+									// // this function is called when a draw event is triggered (create, delete, update)
+									// function updateArea(e) {
+									// 		var data = draw.getAll();
+									// 		console.log(data);
+									// }
 
 										// map.on('draw:created', function (event) {
 										//     var layer = event.layer,
