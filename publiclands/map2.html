@@ -116,44 +116,69 @@
 									// popup https://gis.stackexchange.com/questions/232585/changing-data-and-style-with-select-in-leaflet-popup
 									function onEachFeature(feature, layer) {
 
-											var popup = '<select name="select" onchange="restyleLayer(this.value)">'
-									    popup += '<option value="Nope" selected>None</option>'
-									    popup += '<option value="Democrat">Democrat</option>'
-									    popup += '<option value="Republican">Republican</option>'
-									    popup += '</select>'
-											layer.bindPopup(popup);
+									  var select = document.createElement('select'),
+									    option0 = document.createElement('option'),
+									    option1 = document.createElement('option'),
+									    option2 = document.createElement('option');
 
-										}
+									  select.addEventListener('change', function() {
+									    restyleLayer(this.value, this.layer);
+									  });
+
+									  select.layer = layer;
+
+									  option0.value = 'Nope';
+									  option0.selected = true;
+									  option0.innerHTML = 'None';
+
+									  option1.value = 'Democrat';
+									  option1.innerHTML = 'Democrat';
+
+									  option2.value = 'Republican';
+									  option2.innerHTML = 'Republican';
+
+									  select.appendChild(option0);
+									  select.appendChild(option1);
+									  select.appendChild(option2);
+
+									  layer.bindPopup(select);
+
+									}
 
 									var states_geojson = L.geoJSON(states, {
-									    style: function(feature) {
-									    					return getColor(feature.properties.party)},
-									    onEachFeature: onEachFeature
+									  style: function(feature) {
+									    return getColor(feature.properties.party)
+									  },
+									  onEachFeature: onEachFeature
 									}).addTo(map);
 
 									function getColor(party) {
-									        console.log(party)
-									        switch (party) {
-									            case 'Republican': return {color: "#ff0000"};
-									            case 'Democrat':   return {color: "#0000ff"};
-									            case 'Nope': return {color: 'grey'};
-									        }
-									    }
-
-									function restyleLayer(party) {
-
-									    states_geojson.eachLayer(function(layer) {
-
-									        // update the actual layer to the property from the select
-									        layer.feature.properties.party = party;
-
-									        var myFillColor = getColor(party);
-
-									        layer.setStyle({
-									            fillColor: myFillColor
-									        });
-									    });
+									  console.log(party)
+									  switch (party) {
+									    case 'Republican':
+									      return {
+									        color: "red"
+									      };
+									    case 'Democrat':
+									      return {
+									        color: "blue"
+									      };
+									    case 'Nope':
+									      return {
+									        color: 'grey'
+									      };
+									  }
 									}
+
+									function restyleLayer(party, layer) {
+
+									  layer.feature.properties.party = party;
+
+									  var myFillColor = getColor(party);
+
+									  layer.setStyle(myFillColor);
+									}
+
 
 									// change shape colors
 									// 		function changeColor(color) {
