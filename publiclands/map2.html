@@ -76,6 +76,18 @@
 									<!-- add map div -->
 									<div id='map' style='height: 75vh;'></div>
 
+									<div id="dialog" title="Information">
+									  <form>
+									    <fieldset>
+									      <label for="username">Your Name</label>
+									      <input type="text" name="username" id="username" placeholder="Enter your Name" class="text ui-widget-content ui-corner-all">
+									      <label for="description">About this Point</label>
+									      <input type="text" name="description" id="description" placeholder="Description for this point" class="text ui-widget-content ui-corner-all">
+									      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+									    </fieldset>
+									  </form>
+									</div>
+
 										<!-- begin script -->
 										<script>
 
@@ -133,7 +145,7 @@
 										var form = dialog.find("form").on("submit", function(event) {
 										  event.preventDefault();
 										});
-										
+
 									// popup https://gis.stackexchange.com/questions/232585/changing-data-and-style-with-select-in-leaflet-popup
 									// function onEachFeature(feature, layer) {
 									//
