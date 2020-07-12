@@ -105,6 +105,35 @@
 										  dialog.dialog("open");
 						        });
 
+										// Use the jQuery UI dialog to create a dialog and set options
+										var dialog = $("#dialog").dialog({
+										  autoOpen: false,
+										  height: 300,
+										  width: 350,
+										  modal: true,
+										  position: {
+										    my: "center center",
+										    at: "center center",
+										    of: "#map"
+										  },
+										  buttons: {
+										    "Add to Database": setData,
+										    Cancel: function() {
+										      dialog.dialog("close");
+										      map.removeLayer(drawnItems);
+										    }
+										  },
+										  close: function() {
+										    form[ 0 ].reset();
+										    console.log("Dialog closed");
+										  }
+										});
+
+										// Stops default form submission and ensures that setData or the cancel function run
+										var form = dialog.find("form").on("submit", function(event) {
+										  event.preventDefault();
+										});
+										
 									// popup https://gis.stackexchange.com/questions/232585/changing-data-and-style-with-select-in-leaflet-popup
 									// function onEachFeature(feature, layer) {
 									//
