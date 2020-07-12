@@ -96,55 +96,96 @@
 											    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 											}).addTo(map);
 
-										//http://duspviz.mit.edu/web-map-workshop/cartodb-data-collection/
-										var drawnItems = new L.featureGroup();
+											//Leaflet.draw
+											var drawnItems = L.featureGroup().addTo(map);
+											var drawControl = new L.Control.Draw({
+											 draw: {
+												 polyline: false,
+ 											 	 marker: false
+											 },
+											 edit: {featureGroup: drawnItems}
+											}).addTo(map);
 
-						        var drawControl = new L.Control.Draw({
-												draw: {
-													polyline: false,
-													marker: false
-												},
-												edit: {
-						                featureGroup: drawnItems
-						            }
-						        }).addTo(map);
+											map.on('draw:created', function(e) {
+											  var type = e.layerType;
+											  var layer = e.layer;
+											  var idIW = L.popup();
+											  var content = '<span><b>Shape Name</b></span><br/><input id="shapeName" type="text"/><br/><br/><span><b>Shape Description<b/></span><br/><textarea id="shapeDesc" cols="25" rows="5"></textarea><br/><br/><input type="button" id="okBtn" value="Save" onclick="saveIdIW()"/>';
+											  idIW.setContent(content);
+											  idIW.setLatLng(layer.getLatLng());
+											  idIW.openOn(map);
+											  drawnItems.addLayer(layer)
+											});
 
-										// adds each feature drawn to group: https://bl.ocks.org/danswick/d30c44b081be31aea483
-										map.on('draw:created', function(e) {
-											var layer = e.layer;
-										  drawnItems.addLayer(layer);
-										  map.addLayer(drawnItems);
-										  dialog.dialog("open");
-						        });
+											function saveIdIW() {
+											  var sName = $('#shapeName').val();
+											  var sDesc = $('#shapeDesc').val();
+											  var drawings = drawnItems.getLayers(); //drawnItems is a container for the drawn objects
+											  drawings[drawings.length - 1].title = sName;
+											  drawings[drawings.length - 1].content = sDesc;
+											  map.closePopup();
+											};
 
-										// Use the jQuery UI dialog to create a dialog and set options
-										var dialog = $("#dialog").dialog({
-										  autoOpen: false,
-										  height: 300,
-										  width: 350,
-										  modal: true,
-										  position: {
-										    my: "center center",
-										    at: "center center",
-										    of: "#map"
-										  },
-										  buttons: {
-										    "Add to Database": setData,
-										    Cancel: function() {
-										      dialog.dialog("close");
-										      map.removeLayer(drawnItems);
-										    }
-										  },
-										  close: function() {
-										    form[ 0 ].reset();
-										    console.log("Dialog closed");
-										  }
-										});
+											//Export
+											document.getElementById('export').onclick = function(e) {
+											  // Extract GeoJson from featureGroup
+											  var data = drawnItems.toGeoJSON();
+											  // Stringify the GeoJson
+											  var convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
+											  // Create export
+											  document.getElementById('export').setAttribute('href', 'data:' + convertedData);
+											  document.getElementById('export').setAttribute('download', 'drawnItems.geojson');
+											}
 
-										// Stops default form submission and ensures that setData or the cancel function run
-										var form = dialog.find("form").on("submit", function(event) {
-										  event.preventDefault();
-										});
+										// //http://duspviz.mit.edu/web-map-workshop/cartodb-data-collection/
+										// var drawnItems = new L.featureGroup();
+										//
+						        // var drawControl = new L.Control.Draw({
+										// 		draw: {
+										// 			polyline: false,
+										// 			marker: false
+										// 		},
+										// 		edit: {
+						        //         featureGroup: drawnItems
+						        //     }
+						        // }).addTo(map);
+										//
+										// // adds each feature drawn to group: https://bl.ocks.org/danswick/d30c44b081be31aea483
+										// map.on('draw:created', function(e) {
+										// 	var layer = e.layer;
+										//   drawnItems.addLayer(layer);
+										//   map.addLayer(drawnItems);
+										//   dialog.dialog("open");
+						        // });
+										//
+										// // Use the jQuery UI dialog to create a dialog and set options
+										// var dialog = $("#dialog").dialog({
+										//   autoOpen: false,
+										//   height: 300,
+										//   width: 350,
+										//   modal: true,
+										//   position: {
+										//     my: "center center",
+										//     at: "center center",
+										//     of: "#map"
+										//   },
+										//   buttons: {
+										//     "Add to Database": setData,
+										//     Cancel: function() {
+										//       dialog.dialog("close");
+										//       map.removeLayer(drawnItems);
+										//     }
+										//   },
+										//   close: function() {
+										//     form[ 0 ].reset();
+										//     console.log("Dialog closed");
+										//   }
+										// });
+										//
+										// // Stops default form submission and ensures that setData or the cancel function run
+										// var form = dialog.find("form").on("submit", function(event) {
+										//   event.preventDefault();
+										// });
 
 									// popup https://gis.stackexchange.com/questions/232585/changing-data-and-style-with-select-in-leaflet-popup
 									// function onEachFeature(feature, layer) {
