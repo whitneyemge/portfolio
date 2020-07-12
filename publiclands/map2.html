@@ -64,7 +64,20 @@
 								<section>
 									<h2>Map</h2>
 
-										<div id='map' style='height: 75vh;'></div>
+									<!-- land use type buttons -->
+									<button class="small" onclick="changeColor('purple')">Recreation - Yes</button>
+									<button class="small" onclick="changeColor('dkpurple')">Recreation - No</button>
+									<button class="small" onclick="changeColor('orange')">Agriculture - Yes</button>
+									<button class="small" onclick="changeColor('dkorange')">Agriculture - No</button>
+									<button class="small" onclick="changeColor('green')">Timber Harvest - Yes</button>
+									<button class="small" onclick="changeColor('dkgreen')">Timber Harvest - No</button>
+									<button class="small" onclick="changeColor('red')">Mining - Yes</button>
+									<button class="small" onclick="changeColor('dkred')">Mining - No</button>
+									<button class="small" onclick="changeColor('blue')">Conservation - Yes</button>
+									<button class="small" onclick="changeColor('dkblue')">Conservation - No</button>
+									
+									<!-- add map div -->
+									<div id='map' style='height: 75vh;'></div>
 
 										<!-- leaflet js -->
 										<script
