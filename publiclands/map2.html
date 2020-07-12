@@ -87,7 +87,13 @@
 										var drawnItems = new L.FeatureGroup();
 							      map.addLayer(drawnItems);
 							      var drawControl = new L.Control.Draw({
-							          edit: {
+												draw: {
+													polygon: true,
+													circle: true,
+													rectangle: true,
+													marker: false
+												},
+												edit: {
 							              featureGroup: drawnItems
 							          }
 							      });
