@@ -89,23 +89,13 @@
 											}).addTo(map);
 
 										//Leaflet.draw
-										var drawnItems = new L.FeatureGroup();
-							      	map.addLayer(drawnItems);
+										var featureGroup = L.featureGroup().addTo(map);
 
-							      var drawControl = new L.Control.Draw({
-												draw: {
-													polygon: true,
-													circle: true,
-													rectangle: true,
-													circlemarker: false,
-													marker: false,
-													polyline: false
-												},
-												edit: {
-							              featureGroup: drawnItems,
-							          }
-							      })
-							      map.addControl(drawControl);
+						        var drawControl = new L.Control.Draw({
+						            edit: {
+						                featureGroup: featureGroup
+						            }
+						        }).addTo(map);
 
 										// adds each feature drawn to group: https://bl.ocks.org/danswick/d30c44b081be31aea483
 										map.on('draw:created', function(e) {
