@@ -11,7 +11,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 
-		<!-- mapbox libraries -->
+		<!-- leaflet libraries -->
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
 	   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
 	   crossorigin=""/>
@@ -20,16 +20,7 @@
    crossorigin=""></script>
 
 	 <!-- leaflet draw library -->
-	 <link
-			rel="stylesheet"
-			href="http://leaflet.github.io/Leaflet.draw/leaflet.draw.css"
-	/>
-	<script
-		src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js">
-</script>
-<script
-		src="http://leaflet.github.io/Leaflet.draw/leaflet.draw.js">
-</script>
+	 <link rel="stylesheet" href="http://leaflet.github.io/Leaflet.draw/leaflet.draw.css"/>
 
 	</head>
 
@@ -74,6 +65,14 @@
 									<h2>Map</h2>
 
 										<div id='map' style='height: 75vh;'></div>
+
+										<!-- leaflet js -->
+										<script
+								        src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js">
+								    </script>
+								    <script
+								        src="http://leaflet.github.io/Leaflet.draw/leaflet.draw.js">
+								    </script>
 
 										<!-- begin script -->
 										<script>
