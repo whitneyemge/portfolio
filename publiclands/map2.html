@@ -103,6 +103,11 @@
 							      })
 							      map.addControl(drawControl);
 
+										// adds each feature drawn to group
+										map.on('draw:created', function(e) {
+						            featureGroup.addLayer(e.layer);
+						        });
+
 									// popup https://gis.stackexchange.com/questions/232585/changing-data-and-style-with-select-in-leaflet-popup
 									function onEachFeature(feature, layer) {
 
