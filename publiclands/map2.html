@@ -65,10 +65,11 @@
 										<!-- begin script -->
 										<script>
 
+										var map = L.map('map').setView([-117.870, 48.588], 8);
 										L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 										    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 										    maxZoom: 18,
-										    id: 'mapbox/streets-v11',
+										    id: 'mapbox://styles/emgew/cka5l6m1s17cr1imz0gwap4ey',
 										    tileSize: 512,
 										    zoomOffset: -1,
 										    accessToken: 'pk.eyJ1IjoiZW1nZXciLCJhIjoiY2thN25hdGw1MDV0ajJxb2o4bjY3bmkzeSJ9.WdNbq8KLGQXG-XWkdVqhnQ'
