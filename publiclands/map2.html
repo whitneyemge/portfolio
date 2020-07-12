@@ -106,16 +106,16 @@
 											 edit: {featureGroup: drawnItems}
 											}).addTo(map);
 
-											map.on('draw:created', function(e) {
-											  var type = e.layerType;
-											  var layer = e.layer;
-											  var idIW = L.popup();
-											  var content = '<span><b>Shape Name</b></span><br/><input id="shapeName" type="text"/><br/><br/><span><b>Shape Description<b/></span><br/><textarea id="shapeDesc" cols="25" rows="5"></textarea><br/><br/><input type="button" id="okBtn" value="Save" onclick="saveIdIW()"/>';
-											  idIW.setContent(content);
-											  idIW.setLatLng(layer.getLatLng());
-											  idIW.openOn(map);
-											  drawnItems.addLayer(layer)
-											});
+											map.on('draw:created', function (event) {
+										    var layer = event.layer,
+										        feature = layer.feature = layer.feature || {}; // Intialize layer.feature
+
+										    feature.type = feature.type || "Feature"; // Intialize feature.type
+										    var props = feature.properties = feature.properties || {}; // Intialize feature.properties
+										    props.title = "my title";
+										    props.content = "my content";
+										    drawnItems.addLayer(layer);
+										});
 
 											function saveIdIW() {
 											  var sName = $('#shapeName').val();
