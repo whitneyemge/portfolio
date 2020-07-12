@@ -76,18 +76,6 @@
 									<!-- add map div -->
 									<div id='map' style='height: 75vh;'></div>
 
-									<div id="dialog" title="Information">
-									  <form>
-									    <fieldset>
-									      <label for="username">Your Name</label>
-									      <input type="text" name="username" id="username" placeholder="Enter your Name" class="text ui-widget-content ui-corner-all">
-									      <label for="description">About this Point</label>
-									      <input type="text" name="description" id="description" placeholder="Description for this point" class="text ui-widget-content ui-corner-all">
-									      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-									    </fieldset>
-									  </form>
-									</div>
-
 										<!-- begin script -->
 										<script>
 
@@ -126,14 +114,13 @@
 											  map.closePopup();
 											};
 
-											//event function
+											//event function https://gis.stackexchange.com/questions/298655/updating-popup-of-a-leaflet-polygon
 											function onclick(e) {
 											  e.layer.bindPopup('A popup!');
 											}
 
 											//bind listener to layers
-											drawnItems.on("click",onclick) //fires only for the first polygon you click on
-											                                  //drawnLayers.on("click",onclick) would fire always when you click on the polygon
+											drawnItems.on("click",onclick)
 
 											//Export
 											// document.getElementById('export').onclick = function(e) {
