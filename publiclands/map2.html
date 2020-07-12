@@ -88,7 +88,7 @@
 
 										//Leaflet.draw
 										var drawnItems = new L.FeatureGroup();
-							      map.addLayer(drawnItems);
+							      	map.addLayer(drawnItems);
 							      var drawControl = new L.Control.Draw({
 												draw: {
 													polygon: true,
@@ -101,6 +101,12 @@
 							          }
 							      });
 							      map.addControl(drawControl);
+
+										map.on('draw:created', function (e) {
+											var type = e.layerType,
+													layer = e.layer;
+											drawnItems.addLayer(layer);
+									});
 
 										// map.on('draw:created', function (event) {
 										//     var layer = event.layer,
