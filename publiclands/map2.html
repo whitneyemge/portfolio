@@ -13,12 +13,16 @@
 
 		<!-- mapbox js -->
 		<link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
+		<script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
 
 	 <!-- leaflet draw library -->
 	 <link rel='stylesheet' href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css' />
+	 <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.js'></script>
 
 	 <!-- jquery -->
 	 <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 	 <!-- bootstrap -->
 	 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -76,18 +80,23 @@
                     }).addTo(map);
 
 										// Create variable for Leaflet.draw features
-										//var drawnItems = L.featureGroup().addTo(map);
+										var drawnItems = L.featureGroup().addTo(map);
 
-										var UserMarker = L.featureGroup().addTo(map);
+										UserMarker = L.featureGroup().addTo(map);
 										map.addLayer(UserMarker);
 
 										var drawControl = new L.Control.Draw({
-										 draw: {
-											 polyline: false,
- 										 	 marker: false
-										 },
-										 edit: {featureGroup: drawnItems}
-									 });
+											draw: {
+												polygon: true,
+												polyline: false,
+												rectangle: true,
+												marker: false,
+												circle: true,
+											},
+												edit: {
+													featureGroup: drawnItems
+												}
+										});
 
 										 map.addControl(drawControl);
 
@@ -263,16 +272,6 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-
-		<!-- Mapbox -->
-			<script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
-
-		<!-- Leaflet Draw -->
-			<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.js'></script>
-
-		<!-- jQuery -->
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
- 	  	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 		<!-- Bootstrap -->
 			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
