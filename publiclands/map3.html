@@ -7,9 +7,7 @@
 <html>
 	<head>
 		<title>Public Land Use Preferences</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<!-- mapbox js -->
 		<link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
@@ -31,6 +29,23 @@
 	 <link rel="stylesheet" href="assets/css/leaflet-sidebar.css"/>
 
 	</head>
+
+	<style>
+		body {
+				padding: 0;
+				margin: 0;
+		}
+
+		html, body, #map {
+				height: 100%;
+		}
+
+		.lorem {
+				font-style: italic;
+				color: #AAA;
+		}
+</style>
+
 	<body>
 
 		    <!-- <div id="sidebar">
@@ -112,29 +127,29 @@
 														        });
 
 										// Create variable for Leaflet.draw features
-										// var drawnItems = L.featureGroup().addTo(map);
-										// map.addLayer(drawnItems);
-										//
-										// //UserMarker = L.featureGroup().addTo(map);
-										// //map.addLayer(UserMarker);
-										//
-										// var drawControl = new L.Control.Draw({
-										// 	position: 'topright',
-										// 	draw: {
-										// 		polyline: false,
-										// 		marker: false
-										// 	},
-										// 		edit: {
-										// 			featureGroup: drawnItems
-										// 		}
-										// });
-										// map.addControl(drawControl);
-										//
-										// map.on('draw:created', function (e) {
-										//   var layer = e.layer;
-										//   drawnItems.addLayer(layer);
-										//   map.addLayer(drawnItems);
-										//  });
+										var drawnItems = L.featureGroup().addTo(map);
+										map.addLayer(drawnItems);
+
+										//UserMarker = L.featureGroup().addTo(map);
+										//map.addLayer(UserMarker);
+
+										var drawControl = new L.Control.Draw({
+											position: 'topright',
+											draw: {
+												polyline: false,
+												marker: false
+											},
+												edit: {
+													featureGroup: drawnItems
+												}
+										});
+										map.addControl(drawControl);
+
+										map.on('draw:created', function (e) {
+										  var layer = e.layer;
+										  drawnItems.addLayer(layer);
+										  map.addLayer(drawnItems);
+										 });
 
 									</script>
 
