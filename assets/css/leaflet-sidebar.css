@@ -1,6 +1,6 @@
 .leaflet-sidebar {
   position: absolute;
-  height: 50%;
+  height: 100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -19,8 +19,8 @@
     .leaflet-sidebar.right.visible {
       right: 0; }
   .leaflet-sidebar > .leaflet-control {
-    height: 50%;
-    width: 50%;
+    height: 100%;
+    width: 100%;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     -webkit-box-sizing: border-box;
@@ -38,18 +38,18 @@
       background-clip: padding-box; }
   @media (max-width: 767px) {
     .leaflet-sidebar {
-      width: 25%;
+      width: 100%;
       padding: 0; }
       .leaflet-sidebar.left.visible ~ .leaflet-left {
-        left: 25%; }
+        left: 100%; }
       .leaflet-sidebar.right.visible ~ .leaflet-right {
-        right: 25%; }
+        right: 100%; }
       .leaflet-sidebar.left {
-        left: -25%; }
+        left: -100%; }
         .leaflet-sidebar.left.visible {
           left: 0; }
       .leaflet-sidebar.right {
-        right: -25%; }
+        right: -100%; }
         .leaflet-sidebar.right.visible {
           right: 0; }
       .leaflet-sidebar > .leaflet-control {
