@@ -19,10 +19,10 @@
 	 <link rel='stylesheet' href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css' />
 	 <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.js'></script>
 
-	 <!-- bootstrap for popup-->
-	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+	 <!-- jquery -->
+	 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> <!-- jQuery v1.11.2 JS -->
+	 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> <!-- jQueryUI v1.11.4 JS -->
 
 	</head>
 
@@ -81,171 +81,102 @@
 									<!-- add map div -->
 									<div id='map' style='height: 75vh;'></div>
 
+									<div id="controls">
+						        <p>Click points for more information, or add your own.</br></p>
+						        <input type="button" onclick="startEdits()" value="Click to Start Editing">
+						        <input type="button" onclick="stopEdits()" value="Stop Your Editing Session"><br>
+						        <div id="credits"><p>#webMapWorkshop - &copy;2017, Mike Foster</p></div>
+						      </div>
+						    </div>
+
+						    <div id="dialog" title="Point Information">
+						      <form>
+						        <fieldset style="border: none;">
+						          <ul style="list-style-type: none; padding-left: 0px">
+						            <li><label for="username">Your Name</label></li>
+						            <li><input type="text" name="username" id="username" placeholder="Enter your name" class="text ui-widget-content ui-corner-all"></li>
+						            <li><label for="description">About this Point</label></li>
+						            <li><input type="text" name="description" id="description" placeholder="Description for this point" class="text ui-widget-content ui-corner-all"></li>
+						          </ul>
+						          <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+						        </fieldset>
+						      </form>
+						    </div>
+
 									<script>
+
 											//Leaflet.draw
-											var drawnItems = L.featureGroup().addTo(map);
+											//var drawnItems = L.featureGroup().addTo(map);
 											var drawControl = new L.Control.Draw({
 											 draw: {
 												 polyline: false,
  											 	 marker: false
 											 },
 											 edit: {featureGroup: drawnItems}
-											}).addTo(map);
+										 	});
 
-											map.on('draw:created', function (event) {
-										    var layer = event.layer,
-										        feature = layer.feature = layer.feature || {}; // Intialize layer.feature
+										// http://duspviz.mit.edu/web-map-workshop/cartodb-data-collection/
+										// Boolean global variable used to control visiblity
+										var controlOnMap = false;
 
-										    feature.type = feature.type || "Feature"; // Intialize feature.type
-										    var props = feature.properties = feature.properties || {}; // Intialize feature.properties
-										    props.title = "my title";
-										    props.content = "my content";
-										    drawnItems.addLayer(layer);
+										// Create variable for Leaflet.draw features
+										var drawnItems = new L.FeatureGroup();
+
+										// Function to add the draw control to the map to start editing
+										function startEdits(){
+										  if(controlOnMap == true){
+										    map.removeControl(drawControl);
+										    controlOnMap = false;
+										  }
+										  map.addControl(drawControl);
+										  controlOnMap = true;
+										};
+
+										// Function to remove the draw control from the map
+										function stopEdits(){
+										  map.removeControl(drawControl);
+										  controlOnMap = false;
+										};
+
+										// Function to run when feature is drawn on map
+										map.on('draw:created', function (e) {
+										  var layer = e.layer;
+										  drawnItems.addLayer(layer);
+										  map.addLayer(drawnItems);
+										  dialog.dialog("open");
 										});
 
-											function saveIdIW() {
-											  var sName = $('#shapeName').val();
-											  var sDesc = $('#shapeDesc').val();
-											  var drawings = drawnItems.getLayers(); //drawnItems is a container for the drawn objects
-											  drawings[drawings.length - 1].title = sName;
-											  drawings[drawings.length - 1].content = sDesc;
-											  map.closePopup();
-											};
+										// Use the jQuery UI dialog to create a dialog and set options
+										var dialog = $("#dialog").dialog({
+										  autoOpen: false,
+										  height: 300,
+										  width: 350,
+										  modal: true,
+										  position: {
+										    my: "center center",
+										    at: "center center",
+										    of: "#map"
+										  },
+										  buttons: {
+										    "Add to Database": setData,
+										    Cancel: function() {
+										      dialog.dialog("close");
+										      map.removeLayer(drawnItems);
+										    }
+										  },
+										  close: function() {
+										    form[ 0 ].reset();
+										    console.log("Dialog closed");
+										  }
+										});
 
-											//event function https://gis.stackexchange.com/questions/298655/updating-popup-of-a-leaflet-polygon
-											function onclick(e) {
-											  e.layer.bindPopup('A popup!');
-											}
+										// Stops default form submission and ensures that setData or the cancel function run
+										var form = dialog.find("form").on("submit", function(event) {
+										  event.preventDefault();
+										});
 
-											//bind listener to layers
-											drawnItems.on("click",onclick)
 
-											Export
-											document.getElementById('export').onclick = function(e) {
-											  // Extract GeoJson from featureGroup
-											  var data = drawnItems.toGeoJSON();
-											  // Stringify the GeoJson
-											  var convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
-											  // Create export
-											  document.getElementById('export').setAttribute('href', 'data:' + convertedData);
-											  document.getElementById('export').setAttribute('download', 'drawnItems.geojson');
-											}
 
-										// //http://duspviz.mit.edu/web-map-workshop/cartodb-data-collection/
-										// var drawnItems = new L.featureGroup();
-										//
-						        // var drawControl = new L.Control.Draw({
-										// 		draw: {
-										// 			polyline: false,
-										// 			marker: false
-										// 		},
-										// 		edit: {
-						        //         featureGroup: drawnItems
-						        //     }
-						        // }).addTo(map);
-										//
-										// // adds each feature drawn to group: https://bl.ocks.org/danswick/d30c44b081be31aea483
-										// map.on('draw:created', function(e) {
-										// 	var layer = e.layer;
-										//   drawnItems.addLayer(layer);
-										//   map.addLayer(drawnItems);
-										//   dialog.dialog("open");
-						        // });
-										//
-										// // Use the jQuery UI dialog to create a dialog and set options
-										// var dialog = $("#dialog").dialog({
-										//   autoOpen: false,
-										//   height: 300,
-										//   width: 350,
-										//   modal: true,
-										//   position: {
-										//     my: "center center",
-										//     at: "center center",
-										//     of: "#map"
-										//   },
-										//   buttons: {
-										//     "Add to Database": setData,
-										//     Cancel: function() {
-										//       dialog.dialog("close");
-										//       map.removeLayer(drawnItems);
-										//     }
-										//   },
-										//   close: function() {
-										//     form[ 0 ].reset();
-										//     console.log("Dialog closed");
-										//   }
-										// });
-										//
-										// // Stops default form submission and ensures that setData or the cancel function run
-										// var form = dialog.find("form").on("submit", function(event) {
-										//   event.preventDefault();
-										// });
-
-									// popup https://gis.stackexchange.com/questions/232585/changing-data-and-style-with-select-in-leaflet-popup
-									// function onEachFeature(feature, layer) {
-									//
-									//   var select = document.createElement('select'),
-									//     option0 = document.createElement('option'),
-									//     option1 = document.createElement('option'),
-									//     option2 = document.createElement('option');
-									//
-									//   select.addEventListener('change', function() {
-									//     restyleLayer(this.value, this.layer);
-									//   });
-									//
-									//   select.layer = layer;
-									//
-									//   option0.value = 'Nope';
-									//   option0.selected = true;
-									//   option0.innerHTML = 'None';
-									//
-									//   option1.value = 'Democrat';
-									//   option1.innerHTML = 'Democrat';
-									//
-									//   option2.value = 'Republican';
-									//   option2.innerHTML = 'Republican';
-									//
-									//   select.appendChild(option0);
-									//   select.appendChild(option1);
-									//   select.appendChild(option2);
-									//
-									//   layer.bindPopup(select);
-									//
-									// }
-									//
-									// var states_geojson = L.geoJSON(featureGroup, {
-									//   style: function(feature) {
-									//     return getColor(feature.properties.party)
-									//   },
-									//   onEachFeature: onEachFeature
-									// }).addTo(map);
-									//
-									// function getColor(party) {
-									//   console.log(party)
-									//   switch (party) {
-									//     case 'Republican':
-									//       return {
-									//         color: "red"
-									//       };
-									//     case 'Democrat':
-									//       return {
-									//         color: "blue"
-									//       };
-									//     case 'Nope':
-									//       return {
-									//         color: 'grey'
-									//       };
-									//   }
-									// }
-									//
-									// function restyleLayer(party, layer) {
-									//
-									//   layer.feature.properties.party = party;
-									//
-									//   var myFillColor = getColor(party);
-									//
-									//   layer.setStyle(myFillColor);
-									// }
 
 									</script>
 								</section>
