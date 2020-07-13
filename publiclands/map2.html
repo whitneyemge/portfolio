@@ -81,7 +81,8 @@
 
 										// Create variable for Leaflet.draw features
 										var drawnItems = L.featureGroup().addTo(map);
-
+										map.addLayer(drawnItems);
+										
 										var UserMarker = L.featureGroup().addTo(map);
 										map.addLayer(UserMarker);
 
