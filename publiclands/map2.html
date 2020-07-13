@@ -91,6 +91,9 @@
 										    position: 'topright'
 										}).addTo(map);
 
+										// add sidebar to map
+										var sidebar = L.control.sidebar('sidebar').addTo(map);
+
 										// Create variable for Leaflet.draw features
 										var drawnItems = L.featureGroup().addTo(map);
 										map.addLayer(drawnItems);
