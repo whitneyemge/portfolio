@@ -27,10 +27,6 @@
 	 <!-- bootstrap -->
 	 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-	 <!-- Leaflet Sidebar plugin -->
-	 <link rel="stylesheet" href="assets/css/leaflet-sidebar.css"/>
-	 <script src="assets/js/leaflet-sidebar.js"></script>
-
 	</head>
 
 	<body>
@@ -76,6 +72,17 @@
 									<!-- add map div -->
 									<div id='map' style='height: 75vh;'>
 
+										<div id="dialog" title="Point Information">
+										  <form>
+										    <fieldset>
+										      <label for="username">Your Name</label>
+										      <input type="text" name="username" id="username" placeholder="Enter your Name" class="text ui-widget-content ui-corner-all">
+										      <label for="description">About this Point</label>
+										      <input type="text" name="description" id="description" placeholder="Description for this point" class="text ui-widget-content ui-corner-all">
+										      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+										    </fieldset>
+										  </form>
+										</div>
 
 									</div>
 
@@ -113,9 +120,15 @@
 
 										map.on('draw:created', function (e) {
 										  var layer = e.layer;
-										  drawnItems.addLayer(layer);
-										  map.addLayer(drawnItems);
-										 });
+												popupContent = layer.toGeoJSON ?
+									      	JSON.stringify(layer.toGeoJSON()) : "(no data)";
+
+									  // Do whatever else you need to. (save to db, add to map etc)
+									  drawnItems.addLayer(layer);
+									  map.addLayer(drawnItems);
+									  layer.bindPopup(popupContent).openPopup();
+									});
+
 
 										 // https://gis.stackexchange.com/questions/159536/submit-form-information-from-a-leaflet-popup-to-mysql-table
 										 // map.on('draw:created', function (e) {
@@ -290,7 +303,7 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 
-		<!-- Bootstrap -->
+		<!-- Bootstrap Scripts -->
 			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
