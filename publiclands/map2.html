@@ -97,79 +97,86 @@
 										});
 										map.addControl(drawControl);
 
+										map.on('draw:created', function (e) {
+										  var layer = e.layer;
+										  drawnItems.addLayer(layer);
+										  map.addLayer(drawnItems);
+										  dialog.dialog("open");
+										});
+
 										 // https://gis.stackexchange.com/questions/159536/submit-form-information-from-a-leaflet-popup-to-mysql-table
-										 map.on('draw:created', function (e) {
-										  var type = e.layerType,
-										     layer = e.layer;
-										     var coords = e.layer._latlng;
-										       console.log(coords);
-										  UserMarker.addLayer(layer);
-										  var popup = L.popup({maxWidth: 1000})
-										     .setLatLng(layer.getLatLng())
-										     .setContent('<form role="form" id="form" onsubmit="addMarker()">'+
-
-										              '<div class="form-group">'+
-										               '<label class="control-label col-sm-12"><strong>Was the officer following protocol? </strong></label>'+ "<br>" +
-										               '<select class="form-control" placeholder="Required" id="protocol" name="text">'+
-										                 '<option value="Following Protocol">Following Protocol</option>'+
-										                 '<option value="Not Following Protocol">Not Following Protocol</option>'+
-										                 '<option value="I Dont Know">I Dont Know</option>'+
-										               '</select>'+
-										           '</div>'+
-
-										               '<div class="form-group">'+
-										                '<label class="control-label col-lg-10"><strong>Jurisdiction </strong></label>'+ "<br>" +
-										                '<select class="form-control" id="jurisdiction" name="text">'+
-										                 '<option value="City PD">City PD</option>'+
-										                 '<option value="County Sheriff">County Sheriff</option>'+
-										                 '<option value="CHP">CHP</option>'+
-										                 '<option value="Other">Other</option>'+
-										               '</select>'+
-										           '</div>'+
-
-										                '<div class="form-group">'+
-										               '<label class="control-label col-sm-10"><strong>Was there an arrest? </strong></label>'+ "<br>" +
-										               '<select class="form-control" id="arrest" name="text">'+
-										                 '<option value="Yes">Yes</option>'+
-										                 '<option value="No">No</option>'+
-										                 '<option value="I Dont Know">I Dont Know</option>'+
-										               '</select>'+
-										           '</div>'+
-
-										           '<div class="form-group">'+
-										               '<label class="control-label col-sm-10"><strong>Date </strong> (Example: 8/1/2015) </label>'+ "<br>" +
-										               '<input type="date" placeholder="Example: 8/1/2015" id="date" name="date" class="form-control"/>'+
-										           '</div>'+
-
-										             '<div class="form-group">'+
-										               '<label class="control-label col-sm-10"><strong>Time Of Day </strong></label>'+ "<br>" +
-										               '<select class="form-control" id="time" name="text">'+
-										                 '<option value="Morning">Morning</option>'+
-										                 '<option value="Afternoon">Afternoon</option>'+
-										                 '<option value="Night">Night</option>'+
-										                 '<option value="Late Night or Early Morning">Late Night or Early Morning</option>'+
-										               '</select>'+
-										           '</div>'+
-
-										           '<div class="form-group">'+
-										               '<label class="control-label col-sm-10"><strong>Comments </strong></label>'+ "<br>" +
-										               '<input type="text" placeholder="Briefly tell us what happened" id="comments" name="comments" class="form-control"/>'+
-										           '</div>'+
-
-										           '<div class="form-group">'+
-										               '<label class="control-label col-sm-10"><strong>Video Link </strong></label>'+ "<br>" +
-										               '<input type="text" placeholder="Do you have a video? Add link here" id="video" name="video" class="form-control"/>'+
-										           '</div>'+
-
-										                         '<div class="form-group">'+
-										                 '<div style="text-align:center;" class="col-xs-11"><button style="text-align:center;" id="submit" value="submit" class="btn btn-primary trigger-submit">Submit</button></div>'+
-										           '</div>'+ "<br>" +
-
-										         '<strong>' + '-' + '</strong'+
-
-										           '</form>')
-										     .openOn(map);
-										 });
+										 // map.on('draw:created', function (e) {
+										 //  var type = e.layerType,
+										 //     layer = e.layer;
+										 //     var coords = e.layer._latlng;
+										 //       console.log(coords);
+										 //  UserMarker.addLayer(layer);
+										 //  var popup = L.popup({maxWidth: 1000})
+										 //     .setLatLng(layer.getLatLng())
+										 //     .setContent('<form role="form" id="form" onsubmit="addMarker()">'+
+										 //
+										 //              '<div class="form-group">'+
+										 //               '<label class="control-label col-sm-12"><strong>Was the officer following protocol? </strong></label>'+ "<br>" +
+										 //               '<select class="form-control" placeholder="Required" id="protocol" name="text">'+
+										 //                 '<option value="Following Protocol">Following Protocol</option>'+
+										 //                 '<option value="Not Following Protocol">Not Following Protocol</option>'+
+										 //                 '<option value="I Dont Know">I Dont Know</option>'+
+										 //               '</select>'+
+										 //           '</div>'+
+										 //
+										 //               '<div class="form-group">'+
+										 //                '<label class="control-label col-lg-10"><strong>Jurisdiction </strong></label>'+ "<br>" +
+										 //                '<select class="form-control" id="jurisdiction" name="text">'+
+										 //                 '<option value="City PD">City PD</option>'+
+										 //                 '<option value="County Sheriff">County Sheriff</option>'+
+										 //                 '<option value="CHP">CHP</option>'+
+										 //                 '<option value="Other">Other</option>'+
+										 //               '</select>'+
+										 //           '</div>'+
+										 //
+										 //                '<div class="form-group">'+
+										 //               '<label class="control-label col-sm-10"><strong>Was there an arrest? </strong></label>'+ "<br>" +
+										 //               '<select class="form-control" id="arrest" name="text">'+
+										 //                 '<option value="Yes">Yes</option>'+
+										 //                 '<option value="No">No</option>'+
+										 //                 '<option value="I Dont Know">I Dont Know</option>'+
+										 //               '</select>'+
+										 //           '</div>'+
+										 //
+										 //           '<div class="form-group">'+
+										 //               '<label class="control-label col-sm-10"><strong>Date </strong> (Example: 8/1/2015) </label>'+ "<br>" +
+										 //               '<input type="date" placeholder="Example: 8/1/2015" id="date" name="date" class="form-control"/>'+
+										 //           '</div>'+
+										 //
+										 //             '<div class="form-group">'+
+										 //               '<label class="control-label col-sm-10"><strong>Time Of Day </strong></label>'+ "<br>" +
+										 //               '<select class="form-control" id="time" name="text">'+
+										 //                 '<option value="Morning">Morning</option>'+
+										 //                 '<option value="Afternoon">Afternoon</option>'+
+										 //                 '<option value="Night">Night</option>'+
+										 //                 '<option value="Late Night or Early Morning">Late Night or Early Morning</option>'+
+										 //               '</select>'+
+										 //           '</div>'+
+										 //
+										 //           '<div class="form-group">'+
+										 //               '<label class="control-label col-sm-10"><strong>Comments </strong></label>'+ "<br>" +
+										 //               '<input type="text" placeholder="Briefly tell us what happened" id="comments" name="comments" class="form-control"/>'+
+										 //           '</div>'+
+										 //
+										 //           '<div class="form-group">'+
+										 //               '<label class="control-label col-sm-10"><strong>Video Link </strong></label>'+ "<br>" +
+										 //               '<input type="text" placeholder="Do you have a video? Add link here" id="video" name="video" class="form-control"/>'+
+										 //           '</div>'+
+										 //
+										 //                         '<div class="form-group">'+
+										 //                 '<div style="text-align:center;" class="col-xs-11"><button style="text-align:center;" id="submit" value="submit" class="btn btn-primary trigger-submit">Submit</button></div>'+
+										 //           '</div>'+ "<br>" +
+										 //
+										 //         '<strong>' + '-' + '</strong'+
+										 //
+										 //           '</form>')
+										 //     .openOn(map);
+										 // });
 
 										// http://duspviz.mit.edu/web-map-workshop/cartodb-data-collection/
 
