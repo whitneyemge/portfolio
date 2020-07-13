@@ -9,162 +9,110 @@
 		<title>Public Land Use Preferences</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<!-- mapbox js -->
-		<link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
-		<script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
+	 <!-- leaflet -->
+	 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+	   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+	   crossorigin=""/>
 
-	 <!-- leaflet draw library -->
-	 <link rel='stylesheet' href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css' />
-	 <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.js'></script>
-
-	 <!-- jquery -->
-	 <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-	 <!-- bootstrap -->
-	 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-	 <!-- Leaflet Sidebar plugin -->
+	 <!-- Leaflet Sidebar -->
 	 <link rel="stylesheet" href="assets/css/leaflet-sidebar.css"/>
 
 	</head>
 
 	<style>
-		body {
-				padding: 0;
-				margin: 0;
-		}
+			body {
+					padding: 0;
+					margin: 0;
+			}
 
-		html, body, #map {
-				height: 100%;
-		}
+			html, body, #map {
+					height: 100%;
+			}
 
-		.lorem {
-				font-style: italic;
-				color: #AAA;
-		}
-</style>
+			.lorem {
+					font-style: italic;
+					color: #AAA;
+			}
+	</style>
+</head>
+<body>
+	<div id="sidebar">
+			<h1>leaflet-sidebar</h1>
 
-	<body>
+			<p>A responsive sidebar plugin for for <a href="http://leafletjs.com/">Leaflet</a>, a JS library for interactive maps.</p>
 
-		    <!-- <div id="sidebar">
-		        <h1>leaflet-sidebar</h1>
-					</div> -->
+			<p><b>Click on the marker to show the sidebar again when you've closed it.</b></p>
 
-									<!-- add map div -->
-								<div id='map' style='height: 100vh;'>
-										<div id="sidebar">
-											<h1>leaflet-sidebar</h1>
-											<p>A responsive sidebar plugin for for <a href="http://leafletjs.com/">Leaflet</a>, a JS library for interactive maps.</p>
+			<p>Other examples:</p>
 
-        <p><b>Click on the marker to show the sidebar again when you've closed it.</b></p>
+			<ul>
+					<li><a href="listing-markers.html">listing-markers example</a></li>
+					<li><a href="two-sidebars.html">two-sidebars example</a></li>
+			</ul>
 
-        <p>Other examples:</p>
+			<p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 
-        <ul>
-            <li><a href="listing-markers.html">listing-markers example</a></li>
-            <li><a href="two-sidebars.html">two-sidebars example</a></li>
-        </ul>
+			<p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 
-        <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+			<p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 
-        <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+			<p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+	</div>
 
-        <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-
-										</div>
-								</div>
-
+	<div id="map"></div>
+	
+	<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+			<script src="assets/js/leaflet-sidebar.js"></script>
 
 									<script>
 
-                  var map = L.map('map', {zoomControl: false}).setView([48.588, -117.870], 9);
-                    L.tileLayer('https://api.mapbox.com/styles/v1/emgew/cka5l6m1s17cr1imz0gwap4ey/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ', {
-                        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-										}).addTo(map);
+							        var map = L.map('map');
+							        map.setView([51.2, 7], 9);
 
-										// L.control.zoom({
-										//     position: 'topright'
-										// }).addTo(map);
+							        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+							            maxZoom: 18,
+							            attribution: 'Map data &copy; OpenStreetMap contributors'
+							        }).addTo(map);
 
-										var sidebar = L.control.sidebar('sidebar', {
-										            closeButton: true,
-										            position: 'left'
-										        });
-										        map.addControl(sidebar);
+							        var sidebar = L.control.sidebar('sidebar', {
+							            closeButton: true,
+							            position: 'left'
+							        });
+							        map.addControl(sidebar);
 
-														setTimeout(function () {
-														            sidebar.show();
-														        }, 500);
+							        setTimeout(function () {
+							            sidebar.show();
+							        }, 500);
 
-														        var marker = L.marker([51.2, 7]).addTo(map).on('click', function () {
-														            sidebar.toggle();
-														        });
+							        var marker = L.marker([51.2, 7]).addTo(map).on('click', function () {
+							            sidebar.toggle();
+							        });
 
-														        map.on('click', function () {
-														            sidebar.hide();
-														        })
+							        map.on('click', function () {
+							            sidebar.hide();
+							        })
 
-														        sidebar.on('show', function () {
-														            console.log('Sidebar will be visible.');
-														        });
+							        sidebar.on('show', function () {
+							            console.log('Sidebar will be visible.');
+							        });
 
-														        sidebar.on('shown', function () {
-														            console.log('Sidebar is visible.');
-														        });
+							        sidebar.on('shown', function () {
+							            console.log('Sidebar is visible.');
+							        });
 
-														        sidebar.on('hide', function () {
-														            console.log('Sidebar will be hidden.');
-														        });
+							        sidebar.on('hide', function () {
+							            console.log('Sidebar will be hidden.');
+							        });
 
-														        sidebar.on('hidden', function () {
-														            console.log('Sidebar is hidden.');
-														        });
+							        sidebar.on('hidden', function () {
+							            console.log('Sidebar is hidden.');
+							        });
 
-														        L.DomEvent.on(sidebar.getCloseButton(), 'click', function () {
-														            console.log('Close button clicked.');
-														        });
-
-										// Create variable for Leaflet.draw features
-										var drawnItems = L.featureGroup().addTo(map);
-										map.addLayer(drawnItems);
-
-										//UserMarker = L.featureGroup().addTo(map);
-										//map.addLayer(UserMarker);
-
-										var drawControl = new L.Control.Draw({
-											position: 'topright',
-											draw: {
-												polyline: false,
-												marker: false
-											},
-												edit: {
-													featureGroup: drawnItems
-												}
-										});
-										map.addControl(drawControl);
-
-										map.on('draw:created', function (e) {
-										  var layer = e.layer;
-										  drawnItems.addLayer(layer);
-										  map.addLayer(drawnItems);
-										 });
-
-									</script>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-			<script src="assets/js/leaflet-sidebar.js"></script>
-
-		<!-- Bootstrap -->
-			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-	</body>
-</html>
+							        L.DomEvent.on(sidebar.getCloseButton(), 'click', function () {
+							            console.log('Close button clicked.');
+							        });
+							    </script>
+							</body>
+							</html>
