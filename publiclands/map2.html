@@ -76,6 +76,33 @@
 									<!-- add map div -->
 									<div id='map' style='height: 75vh;'></div>
 
+									<!-- convert attributes to geojson -->
+									<button id="convert">
+									Get all features to GeoJSON string
+									</button>
+
+									<div class="modal" id="attributes">
+									  <div class="modal-dialog">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h4 class="modal-title">Attribute Data</h4>
+									      </div>
+									      <div class="modal-body">
+
+									<div  class="content-scroll5">
+
+									<div class="col-xs-2">
+									  <label for="ex1">ACTION</label>
+									  <input class="form-control" name="action" id="actin" type="text">
+									</div>
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+									      </div>
+									    </div>
+									  </div>
+									</div>
+
 										<!-- begin script -->
 										<script>
 
@@ -84,43 +111,91 @@
 											    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 											}).addTo(map);
 
-											//Leaflet.draw
-											var drawnItems = L.featureGroup().addTo(map);
-											var drawControl = new L.Control.Draw({
-											 draw: {
-												 polyline: false,
- 											 	 marker: false
-											 },
-											 edit: {featureGroup: drawnItems}
-											}).addTo(map);
+											ar editableLayers = L.geoJson().addTo(map);
+											map.addControl(new L.Control.Draw({
+											    edit: {
+											        featureGroup: editableLayers
+											    }
+											}));
 
-											map.on('draw:created', function (event) {
-										    var layer = event.layer,
-										        feature = layer.feature = layer.feature || {}; // Intialize layer.feature
+											map.on('draw:created', function (e) {
+											      var layer = e.layer,
+											        feature = layer.feature = layer.feature || {};
+											    feature.type = feature.type || "Feature";
+											    var props = feature.properties = feature.properties || {};
+											    //layer.feature = {properties: {}}; // No need to convert to GeoJSON.
+											    //var props = layer.feature.properties;
+											    props.action = null;
 
-										    feature.type = feature.type || "Feature"; // Intialize feature.type
-										    var props = feature.properties = feature.properties || {}; // Intialize feature.properties
-										    props.title = "my title";
-										    props.content = "my content";
-										    drawnItems.addLayer(layer);
-										});
+											    editableLayers.addLayer(layer);
+											    addPopup(layer);
+											});
 
-											function saveIdIW() {
-											  var sName = $('#shapeName').val();
-											  var sDesc = $('#shapeDesc').val();
-											  var drawings = drawnItems.getLayers(); //drawnItems is a container for the drawn objects
-											  drawings[drawings.length - 1].title = sName;
-											  drawings[drawings.length - 1].content = sDesc;
-											  map.closePopup();
-											};
+											function addPopup(layer) {
+											    var content = document.getElementById('action');
+											    layer.feature.properties.action = content;
 
-											//event function https://gis.stackexchange.com/questions/298655/updating-popup-of-a-leaflet-polygon
-											function onclick(e) {
-											  e.layer.bindPopup('A popup!');
+											/* content.addEventListener("keyup", function () {
+											        layer.feature.properties.action = content;
+											    });*/
+
+											/*    layer.on("popupopen", function () {
+											        content.value = layer.feature.properties.desc;
+											      content.focus();
+											    });
+											    layer.bindPopup(content).openPopup();*/
+
+											    layer.on('click', function() {
+											        $('#action').val(layer.feature.properties.action);
+
+											            //content.value = layer.feature.properties.action;
+											            $('#attributes').modal({'show' : true, backdrop:'static', keyboard:false});
+											           $('#action').val(layer.feature.properties.action);
+											        });
+
 											}
 
-											//bind listener to layers
-											drawnItems.on("click",onclick)
+											document.getElementById("convert").addEventListener("click", function () {
+											    console.log(JSON.stringify(editableLayers.toGeoJSON(), null, 2));
+											});
+											
+											//Leaflet.draw
+										// 	var drawnItems = L.featureGroup().addTo(map);
+										// 	var drawControl = new L.Control.Draw({
+										// 	 draw: {
+										// 		 polyline: false,
+ 										// 	 	 marker: false
+										// 	 },
+										// 	 edit: {featureGroup: drawnItems}
+										// 	}).addTo(map);
+										//
+										// 	map.on('draw:created', function (event) {
+										//     var layer = event.layer,
+										//         feature = layer.feature = layer.feature || {}; // Intialize layer.feature
+										//
+										//     feature.type = feature.type || "Feature"; // Intialize feature.type
+										//     var props = feature.properties = feature.properties || {}; // Intialize feature.properties
+										//     props.title = "my title";
+										//     props.content = "my content";
+										//     drawnItems.addLayer(layer);
+										// });
+										//
+										// 	function saveIdIW() {
+										// 	  var sName = $('#shapeName').val();
+										// 	  var sDesc = $('#shapeDesc').val();
+										// 	  var drawings = drawnItems.getLayers(); //drawnItems is a container for the drawn objects
+										// 	  drawings[drawings.length - 1].title = sName;
+										// 	  drawings[drawings.length - 1].content = sDesc;
+										// 	  map.closePopup();
+										// 	};
+										//
+										// 	//event function https://gis.stackexchange.com/questions/298655/updating-popup-of-a-leaflet-polygon
+										// 	function onclick(e) {
+										// 	  e.layer.bindPopup('A popup!');
+										// 	}
+										//
+										// 	//bind listener to layers
+										// 	drawnItems.on("click",onclick)
 
 											//Export
 											// document.getElementById('export').onclick = function(e) {
