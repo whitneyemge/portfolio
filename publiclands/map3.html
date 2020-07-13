@@ -35,9 +35,13 @@
 
 	<body>
 
-									<!-- add map div -->
-									<div id='map' style='height: 100vh;'></div>
 
+		    <div id="sidebar">
+		        <h1>leaflet-sidebar</h1>
+					</div>
+
+									<!-- add map div -->
+									<div id='map'>
 
 									<script>
 
@@ -50,12 +54,11 @@
 										    position: 'topright'
 										}).addTo(map);
 
-									// 	var sidebar = L.control.sidebar({
-									//     autopan: false,       // whether to maintain the centered map point when opening the sidebar
-									//     closeButton: true,    // whether t add a close button to the panes
-									//     container: 'sidebar', // the DOM container or #ID of a predefined sidebar container that should be used
-									//     position: 'left',     // left or right
-									// }).addTo(map);
+										var sidebar = L.control.sidebar('sidebar', {
+										            closeButton: true,
+										            position: 'left'
+										        });
+										        map.addControl(sidebar);
 
 										// Create variable for Leaflet.draw features
 										var drawnItems = L.featureGroup().addTo(map);
@@ -83,7 +86,7 @@
 										 });
 
 									</script>
-
+</div>
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
