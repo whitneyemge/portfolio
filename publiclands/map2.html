@@ -69,14 +69,6 @@
 									<!-- add map div -->
 									<div id='map' style='height: 75vh;'></div>
 
-									<div id="controls">
-						        <p>Click points for more information, or add your own.</br></p>
-						        <input type="button" onclick="startEdits()" value="Click to Start Editing">
-						        <input type="button" onclick="stopEdits()" value="Stop Your Editing Session"><br>
-						        <div id="credits"><p>#webMapWorkshop - &copy;2017, Mike Foster</p></div>
-						      </div>
-						    </div>
-
 						    <div id="dialog" title="Point Information">
 						      <form>
 						        <fieldset style="border: none;">
@@ -113,22 +105,6 @@
 
 										// Create variable for Leaflet.draw features
 										var drawnItems = new L.FeatureGroup();
-
-										// Function to add the draw control to the map to start editing
-										function startEdits(){
-										  if(controlOnMap == true){
-										    map.removeControl(drawControl);
-										    controlOnMap = false;
-										  }
-										  map.addControl(drawControl);
-										  controlOnMap = true;
-										};
-
-										// Function to remove the draw control from the map
-										function stopEdits(){
-										  map.removeControl(drawControl);
-										  controlOnMap = false;
-										};
 
 										// Function to run when feature is drawn on map
 										map.on('draw:created', function (e) {
