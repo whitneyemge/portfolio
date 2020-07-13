@@ -68,20 +68,6 @@
 									<!-- add map div -->
 									<div id='map' style='height: 75vh;'></div>
 
-						    <!-- <div id="dialog" title="Point Information">
-						      <form>
-						        <fieldset style="border: none;">
-						          <ul style="list-style-type: none; padding-left: 0px">
-						            <li><label for="username">Your Name</label></li>
-						            <li><input type="text" name="username" id="username" placeholder="Enter your name" class="text ui-widget-content ui-corner-all"></li>
-						            <li><label for="description">About this Point</label></li>
-						            <li><input type="text" name="description" id="description" placeholder="Description for this point" class="text ui-widget-content ui-corner-all"></li>
-						          </ul>
-						          <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-						        </fieldset>
-						      </form>
-						    </div> -->
-
 									<script>
 
                   var map = L.map('map').setView([48.588, -117.870], 9);
@@ -90,7 +76,7 @@
                     }).addTo(map);
 
 										// Create variable for Leaflet.draw features
-										//var drawnItems = L.featureGroup().addTo(map);
+										var drawnItems = L.featureGroup().addTo(map);
 
 										UserMarker = L.featureGroup().addTo(map);
 										map.addLayer(UserMarker);
@@ -100,7 +86,7 @@
 											 polyline: false,
  										 	 marker: false
 										 },
-										 edit: {featureGroup: UserMarker}
+										 edit: {featureGroup: drawnItems}
 									 });
 
 										 map.addControl(drawControl);
