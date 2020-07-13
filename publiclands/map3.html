@@ -1,118 +1,160 @@
 <!DOCTYPE HTML>
-<!--
-	Minimaxing by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
 		<title>Public Land Use Preferences</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-	 <!-- leaflet -->
-	 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-	   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-	   crossorigin=""/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        crossorigin=""/>
 
 	 <!-- Leaflet Sidebar -->
-	 <link rel="stylesheet" href="assets/css/leaflet-sidebar.css"/>
+	 <link rel="stylesheet" href="assets/css/leaflet-sidebar.css" />
 
-	</head>
 
 	<style>
-			body {
-					padding: 0;
-					margin: 0;
-			}
+	body {
+			padding: 0;
+			margin: 0;
+	}
 
-			html, body, #map {
-					height: 100%;
-			}
+	html, body, #map {
+			height: 100%;
+			font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
+	}
 
-			.lorem {
-					font-style: italic;
-					color: #AAA;
-			}
+	.lorem {
+			font-style: italic;
+			text-align: justify;
+			color: #AAA;
+	}
 	</style>
+
 </head>
+
 <body>
-	<div id="sidebar">
-			<h1>leaflet-sidebar</h1>
+	<!-- optionally define the sidebar content via HTML markup -->
+	<div id="sidebar" class="leaflet-sidebar collapsed">
 
-			<p>A responsive sidebar plugin for for <a href="http://leafletjs.com/">Leaflet</a>, a JS library for interactive maps.</p>
+			<!-- nav tabs -->
+			<div class="leaflet-sidebar-tabs">
+					<!-- top aligned tabs -->
+					<ul role="tablist">
+							<li><a href="#home" role="tab"><i class="fa fa-bars active"></i></a></li>
+							<li><a href="#autopan" role="tab"><i class="fa fa-arrows"></i></a></li>
+					</ul>
 
-			<p><b>Click on the marker to show the sidebar again when you've closed it.</b></p>
+					<!-- bottom aligned tabs -->
+					<ul role="tablist">
+							<li><a href="https://github.com/nickpeihl/leaflet-sidebar-v2"><i class="fa fa-github"></i></a></li>
+					</ul>
+			</div>
 
-			<p>Other examples:</p>
+			<!-- panel content -->
+			<div class="leaflet-sidebar-content">
+					<div class="leaflet-sidebar-pane" id="home">
+							<h1 class="leaflet-sidebar-header">
+									sidebar-v2
+									<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
+							</h1>
 
-			<ul>
-					<li><a href="listing-markers.html">listing-markers example</a></li>
-					<li><a href="two-sidebars.html">two-sidebars example</a></li>
-			</ul>
+							<p>A responsive sidebar for the mapping library <a href="https://leafletjs.com/">Leaflet</a>.</p>
+							<p>Compatible with version 0.7 and 1.x (tested up to 1.6.0)</p>
+							<p><b>Select the other panes for a showcase of each feature.</b></p>
 
-			<p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+							<h2>More examples</h2>
+							<ul>
+									<li><a href="./position-right.html">Right aligned</a></li>
+									<li><a href="./halfheight.html">The sidebar adapts to map container size</a></li>
+									<li><a href="./leaflet-latest.html">Proof that it works with the latest leaflet version (if not, please report it!)</a></li>
+									<li><a href="./leaflet-0.7.html">Proof that it works with leaflet 0.7</a></li>
+							</ul>
 
-			<p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+							<p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+							<p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+							<p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+							<p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+					</div>
 
-			<p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+					<div class="leaflet-sidebar-pane" id="autopan">
+							<h1 class="leaflet-sidebar-header">
+									autopan
+									<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
+							</h1>
+							<p>
+									<code>Leaflet.control.sidebar({ autopan: true })</code>
+									makes shure that the map center always stays visible.
+							</p>
+							<p>
+									The autopan behviour is responsive as well.
+									Try opening and closing the sidebar from this pane!
+							</p>
+					</div>
 
-			<p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+					<div class="leaflet-sidebar-pane" id="messages">
+							<h1 class="leaflet-sidebar-header">Messages<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+					</div>
+			</div>
 	</div>
 
 	<div id="map"></div>
-	
-	<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-    crossorigin=""></script>
+
+			<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"crossorigin=""></script>
 			<script src="assets/js/leaflet-sidebar.js"></script>
 
 									<script>
 
-							        var map = L.map('map');
-							        map.setView([51.2, 7], 9);
+									// standard leaflet map setup
+					        var map = L.map('map');
+					        map.setView([51.2, 7], 9);
+					        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+					            maxZoom: 18,
+					            attribution: 'Map data &copy; OpenStreetMap contributors'
+					        }).addTo(map);
+					        L.marker([51.2, 7]).addTo(map);
 
-							        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-							            maxZoom: 18,
-							            attribution: 'Map data &copy; OpenStreetMap contributors'
-							        }).addTo(map);
+					        // create the sidebar instance and add it to the map
+					        var sidebar = L.control.sidebar({ container: 'sidebar' })
+					            .addTo(map)
+					            .open('home');
 
-							        var sidebar = L.control.sidebar('sidebar', {
-							            closeButton: true,
-							            position: 'left'
-							        });
-							        map.addControl(sidebar);
+					        // add panels dynamically to the sidebar
+					        sidebar
+					            .addPanel({
+					                id:   'js-api',
+					                tab:  '<i class="fa fa-gear"></i>',
+					                title: 'JS API',
+					                pane: '<p>The Javascript API allows to dynamically create or modify the panel state.<p/><p><button onclick="sidebar.enablePanel(\'mail\')">enable mails panel</button><button onclick="sidebar.disablePanel(\'mail\')">disable mails panel</button></p><p><button onclick="addUser()">add user</button></b>',
+					            })
+					            // add a tab with a click callback, initially disabled
+					            .addPanel({
+					                id:   'mail',
+					                tab:  '<i class="fa fa-envelope"></i>',
+					                title: 'Messages',
+					                button: function() { alert('opened via JS callback') },
+					                disabled: true,
+					            })
 
-							        setTimeout(function () {
-							            sidebar.show();
-							        }, 500);
+					        // be notified when a panel is opened
+					        sidebar.on('content', function (ev) {
+					            switch (ev.id) {
+					                case 'autopan':
+					                sidebar.options.autopan = true;
+					                break;
+					                default:
+					                sidebar.options.autopan = false;
+					            }
+					        });
 
-							        var marker = L.marker([51.2, 7]).addTo(map).on('click', function () {
-							            sidebar.toggle();
-							        });
-
-							        map.on('click', function () {
-							            sidebar.hide();
-							        })
-
-							        sidebar.on('show', function () {
-							            console.log('Sidebar will be visible.');
-							        });
-
-							        sidebar.on('shown', function () {
-							            console.log('Sidebar is visible.');
-							        });
-
-							        sidebar.on('hide', function () {
-							            console.log('Sidebar will be hidden.');
-							        });
-
-							        sidebar.on('hidden', function () {
-							            console.log('Sidebar is hidden.');
-							        });
-
-							        L.DomEvent.on(sidebar.getCloseButton(), 'click', function () {
-							            console.log('Close button clicked.');
-							        });
+					        var userid = 0
+					        function addUser() {
+					            sidebar.addPanel({
+					                id:   'user' + userid++,
+					                tab:  '<i class="fa fa-user"></i>',
+					                title: 'User Profile ' + userid,
+					                pane: '<p>user ipsum dolor sit amet</p>',
+					            });
+					        }
 							    </script>
 							</body>
 							</html>
