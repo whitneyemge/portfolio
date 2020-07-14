@@ -110,7 +110,7 @@
 
 										map.on('draw:created', function (e) {
 											var layer = e.layer;
-												var popupContent = '<span><b>Land Use Type</b></span><br>Select one<br><br><select id="useType" name="useType"><select><option value="recY">Recreation - Yes</option><option value="recN">Recreation - No</option><option value="timY">Timber Harvest - Yes</option><option value="timN">Timber Harvest - No</option</select><br><br><span><b>Values</b></span><br>Press and hold the control key to select more than one value.<br></span><br><select id="values" name="values" size ="4" multiple><option value="cultural">Cultural</option><option value="intrinsic">Intrinsic</option><option value="identity">Identity</option><option value="economic">Economic</option></select><br><br><input type="button" id="okBtn" value="Save" onclick="saveIdIW()"/>';
+												var popupContent = '<span><b>Land Use Type</b></span><br>Select one<br><select id="useType" name="useType"><option value="recY">Recreation - Yes</option><option value="recN">Recreation - No</option><option value="timY">Timber Harvest - Yes</option><option value="timN">Timber Harvest - No</option></select><br><br><span><b>Values</b></span><br>Press and hold the control key to select more than one value.<br></span><br><select id="values" name="values" size ="4" multiple><option value="cultural">Cultural</option><option value="intrinsic">Intrinsic</option><option value="identity">Identity</option><option value="economic">Economic</option></select><br><br><input type="button" id="okBtn" value="Save" onclick="saveIdIW()"/>';
 
 										// Do whatever else you need to. (save to db, add to map etc)
 										drawnItems.addLayer(layer);
