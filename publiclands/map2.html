@@ -102,7 +102,7 @@
 										// popup form https://www.w3schools.com/html/html_form_elements.asp
 										map.on('draw:created', function (e) {
 											var layer = e.layer;
-												var popupContent = '<span><b>Land Use Type</b></span><br>Select one<br><select id="useType" name="useType"><option value="recY">Recreation - Yes</option><option value="recN">Recreation - No</option><option value="timY">Timber Harvest - Yes</option><option value="timN">Timber Harvest - No</option></select><br><br><span><b>Values</b></span><br>Press and hold the control key to select more than one value.<br></span><br><select id="values" name="values" size ="4" multiple><option value="scenic">Scenic/aesthetic</option><option value="recreation">Recreation</option><option value="life">Life Sustaining</option><option value="educational">Learning/education/research</option><option value="conservation">Biological/conservation</option><option value="cultural">Cultural</option><option value="health">Therapeutic/health</option><option value="spiritual">Spiritual</option><option value="intrinsic">Intrinsic/existence</option><option value="identity">Identity</option><option value="economic">Economic</option><option value="wilderness">Wilderness/pristine</option></select><br><br><span><b>Comments</b></span><br><textarea id="shapeDesc" cols="25" rows="5"></textarea><br><br><input type="button" id="okBtn" value="Save" onclick="saveIdIW()"/>';
+												var popupContent = '<span><b>Land Use Type</b></span><br>Select one<br><select id="useType" name="useType"><option value="recY">Recreation - Yes</option><option value="recN">Recreation - No</option><option value="timY">Timber Harvest - Yes</option><option value="timN">Timber Harvest - No</option></select><br><br><span><b>Values</b></span><br>Press and hold the control key to select more than one value.<br></span><br><select id="values" name="values" size ="4" multiple><option value="scenic">Scenic/aesthetic</option><option value="recreation">Recreation</option><option value="life">Life Sustaining</option><option value="educational">Learning/education/research</option><option value="conservation">Biological/conservation</option><option value="cultural">Cultural</option><option value="health">Therapeutic/health</option><option value="spiritual">Spiritual</option><option value="intrinsic">Intrinsic/existence</option><option value="identity">Identity</option><option value="economic">Economic</option><option value="wilderness">Wilderness/pristine</option></select><br><br><span><b>Comments</b></span><br><textarea id="comments" cols="25" rows="5"></textarea><br><br><input type="button" id="okBtn" value="Save" onclick="save()"/>';
 
 										// Do whatever else you need to. (save to db, add to map etc)
 										drawnItems.addLayer(layer);
@@ -110,7 +110,14 @@
 										e.layer.bindPopup(popupContent, {closeOnClick: false}).openPopup();
 									});
 
-
+									// Add function for save button in popup
+									function save() {
+										var useType = $('#useType').val();
+										var values = $('#values').val();
+										var comments = $('#comments').val();
+										var geometry = drawnItems.getLayers();
+										map.closePopup();
+									};
 										 // https://gis.stackexchange.com/questions/159536/submit-form-information-from-a-leaflet-popup-to-mysql-table
 										 // map.on('draw:created', function (e) {
 										  //  var type = e.layerType,
