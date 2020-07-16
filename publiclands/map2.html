@@ -99,10 +99,13 @@
 										});
 										map.addControl(drawControl);
 
+
 										// popup form https://www.w3schools.com/html/html_form_elements.asp
 										map.on('draw:created', function (e) {
-											var layer = e.layer;
-											var popupContent = (
+											var type = e.layer.Type,
+													layer = e.layer;
+											var idiW = L.popup();
+											var content = (
 												'<form role="form" id="form">'+
 													'<span><b>Land Use Type</b></span>' +
 													'<br>' +
@@ -120,7 +123,7 @@
 													'<br>' +
 													'Press and hold the control key to select more than one value.' +
 													'<br>' +
-															'<select id="values" name="values" size ="4" multiple>' +
+															'<select id="useValues" name="values" size ="4" multiple>' +
 																'<option value="scenic">Scenic/aesthetic</option>' +
 																'<option value="recreation">Recreation</option>' +
 																'<option value="life">Life Sustaining</option>' +
@@ -138,18 +141,19 @@
 													'<br>' +
 													'<span><b>Comments</b></span>' +
 													'<br>' +
-														'<textarea id="comments" cols="25" rows="5">' +
+														'<textarea id="useComments" cols="25" rows="5">' +
 														'</textarea>' +
 													'<br>' +
 													'<br>' +
-													'<input type="button" id="okBtn" value="Save" onclick="save()"/>'+
+													'<input type="button" id="okBtn" value="Save" onclick="saveData()"/>'+
 												'</form>'
+												// layer.bindPopup(popupContent)
 											);
 
 										// Do whatever else you need to. (save to db, add to map etc)
 										drawnItems.addLayer(layer);
-										map.addLayer(drawnItems);
-										e.layer.bindPopup(popupContent, {closeOnClick: false}).openPopup();
+										// map.addLayer(drawnItems);
+										e.layer.bindPopup(content, {closeOnClick: false}).openPopup();
 									});
 
 									// Create popup variable https://gis.stackexchange.com/questions/159536/submit-form-information-from-a-leaflet-popup-to-mysql-table
@@ -160,127 +164,86 @@
 									// );
 
 									// Add function for save button in popup
-									function save() {
-										// var useType = $('#useType').val();
-										// var values = $('#values').val();
-										// var comments = $('#comments').val();
-										// var geometry = drawnItems.getLayers();
-										map.closePopup();
+									function saveData() {
+										// var uType = $('#useType').val(); //$ = "select all ___ elements"
+										// var uVal = $('#useValues').val();
+										var uComm = $('#useComments').val();
+										var geometry = drawnItems.getLayers();
+										// geometry[geometry.length - 1].title = uType;
+										// geometry[geometry.length - 1].content = uVal;
+										geometry[geometry.length - 1].content = uComm;
+
+										// layer.changeColor();
+											map.closePopup();
 									};
 
-										 // https://gis.stackexchange.com/questions/159536/submit-form-information-from-a-leaflet-popup-to-mysql-table
-										 // map.on('draw:created', function (e) {
-										  //  var type = e.layerType,
-										  //     layer = e.layer;
-										  //     var coords = e.layer._latlng;
-										  //       console.log(coords);
-										  // UserMarker.addLayer(layer);
-										  //var popup = L.popup({maxWidth: 1000})
-										     //.setLatLng(layer.getLatLng())
-										 //     .setContent('<form role="form" id="form" onsubmit="addMarker()">'+
-										 //
-										 //              '<div class="form-group">'+
-										 //               '<label class="control-label col-sm-12"><strong>Was the officer following protocol? </strong></label>'+ "<br>" +
-										 //               '<select class="form-control" placeholder="Required" id="protocol" name="text">'+
-										 //                 '<option value="Following Protocol">Following Protocol</option>'+
-										 //                 '<option value="Not Following Protocol">Not Following Protocol</option>'+
-										 //                 '<option value="I Dont Know">I Dont Know</option>'+
-										 //               '</select>'+
-										 //           '</div>'+
-										 //
-										 //               '<div class="form-group">'+
-										 //                '<label class="control-label col-lg-10"><strong>Jurisdiction </strong></label>'+ "<br>" +
-										 //                '<select class="form-control" id="jurisdiction" name="text">'+
-										 //                 '<option value="City PD">City PD</option>'+
-										 //                 '<option value="County Sheriff">County Sheriff</option>'+
-										 //                 '<option value="CHP">CHP</option>'+
-										 //                 '<option value="Other">Other</option>'+
-										 //               '</select>'+
-										 //           '</div>'+
-										 //
-										 //                '<div class="form-group">'+
-										 //               '<label class="control-label col-sm-10"><strong>Was there an arrest? </strong></label>'+ "<br>" +
-										 //               '<select class="form-control" id="arrest" name="text">'+
-										 //                 '<option value="Yes">Yes</option>'+
-										 //                 '<option value="No">No</option>'+
-										 //                 '<option value="I Dont Know">I Dont Know</option>'+
-										 //               '</select>'+
-										 //           '</div>'+
-										 //
-										 //           '<div class="form-group">'+
-										 //               '<label class="control-label col-sm-10"><strong>Date </strong> (Example: 8/1/2015) </label>'+ "<br>" +
-										 //               '<input type="date" placeholder="Example: 8/1/2015" id="date" name="date" class="form-control"/>'+
-										 //           '</div>'+
-										 //
-										 //             '<div class="form-group">'+
-										 //               '<label class="control-label col-sm-10"><strong>Time Of Day </strong></label>'+ "<br>" +
-										 //               '<select class="form-control" id="time" name="text">'+
-										 //                 '<option value="Morning">Morning</option>'+
-										 //                 '<option value="Afternoon">Afternoon</option>'+
-										 //                 '<option value="Night">Night</option>'+
-										 //                 '<option value="Late Night or Early Morning">Late Night or Early Morning</option>'+
-										 //               '</select>'+
-										 //           '</div>'+
-										 //
-										 //           '<div class="form-group">'+
-										 //               '<label class="control-label col-sm-10"><strong>Comments </strong></label>'+ "<br>" +
-										 //               '<input type="text" placeholder="Briefly tell us what happened" id="comments" name="comments" class="form-control"/>'+
-										 //           '</div>'+
-										 //
-										 //           '<div class="form-group">'+
-										 //               '<label class="control-label col-sm-10"><strong>Video Link </strong></label>'+ "<br>" +
-										 //               '<input type="text" placeholder="Do you have a video? Add link here" id="video" name="video" class="form-control"/>'+
-										 //           '</div>'+
-										 //
-										 //                         '<div class="form-group">'+
-										 //                 '<div style="text-align:center;" class="col-xs-11"><button style="text-align:center;" id="submit" value="submit" class="btn btn-primary trigger-submit">Submit</button></div>'+
-										 //           '</div>'+ "<br>" +
-										 //
-										 //         '<strong>' + '-' + '</strong'+
-										 //
-										 //           '</form>')
-										 //     .openOn(map);
-										 // });
-
-										// http://duspviz.mit.edu/web-map-workshop/cartodb-data-collection/
-
-										// Function to run when feature is drawn on map
-										// map.on('draw:created', function (e) {
-										//   var layer = e.layer;
-										//   drawnItems.addLayer(layer);
-										//   map.addLayer(drawnItems);
-										// });
-
-										// Use the jQuery UI dialog to create a dialog and set options
-										// var dialog = $("#dialog").dialog({
-										//   autoOpen: false,
-										//   height: 300,
-										//   width: 350,
-										//   modal: true,
-										//   position: {
-										//     my: "center center",
-										//     at: "center center",
-										//     of: "#map"
-										//   },
-										//   buttons: {
-										//     "Add to Database": setData,
-										//     Cancel: function() {
-										//       dialog.dialog("close");
-										//       map.removeLayer(drawnItems);
-										//     }
-										//   },
-										//   close: function() {
-										//     form[ 0 ].reset();
-										//     console.log("Dialog closed");
-										//   }
-										// });
-										//
-										// // Stops default form submission and ensures that setData or the cancel function run
-										// var form = dialog.find("form").on("submit", function(event) {
-										//   event.preventDefault();
-										// });
-
-
+									//https://gis.stackexchange.com/questions/232585/changing-data-and-style-with-select-in-leaflet-popup
+									// function onEachFeature(feature, layer) {
+									//
+									//   var select = document.createElement('select'),
+									//     option0 = document.createElement('option'),
+									//     option1 = document.createElement('option'),
+									//     option2 = document.createElement('option'),
+									// 		option3 = document.createElement('option');
+									//
+									//   select.addEventListener('change', function() {
+									//     restyleLayer(this.value, this.layer);
+									//   });
+									//
+									//   select.layer = layer;
+									//
+									//   option0.value = 'Nope';
+									//   option0.selected = true;
+									//   option0.innerHTML = 'None';
+									//
+									//   option1.value = 'Democrat';
+									//   option1.innerHTML = 'Democrat';
+									//
+									//   option2.value = 'Republican';
+									//   option2.innerHTML = 'Republican';
+									//
+									//   select.appendChild(option0);
+									//   select.appendChild(option1);
+									//   select.appendChild(option2);
+									// 	select.appendChild(option3);
+									//
+									//   layer.bindPopup(select);
+									//
+									// }
+									//
+									// var drawnItems = L.geoJSON(states, {
+									//   style: function(feature) {
+									//     return getColor(feature.properties.party)
+									//   },
+									//   onEachFeature: onEachFeature
+									// }).addTo(map);
+									//
+									// function getColor(party) {
+									//   console.log(party)
+									//   switch (party) {
+									//     case 'Republican':
+									//       return {
+									//         color: "red"
+									//       };
+									//     case 'Democrat':
+									//       return {
+									//         color: "blue"
+									//       };
+									//     case 'Nope':
+									//       return {
+									//         color: 'grey'
+									//       };
+									//   }
+									// }
+									//
+									// function restyleLayer(party, layer) {
+									//
+									//   layer.feature.properties.party = party;
+									//
+									//   var myFillColor = getColor(party);
+									//
+									//   layer.setStyle(myFillColor);
+									// }
 
 
 									</script>
