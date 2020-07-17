@@ -78,11 +78,12 @@
                         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 										}).addTo(map);
 
+										// Add zoom controls to top right corner of map
 										L.control.zoom({
 										    position: 'topright'
 										}).addTo(map);
 
-										// Create variable for Leaflet.draw features
+										//Create variable for Leaflet.draw features
 										var drawnItems = L.featureGroup().addTo(map);
 										map.addLayer(drawnItems);
 
@@ -93,158 +94,74 @@
 												polyline: false,
 												marker: false
 											},
-												edit: {
-													featureGroup: drawnItems
-												}
-										});
+											edit: {
+												featureGroup: drawnItems
+											}
+											});
+
 										map.addControl(drawControl);
 
+												map.on('draw:created', function (e) {
+														var type = e.layer.Type,
+																layer = e.layer;
+														//drawnItems.addLayer(layer);
+														//L.popup().setContent(popupContent);
+															//openOn(map);
+														var popupContent =
+															'<form id="form">'+
+																	'<span><b>Land Use Type</b></span>' +
+																	'<br>' +
+																	'Select one' +
+																	'<br>' +
+																		'<select id="useType" name="useType">' +
+																			'<option value="recY">Recreation - Yes</option>' +
+																			'<option value="recN">Recreation - No</option>' +
+																			'<option value="timY">Timber Harvest - Yes</option>' +
+																			'<option value="timN">Timber Harvest - No</option>' +
+																		'</select>' +
+																	'<br>' +
+																	'<br>' +
+																	'<span><b>Values</b></span>' +
+																	'<br>' +
+																	'Press and hold the control key to select more than one value.' +
+																	'<br>' +
+																			'<select id="useValues" name="values" size ="4" multiple>' +
+																				'<option value="scenic">Scenic/aesthetic</option>' +
+																				'<option value="recreation">Recreation</option>' +
+																				'<option value="life">Life Sustaining</option>' +
+																				'<option value="educational">Learning/education/research</option>' +
+																				'<option value="conservation">Biological/conservation</option>' +
+																				'<option value="cultural">Cultural</option>' +
+																				'<option value="health">Therapeutic/health</option>' +
+																				'<option value="spiritual">Spiritual</option>' +
+																				'<option value="intrinsic">Intrinsic/existence</option>' +
+																				'<option value="identity">Identity</option>' +
+																				'<option value="economic">Economic</option>' +
+																				'<option value="wilderness">Wilderness/pristine</option>' +
+																		'</select>' +
+																	'<br>' +
+																	'<br>' +
+																	'<span><b>Comments</b></span>' +
+																	'<br>' +
+																		'<textarea id="useComments" cols="25" rows="5">' +
+																		'</textarea>' +
+																	'<br>' +
+																	'<br>'+
+																	'<input type="button" id="okBtn" value="Save" onclick="saveData()"/>'+
+																'</form>';
+														drawnItems.addLayer(layer);
+														map.addLayer(drawnItems);
+														e.layer.bindPopup(popupContent, {closeOnClick: false}).openPopup();
+													});
 
-										// popup form https://www.w3schools.com/html/html_form_elements.asp
-										map.on('draw:created', function (e) {
-											var type = e.layer.Type,
-													layer = e.layer;
-											var idiW = L.popup();
-											var content = (
-												'<form role="form" id="form">'+
-													'<span><b>Land Use Type</b></span>' +
-													'<br>' +
-													'Select one' +
-													'<br>' +
-														'<select id="useType" name="useType">' +
-															'<option value="recY">Recreation - Yes</option>' +
-															'<option value="recN">Recreation - No</option>' +
-															'<option value="timY">Timber Harvest - Yes</option>' +
-															'<option value="timN">Timber Harvest - No</option>' +
-														'</select>' +
-													'<br>' +
-													'<br>' +
-													'<span><b>Values</b></span>' +
-													'<br>' +
-													'Press and hold the control key to select more than one value.' +
-													'<br>' +
-															'<select id="useValues" name="values" size ="4" multiple>' +
-																'<option value="scenic">Scenic/aesthetic</option>' +
-																'<option value="recreation">Recreation</option>' +
-																'<option value="life">Life Sustaining</option>' +
-																'<option value="educational">Learning/education/research</option>' +
-																'<option value="conservation">Biological/conservation</option>' +
-																'<option value="cultural">Cultural</option>' +
-																'<option value="health">Therapeutic/health</option>' +
-																'<option value="spiritual">Spiritual</option>' +
-																'<option value="intrinsic">Intrinsic/existence</option>' +
-																'<option value="identity">Identity</option>' +
-																'<option value="economic">Economic</option>' +
-																'<option value="wilderness">Wilderness/pristine</option>' +
-														'</select>' +
-													'<br>' +
-													'<br>' +
-													'<span><b>Comments</b></span>' +
-													'<br>' +
-														'<textarea id="useComments" cols="25" rows="5">' +
-														'</textarea>' +
-													'<br>' +
-													'<br>' +
-													'<input type="button" id="okBtn" value="Save" onclick="saveData()"/>'+
-												'</form>'
-												// layer.bindPopup(popupContent)
-											);
-
-										// Do whatever else you need to. (save to db, add to map etc)
-										drawnItems.addLayer(layer);
-										// map.addLayer(drawnItems);
-										e.layer.bindPopup(content, {closeOnClick: false}).openPopup();
-									});
-
-									// Create popup variable https://gis.stackexchange.com/questions/159536/submit-form-information-from-a-leaflet-popup-to-mysql-table
-									// var popupContent = L.popup()
-									// .setLatLng(layer.getLatLng())
-									// .setContent(
-									// 	'<form role="form" id="form" onsubmit="save()">'</form>'
-									// );
 
 									// Add function for save button in popup
-									function saveData() {
-										// var uType = $('#useType').val(); //$ = "select all ___ elements"
-										// var uVal = $('#useValues').val();
-										var uComm = $('#useComments').val();
-										var geometry = drawnItems.getLayers();
-										// geometry[geometry.length - 1].title = uType;
-										// geometry[geometry.length - 1].content = uVal;
-										geometry[geometry.length - 1].content = uComm;
-
-										// layer.changeColor();
-											map.closePopup();
+									function saveData(layer) {
+										var uType = $('useType').val();
+										var uValue = $('useValues').val();
+										var uComm = $('useComments').val();
+										map.closePopup();
 									};
-
-									//https://gis.stackexchange.com/questions/232585/changing-data-and-style-with-select-in-leaflet-popup
-									// function onEachFeature(feature, layer) {
-									//
-									//   var select = document.createElement('select'),
-									//     option0 = document.createElement('option'),
-									//     option1 = document.createElement('option'),
-									//     option2 = document.createElement('option'),
-									// 		option3 = document.createElement('option');
-									//
-									//   select.addEventListener('change', function() {
-									//     restyleLayer(this.value, this.layer);
-									//   });
-									//
-									//   select.layer = layer;
-									//
-									//   option0.value = 'Nope';
-									//   option0.selected = true;
-									//   option0.innerHTML = 'None';
-									//
-									//   option1.value = 'Democrat';
-									//   option1.innerHTML = 'Democrat';
-									//
-									//   option2.value = 'Republican';
-									//   option2.innerHTML = 'Republican';
-									//
-									//   select.appendChild(option0);
-									//   select.appendChild(option1);
-									//   select.appendChild(option2);
-									// 	select.appendChild(option3);
-									//
-									//   layer.bindPopup(select);
-									//
-									// }
-									//
-									// var drawnItems = L.geoJSON(states, {
-									//   style: function(feature) {
-									//     return getColor(feature.properties.party)
-									//   },
-									//   onEachFeature: onEachFeature
-									// }).addTo(map);
-									//
-									// function getColor(party) {
-									//   console.log(party)
-									//   switch (party) {
-									//     case 'Republican':
-									//       return {
-									//         color: "red"
-									//       };
-									//     case 'Democrat':
-									//       return {
-									//         color: "blue"
-									//       };
-									//     case 'Nope':
-									//       return {
-									//         color: 'grey'
-									//       };
-									//   }
-									// }
-									//
-									// function restyleLayer(party, layer) {
-									//
-									//   layer.feature.properties.party = party;
-									//
-									//   var myFillColor = getColor(party);
-									//
-									//   layer.setStyle(myFillColor);
-									// }
-
 
 									</script>
 								</section>
