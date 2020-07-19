@@ -2012,3 +2012,20 @@ input, select, textarea {
 				}
 
 	}
+
+/* crowdmap-basic */
+
+	#controls {
+	  width: 100%;
+	  margin: 0 auto;
+	  float: left;
+	}
+
+	#form {
+	  margin-top: 5px;
+	  font-size: 12px;
+	  text-align: left;
+	  line-height: 16px;
+	  width:375px;
+	  float: left;
+	}
