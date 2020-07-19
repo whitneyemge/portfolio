@@ -1,160 +1,279 @@
 <!DOCTYPE HTML>
+<!--
+	Minimaxing by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
 	<head>
 		<title>Public Land Use Preferences</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
 
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-        crossorigin=""/>
+		<!-- mapbox js -->
+		<link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
+		<script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
 
-	 <!-- Leaflet Sidebar -->
-	 <link rel="stylesheet" href="assets/css/leaflet-sidebar.css" />
+	 <!-- leaflet draw library -->
+	 <link rel='stylesheet' href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css' />
+	 <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.js'></script>
 
+	 <!-- jquery -->
+	 <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
-	<style>
-	body {
-			padding: 0;
-			margin: 0;
-	}
+	 <!-- bootstrap -->
+	 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	</head>
 
-	html, body, #map {
-			height: 100%;
-			font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
-	}
+	<body>
+		<div id="page-wrapper">
 
-	.lorem {
-			font-style: italic;
-			text-align: justify;
-			color: #AAA;
-	}
-	</style>
+			<!-- Header -->
+				<div id="header-wrapper">
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
 
-</head>
+								<header id="header">
+									<h1>Land Use Preference Mapping</h1>
+									<nav id="nav">
+										<!-- <a href="index.html">Homepage</a>
+										<a href="twocolumn1.html" class="current-page-item">Two Column #1</a>
+										<a href="twocolumn2.html">Two Column #2</a>
+										<a href="onecolumn.html">One Column</a>
+										<a href="threecolumn.html">Three Column</a> -->
+									</nav>
+								</header>
 
-<body>
-	<!-- optionally define the sidebar content via HTML markup -->
-	<div id="sidebar" class="leaflet-sidebar collapsed">
-
-			<!-- nav tabs -->
-			<div class="leaflet-sidebar-tabs">
-					<!-- top aligned tabs -->
-					<ul role="tablist">
-							<li><a href="#home" role="tab"><i class="fa fa-bars active"></i></a></li>
-							<li><a href="#autopan" role="tab"><i class="fa fa-arrows"></i></a></li>
-					</ul>
-
-					<!-- bottom aligned tabs -->
-					<ul role="tablist">
-							<li><a href="https://github.com/nickpeihl/leaflet-sidebar-v2"><i class="fa fa-github"></i></a></li>
-					</ul>
-			</div>
-
-			<!-- panel content -->
-			<div class="leaflet-sidebar-content">
-					<div class="leaflet-sidebar-pane" id="home">
-							<h1 class="leaflet-sidebar-header">
-									sidebar-v2
-									<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
-							</h1>
-
-							<p>A responsive sidebar for the mapping library <a href="https://leafletjs.com/">Leaflet</a>.</p>
-							<p>Compatible with version 0.7 and 1.x (tested up to 1.6.0)</p>
-							<p><b>Select the other panes for a showcase of each feature.</b></p>
-
-							<h2>More examples</h2>
-							<ul>
-									<li><a href="./position-right.html">Right aligned</a></li>
-									<li><a href="./halfheight.html">The sidebar adapts to map container size</a></li>
-									<li><a href="./leaflet-latest.html">Proof that it works with the latest leaflet version (if not, please report it!)</a></li>
-									<li><a href="./leaflet-0.7.html">Proof that it works with leaflet 0.7</a></li>
-							</ul>
-
-							<p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-							<p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-							<p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-							<p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+							</div>
+						</div>
 					</div>
+				</div>
 
-					<div class="leaflet-sidebar-pane" id="autopan">
-							<h1 class="leaflet-sidebar-header">
-									autopan
-									<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
-							</h1>
-							<p>
-									<code>Leaflet.control.sidebar({ autopan: true })</code>
-									makes shure that the map center always stays visible.
-							</p>
-							<p>
-									The autopan behviour is responsive as well.
-									Try opening and closing the sidebar from this pane!
-							</p>
-					</div>
+			<!-- Main -->
 
-					<div class="leaflet-sidebar-pane" id="messages">
-							<h1 class="leaflet-sidebar-header">Messages<span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-					</div>
-			</div>
-	</div>
+			<div id="main">
+				<div class="container">
+					<div class="row main-row">
+						<div class="col-12">
 
-	<div id="map"></div>
+							<section>
+								<h2>Instructions</h2>
+								<p>The map below shows the Colville National Forest in Washington State. Click on either the line or polygon icons and draw shapes on the map to represent places where you prefer certain land use types. Once you draw a feature, click either the recreation, agriculture, or forestry button above the map to indicate which type of land use the polygon or line represents.</p>
+							</section>
 
-			<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"crossorigin=""></script>
-			<script src="assets/js/leaflet-sidebar.js"></script>
+								<section>
+									<h2>Map</h2>
+
+									<!-- add map div -->
+									<div id='map' style='height: 75vh;'></div>
 
 									<script>
 
-									// standard leaflet map setup
-					        var map = L.map('map');
-					        map.setView([51.2, 7], 9);
-					        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-					            maxZoom: 18,
-					            attribution: 'Map data &copy; OpenStreetMap contributors'
-					        }).addTo(map);
-					        L.marker([51.2, 7]).addTo(map);
+                  var map = L.map('map', {zoomControl: false}).setView([48.588, -117.870], 9);
+                    L.tileLayer('https://api.mapbox.com/styles/v1/emgew/cka5l6m1s17cr1imz0gwap4ey/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ', {
+                        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+										}).addTo(map);
 
-					        // create the sidebar instance and add it to the map
-					        var sidebar = L.control.sidebar({ container: 'sidebar' })
-					            .addTo(map)
-					            .open('home');
+										// Add zoom controls to top right corner of map
+										L.control.zoom({
+										    position: 'topright'
+										}).addTo(map);
 
-					        // add panels dynamically to the sidebar
-					        sidebar
-					            .addPanel({
-					                id:   'js-api',
-					                tab:  '<i class="fa fa-gear"></i>',
-					                title: 'JS API',
-					                pane: '<p>The Javascript API allows to dynamically create or modify the panel state.<p/><p><button onclick="sidebar.enablePanel(\'mail\')">enable mails panel</button><button onclick="sidebar.disablePanel(\'mail\')">disable mails panel</button></p><p><button onclick="addUser()">add user</button></b>',
-					            })
-					            // add a tab with a click callback, initially disabled
-					            .addPanel({
-					                id:   'mail',
-					                tab:  '<i class="fa fa-envelope"></i>',
-					                title: 'Messages',
-					                button: function() { alert('opened via JS callback') },
-					                disabled: true,
-					            })
+										//Create variable for Leaflet.draw features
+										var drawnItems = L.featureGroup().addTo(map);
 
-					        // be notified when a panel is opened
-					        sidebar.on('content', function (ev) {
-					            switch (ev.id) {
-					                case 'autopan':
-					                sidebar.options.autopan = true;
-					                break;
-					                default:
-					                sidebar.options.autopan = false;
-					            }
-					        });
+										// Add Leaflet draw tools
+										var drawControl = new L.Control.Draw({
+											position: 'topright',
+											draw: {
+												polyline: false,
+												marker: false
+											},
+											edit: {
+												featureGroup: drawnItems
+											}
+										}).addTo(map);
 
-					        var userid = 0
-					        function addUser() {
-					            sidebar.addPanel({
-					                id:   'user' + userid++,
-					                tab:  '<i class="fa fa-user"></i>',
-					                title: 'User Profile ' + userid,
-					                pane: '<p>user ipsum dolor sit amet</p>',
-					            });
-					        }
-							    </script>
-							</body>
-							</html>
+										//var changeColor = $(changeColorF);
+									// http://132.72.155.230:3838/js/collaborative-mapping.html
+									// On draw - create editable popup
+									map.addEventListener("draw:created", function(e) {
+											// e.layer.options.color = changeColor;
+									    e.layer.addTo(drawnItems);
+									    createFormPopup();
+									});
+
+									// On edit or delete - Close popup
+									map.addEventListener("draw:editstart", function(e) {
+									    drawnItems.closePopup();
+									});
+									map.addEventListener("draw:deletestart", function(e) {
+									    drawnItems.closePopup();
+									});
+									map.addEventListener("draw:editstop", function(e) {
+									    drawnItems.openPopup();
+									});
+									map.addEventListener("draw:deletestop", function(e) {
+									    if(drawnItems.getLayers().length > 0) {
+									        drawnItems.openPopup();
+									    }
+									});
+
+									// Create editable popup
+									function createFormPopup() {
+									    var popupContent =
+															'<form>'+
+																	'<span><b>Land Use Type</b></span>' +
+																	'<br>' +
+																	'Select one' +
+																	'<br>' +
+																		'<select id="useType" input type="text" id="useType">' +
+																			'<option value="recY">Recreation - Yes</option>' +
+																			'<option value="recN">Recreation - No</option>' +
+																			'<option value="timY">Timber Harvest - Yes</option>' +
+																			'<option value="timN">Timber Harvest - No</option>' +
+																		'</select>' +
+																	'<br>' +
+																	'<br>' +
+																	'<span><b>Values</b></span>' +
+																	'<br>' +
+																	'Press and hold the control key to select more than one value.' +
+																	'<br>' +
+																			'<select id="useValues" input type="text" id="useValues" size ="4" multiple>' +
+																				'<option value="scenic">Scenic/aesthetic</option>' +
+																				'<option value="recreation">Recreation</option>' +
+																				'<option value="lifesustaining">Life Sustaining</option>' +
+																				'<option value="educational">Learning/education/research</option>' +
+																				'<option value="conservation">Biological/conservation</option>' +
+																				'<option value="cultural">Cultural</option>' +
+																				'<option value="health">Therapeutic/health</option>' +
+																				'<option value="spiritual">Spiritual</option>' +
+																				'<option value="intrinsic">Intrinsic/existence</option>' +
+																				'<option value="identity">Identity</option>' +
+																				'<option value="economic">Economic</option>' +
+																				'<option value="wilderness">Wilderness/pristine</option>' +
+																		'</select>' +
+																	'<br>' +
+																	'<br>' +
+																	'<span><b>Comments</b></span>' +
+																	'<br>' +
+																		'<textarea id="useComments" type="text" cols="25" rows="5">' +
+																		'</textarea>' +
+																	'<br>' +
+																	'<br>'+
+																	'<input type="button" value="Save" id="submit">'+
+																'</form>';
+																drawnItems.bindPopup(popupContent, {closeOnClick: false}).openPopup();
+														    document.getElementById("submit").addEventListener("click", setData);
+														};
+
+
+														// Store data to geometry
+
+														function changeColorF(useType) {
+															switch (useType) {
+																case 'recY':
+																	return 'blue';
+																case 'recN':
+																	return 'orange';
+																case 'timY':
+																	return 'green';
+																case 'timN':
+																	return 'red';
+															}
+														};
+
+														// Submission
+														function setData() {
+
+														    // Get use type, use values, and comments
+														    var uType = document.getElementById("useType").value;
+														    var uValues = document.getElementById("useValues").value;
+																var uComm = document.getElementById("useComments").value;
+
+																// Print use type, use values, and comments in console
+														    console.log(uType);
+														    console.log(uValues);
+																console.log(uComm);
+
+														    // Get and print GeoJSON for each drawn layer
+														    drawnItems.eachLayer(function(layer) {
+														        var drawing = JSON.stringify(layer.toGeoJSON().geometry);
+														        console.log(drawing);
+														    });
+
+														    // Close popup
+														    map.closePopup();
+														    //drawnItems.clearLayers();
+														}
+
+									</script>
+								</section>
+							</div>
+
+							<p>
+							<a href="#" class="button">Submit</a>
+							</p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			<!-- Footer -->
+				<div id="footer-wrapper">
+					<div class="container">
+						<div class="row">
+							<div class="col-8 col-12-medium">
+
+								<section>
+									<h2>Data Sources</h2>
+									<div>
+										<div class="row">
+											<div class="col-3 col-6-medium col-12-small">
+												<ul class="link-list">
+													<li><a href="https://data.fs.usda.gov/geodata/webapps/EDW_DataExtract/" target="_blank">USDA Forest Service</a></li>
+													<li><a href="http://geo.wa.gov/datasets/wa-rco::wa-rco-trails-2017" target="_blank">WA State Recreation and Conservation Office</a></li>
+												</ul>
+											</div>
+
+										</div>
+									</div>
+								</section>
+
+							</div>
+
+						</div>
+						<div class="row">
+							<div class="col-12">
+
+								<div id="copyright">
+									&copy; Untitled. All rights reserved. | Design: <a href="http://html5up.net">HTML5 UP</a>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+		<!-- Bootstrap Scripts -->
+			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+	</body>
+</html>

@@ -102,8 +102,10 @@
 										map.addControl(drawControl);
 
 												map.on('draw:created', function (e) {
-														var type = e.layer.Type,
-																layer = e.layer;
+														// var type = e.layer.Type,
+														// 		layer = e.layer;
+														var drawEvent = drawnItems.addLayer(e.layer);
+
 														//drawnItems.addLayer(layer);
 														//L.popup().setContent(popupContent);
 															//openOn(map);
@@ -149,19 +151,22 @@
 																	'<br>'+
 																	'<input type="button" id="okBtn" value="Save" onclick="saveData()"/>'+
 																'</form>';
-														drawnItems.addLayer(layer);
-														map.addLayer(drawnItems);
-														e.layer.bindPopup(popupContent, {closeOnClick: false}).openPopup();
+
+															drawEvent.bindPopup(popupContent, {closeOnClick: false}).openPopup();
+													// 	drawnItems.addLayer(layer);
+													// 	map.addLayer(drawnItems);
+													// 	e.layer.bindPopup(popupContent, {closeOnClick: false}).openPopup();
 													});
 
 
 									// Add function for save button in popup
 									function saveData(layer) {
-										var uType = $('useType').val();
-										var uValue = $('useValues').val();
-										var uComm = $('useComments').val();
+										// var uType = $('useType').val();
+										// var uValue = $('useValues').val();
+										// var uComm = $('useComments').val();
 										map.closePopup();
 									};
+
 
 									</script>
 								</section>
