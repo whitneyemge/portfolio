@@ -25,8 +25,8 @@
 	 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css' />
 
 	 <!-- jquery -->
-	 <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
+	 <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
+ 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 	</head>
 
@@ -123,8 +123,52 @@
 									'<br>' +
 										'<textarea id="useComments" type="text" cols="25" rows="5">'
 											 -->
+
+											 <div id="dialog" title="Tell us About this Drawing">
+		 							      <form>
+		 							        <fieldset>
+		 							            <label for="useType">Land Use Type</label>
+		 							            <select name="useType" id="useType" placeholder="Select one">
+																	<option disabled selected>Select one</option>
+																	<option value="recY">Recreation - Yes</option>
+																	<option value="recN">Recreation - No</option>
+																	<option value="timY">Timber Harvest - Yes</option>
+																	<option value="timN">Timber Harvest - No</option>
+															</select>
+															<br>
+															<br>
+															<label for="useType">Values</label>
+															<br>
+															<h6>Press and hold the control or command key to select more than one value.</h6>
+															<br>
+															<select name="useValues" id="useValues" size ="4" multiple>
+																<option value="scenic">Scenic/aesthetic</option>
+																<option value="recreation">Recreation</option>
+																<option value="lifesustaining">Life Sustaining</option>
+																<option value="educational">Learning/education/research</option>
+																<option value="conservation">Biological/conservation</option>
+																<option value="cultural">Cultural</option>
+																<option value="health">Therapeutic/health</option>
+																<option value="spiritual">Spiritual</option>
+																<option value="intrinsic">Intrinsic/existence</option>
+																<option value="identity">Identity</option>
+																<option value="economic">Economic</option>
+																<option value="wilderness">Wilderness/pristine</option>
+															</select>
+															<br>
+															<br>
+															<label for="useComments">Comments</label>
+															<br>
+		 							            <textarea id="useComments" rows="5" cols="20"></textarea>
+															<br>
+															<br>
+		 							          <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+		 							        </fieldset>
+		 							      </form>
+		 							    </div>
+
 									<!-- Popup dialog box -->
-									<div id="dialog" title="Tell us About this Drawing">
+									<!-- <div id="dialog" title="Tell us About this Drawing">
 							      <form>
 							        <fieldset style="border: none;">
 							          <ul style="list-style-type: none; padding-left: 0px">
@@ -136,7 +180,7 @@
 							          <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 							        </fieldset>
 							      </form>
-							    </div>
+							    </div> -->
 
 									<script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
 									<script src="https://unpkg.com/leaflet@0.7.7/dist/leaflet.js"
@@ -146,6 +190,8 @@
 								 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     				 		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
 
+								<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+							  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 									<script>
 
