@@ -1,36 +1,25 @@
+<!-- https://www.w3schools.com/php/php_mysql_insert.asp -->
 <?php
-    $username = "";
-    $password = "";
-    $host = "";
-    $database="";
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "myDB";
 
-    $server = mysql_connect($host, $username, $password);
-    $connection = mysql_select_db($database, $server);
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+// Check connection
+if (!$conn) {
+ die("Connection failed: " . mysqli_connect_error());
+}
 
-    $myquery = "
-SELECT  `lat`, `long` FROM  `test01`
-WHERE `lat` <> 0
-";
-    $query = mysql_query($myquery);
+$sql = "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('John', 'Doe', 'john@example.com')";
 
-    if ( ! $query ) {
-        echo mysql_error();
-        die;
-    }
+if (mysqli_query($conn, $sql)) {
+ echo "New record created successfully";
+} else {
+ echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
 
-    $data = array();
-
-	echo "var planelatlong = [";
-
-    for ($x = 0; $x < mysql_num_rows($query); $x++) {
-        $data[] = mysql_fetch_assoc($query);
-        echo "[",$data[$x]['lat'],",",$data[$x]['long'],"]";
-        if ($x <= (mysql_num_rows($query)-2) ) {
-			echo ",";
-		}
-    }
-
-    	echo "];";
-
-    mysql_close($server);
-?>
+mysqli_close($conn);
+?> 
