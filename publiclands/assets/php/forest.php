@@ -1,25 +1,16 @@
-<!-- https://www.w3schools.com/php/php_mysql_insert.asp -->
+<!-- The Net Ninja on YouTube: https://www.youtube.com/watch?v=3B-CnezwEeo -->
+<!-- https://www.w3schools.com/php/php_mysql_connect.asp -->
 <?php
-$servername = "localhost";
-$username = "username";
-$password = "password";
-$dbname = "myDB";
+$servername = "127.0.0.1";
+$username = "landuse";
+$password = "nf2020";
 
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (!$conn) {
- die("Connection failed: " . mysqli_connect_error());
+try {
+ $conn = new PDO("mysql:host=$servername;dbname=myDB", $username, $password);
+ // set the PDO error mode to exception
+ $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+ echo "Connected successfully";
+} catch(PDOException $e) {
+ echo "Connection failed: " . $e->getMessage();
 }
-
-$sql = "INSERT INTO MyGuests (firstname, lastname, email)
-VALUES ('John', 'Doe', 'john@example.com')";
-
-if (mysqli_query($conn, $sql)) {
- echo "New record created successfully";
-} else {
- echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
-
-mysqli_close($conn);
-?> 
+?>
