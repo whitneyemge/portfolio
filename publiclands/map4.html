@@ -85,13 +85,14 @@
 								   	<form>
 								    	<fieldset>
 								      	<label for="useType">Land Use Type</label>
-								        	<select name="useType" id="useType" placeholder="Select one">
+								        	<select name="useType" id="useType" value="<?php echo htmlspecialchars($useType) ?>" placeholder="Select one">
 														<option disabled selected>Select one</option>
 														<option value="recY">Recreation - Yes</option>
 														<option value="recN">Recreation - No</option>
 														<option value="timY">Timber Harvest - Yes</option>
 														<option value="timN">Timber Harvest - No</option>
 													</select>
+													<div class="red-text"><?php echo $errors['useType']; ?></div>
 												<br>
 												<br>
 												<label for="useType">Values</label>
@@ -119,7 +120,7 @@
 								            <textarea id="useComments" name="useComments" rows="5" cols="20"></textarea>
 													<br>
 													<br>
-								          	<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+								          	<input type="submit" name="submit" value="submit" tabindex="-1" style="position:absolute; top:-1000px">
 								        </fieldset>
 								      </form>
 								    </div>
@@ -217,7 +218,7 @@
 												of: "#map"
 											},
 											buttons: {
-												"Add to Database": setData,
+												"Save": setData,
 												Cancel: function () {
 													dialog.dialog("close");
 													refreshLayer();
@@ -276,8 +277,9 @@
 												* requerying the database (see the refreshLayer() function for an alternate way of doing this)
 												*/
 												var newData = layer.toGeoJSON();
-												  newData.properties.description = description.value;
-												  newData.properties.name = username.value;
+												  newData.properties.description = useType.value;
+												  newData.properties.name = useValues.value;
+													newData.properties.name = useComments.value;
 
 												cartoData.addData(newData);
 
@@ -299,25 +301,13 @@
 										}
 
 
-														// function changeColorF(useType) {
-														// 	switch (useType) {
-														// 		case 'recY':
-														// 			return 'blue';
-														// 		case 'recN':
-														// 			return 'orange';
-														// 		case 'timY':
-														// 			return 'green';
-														// 		case 'timN':
-														// 			return 'red';
-														// 	}
-														// };
-
 									</script>
 								<!-- </section> -->
 							<!-- </div> -->
 
+							<!-- Direct user to homepage when finished -->
 							<p>
-							<a href="#" class="button">Submit</a>
+							<a href="welcome.html" class="button">Finished</a>
 							</p>
 
 							</div>
