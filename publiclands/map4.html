@@ -11,15 +11,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 
-		<!-- Leaflet -->
-		<link rel="stylesheet" href="https://unpkg.com/leaflet@0.7.7/dist/leaflet.css"integrity="sha384-99ZJFcuBCh9c/V/+8YwDX/TUGG8JWMG+gKFJWzk0BZP3IoDMN+pLGd3/H0yjg4oa" crossorigin=""/>
-
-		 <!-- Leaflet Draw -->
-		 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css' />
-
-		 <!-- jquery -->
-		 <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-	 	 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@0.7.7/dist/leaflet.css"
+  integrity="sha384-99ZJFcuBCh9c/V/+8YwDX/TUGG8JWMG+gKFJWzk0BZP3IoDMN+pLGd3/H0yjg4oa"
+  crossorigin=""/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.12/leaflet.draw.css"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 	</head>
 
@@ -119,12 +115,14 @@
 								    </div>
 
 										<!-- Scripts -->
-										<script src="https://unpkg.com/leaflet@0.7.7/dist/leaflet.js" integrity="sha384-Lh7SNUss9JoImCvc96eCUnLX3HvY4kb0UZCWZbYWvceJ+o5CJeOJqqNoheaGkNHT" crossorigin=""></script>
-								 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-								 		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    				 				<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
-										<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-							  		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+										    <script src="https://unpkg.com/leaflet@0.7.7/dist/leaflet.js"
+										      integrity="sha384-Lh7SNUss9JoImCvc96eCUnLX3HvY4kb0UZCWZbYWvceJ+o5CJeOJqqNoheaGkNHT"
+										      crossorigin=""></script>
+										    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.12/leaflet.draw.js"></script>
+										    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+										    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 										<script>
 
@@ -215,19 +213,53 @@
 											drawnItems.eachLayer(function (layer) {
 											//Convert the drawing to a GeoJSON to pass to the Carto sql database
 												var drawing = "'" + JSON.stringify(layer.toGeoJSON().geometry) + "'";
-											})};
 
-												// $.ajax({
-												// 	url: "assets/php/forest.php",
-												// 	type: "post",
-												// 	dataType: 'json'
-												// });
+											//Construct the SQL query to insert data from the three parameters: the drawing,
+										  //the input username, and the input description of the drawn shape
+										  var sql = "SELECT insert_crowd_mapping_data(";
+										  sql += drawing;
+										  sql += ","+uType;
+										  sql += ","+uValues;
+											sql += ","+uComments
+										  sql += ");";
 
-												// console.log(drawing);
-												// console.log(uType);
-												// console.log(uValues);
-												// console.log(uComments);
+											console.log(drawing);
 
+											$.ajax({
+												url: "assets/php/forest.php",
+												type: "POST",
+												data: {"q":sql},
+												dataType: 'json'
+											});
+
+											/*
+											* Transfer submitted drawing to the Carto layer, this results in the user's data appearing on the map without
+											* requerying the database (see the refreshLayer() function for an alternate way of doing this)
+											*/
+											var newData = layer.toGeoJSON();
+											  newData.properties.description = description.value;
+											  newData.properties.name = username.value;
+
+											cartoData.addData(newData);
+
+										});
+
+										dialog.dialog("close");
+									}
+
+									function refreshLayer() {
+										console.log("drawnItems has been cleared");
+										map.removeLayer(drawnItems);
+										drawnItems = new L.FeatureGroup();
+
+										/*
+	This would refresh the data-layer to include new data from the Carto table after each drawing is submitted.
+*/
+//      if (map.hasLayer(cartoData)) {
+//        map.removeLayer(cartoData);
+//      };
+//      getGeoJSON();
+}
 
 									</script>
 								<!-- </section> -->
