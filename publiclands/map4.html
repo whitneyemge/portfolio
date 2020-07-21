@@ -136,8 +136,10 @@
 													maxZoom: 18
 											}).addTo(map);
 
+										// Add feature group for drawn items
 										var drawnItems = new L.FeatureGroup();
 
+										// Create and define draw controls
 										var drawControl = new L.Control.Draw({
 											draw : {
 												polyline: false,
@@ -149,6 +151,7 @@
 											remove: false
 										});
 
+										// Set when draw controls appear on map (start/stop edit buttons)
 										var controlOnMap = false;
 										function startEdits() {
 											if (controlOnMap === true) {
@@ -163,13 +166,14 @@
 											controlOnMap = false;
 										}
 
-
+										// When a polygon is drawn, open the popup form
 										map.on(L.Draw.Event.CREATED, function (e) {
 									        var layer = e.layer;
 											map.addLayer(drawnItems);
 											drawnItems.addLayer(layer);
 											dialog.dialog("open");
 										});
+
 
 										var dialog = $("#dialog").dialog({
 											autoOpen: false,
@@ -193,6 +197,7 @@
 												console.log("Dialog closed");
 											}
 										});
+
 
 										var form = dialog.find("form").on("submit", function (event) {
 											event.preventDefault();
