@@ -2,24 +2,13 @@
 <!-- https://www.w3schools.com/php/php_mysql_connect.asp -->
 <?php
 
-  // Define variables for server name, username, and password to use to connect to database
-  $servername = "127.0.0.1";
-  $username = "landuse";
-  $password = "nf2020";
-
-  // Try to connect to the database and print success or failure message
-  try {
-   $conn = new PDO("mysql:host=$servername;dbname=myDB", $username, $password);
-   // set the PDO error mode to exception
-   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-   echo "Connected successfully";
-  } catch(PDOException $e) {
-   echo "Connection failed: " . $e->getMessage();
-  }
+  //run dbconnect from dbconnect.php file
+  include('../..config/dbconnect.php');
 
   //set empty variable for use type for error message
   $useType = '';
-  
+  $errors = array('useType' => '');
+
   //if user clicks save button
   if(isset($_POST['submit'])){
 
@@ -27,14 +16,28 @@
     if(empty($_POST['useType'])){
       $errors['useType' = 'A land use type selection is required <br />';
     }  else {
-        echo htmlspecialchars($_POST[useType]); //send to the database with all characters converted to html
-    }
-    //end of check
+        $useType = echo htmlspecialchars($_POST['useType']);
+      }
 
-    echo htmlspecialchars($_POST[useValues]);
-    echo htmlspecialchars($_POST[useComments]);
+      if(array_filter($errors)){
+        //echo 'errors in the form';
+      } else {
+        //$drawnItems = ST_GeomFromGeoJson($conn, $_POST['drawnItems']);
+        $useType = mysqli_real_escape_string($conn, $_POST['useType']);
+        $useValues = mysqli_real_escape_string($conn, $_POST['useValues']);
+        $useComments = mysqli_real_escape_string($conn, $_POST['useComments']);
 
+        //insert data into the table
+        $sql = "INSERT INTO use_preferences(shape,use_type,use_values,use_comments) VALUES('$drawnItems',  '$useType', '$useValues', '$useComments')";
 
-    }
+        //save to database and check if it worked
+        if(mysqli_query($conn, $sql)){
+          //success
+          echo 'success'
+        } else {
+          //error
+          echo 'query error: ' . mysqli_error($conn);
+        }
+      }
 
 ?>
