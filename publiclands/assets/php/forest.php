@@ -10,7 +10,7 @@
   $errors = array('useType' => '');
 
   //if user clicks save button
-  if(isset($_POST['submit'])){
+  // if(isset($_POST['submit'])){
 
     //check useType - if empty, post a message saying land use selection is required
     if(empty($_POST['useType'])){
