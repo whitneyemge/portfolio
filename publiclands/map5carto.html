@@ -21,9 +21,17 @@ http://duspviz.mit.edu/web-map-workshop/cartodb-data-collection/# -->
 		<link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
 		<script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
 
+		<!-- leaflet -->
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+		  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+		  crossorigin=""/>
+		<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+		  integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+		  crossorigin=""></script>
+
 		<!-- leaflet draw -->
 		<link rel='stylesheet' href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css' />
- 	 <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.js'></script>
+ 	  <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.js'></script>
 
 	 <!-- jquery -->
 	 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
@@ -130,11 +138,28 @@ http://duspviz.mit.edu/web-map-workshop/cartodb-data-collection/# -->
 	                        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 											}).addTo(map);
 
-										// Add feature group for drawn items
+										// Add feature group for drawn items and saved items
 										var drawnItems = L.featureGroup().addTo(map);
+										var cartoData = L.layerGroup().addTo(map);
 
-										// Add variable for drawings in database to add to map
-										var savedItems = L.featureGroup().addTo(map);
+										var url = "http://whitneyemge.cartodb.com/api/v2/sql?";
+										let urlGeoJSON = url + "?format=GeoJSON&q=";
+										let sqlQuery = "SELECT the_geom, use_type, use_values, use_comments FROM land_preferences";
+										function addPopup(feature, layer) {
+										    layer.bindPopup(
+										        "<br>Use Type: " + feature.properties.useType +
+										        "<br>Values: " + feature.properties.useValues +
+														"<br>Comments: " + feature.properties.useComments
+										    );
+										}
+
+										fetch(urlGeoJSON + sqlQuery)
+										    .then(function(response) {
+										        return response.json();
+										    })
+										    .then(function(data) {
+										        L.geoJSON(data, {onEachFeature: addPopup}).addTo(cartoData);
+										    });
 
 										// Create and define draw controls
 										var drawControl = new L.Control.Draw({
@@ -144,8 +169,9 @@ http://duspviz.mit.edu/web-map-workshop/cartodb-data-collection/# -->
 												circle: false,
 												circlemarker: false
 											},
-											edit : false,
-											remove: false
+											edit: {
+												featureGroup: drawnItems
+											}
 										}).addTo(map);
 
 										// When a polygon is drawn, open the popup form
@@ -169,12 +195,12 @@ http://duspviz.mit.edu/web-map-workshop/cartodb-data-collection/# -->
 												"Save": setData,
 												Cancel: function () {
 													dialog.dialog("close");
-													refreshLayer();
+													//refreshLayer();
 												}
 											},
 											close: function () {
 												form[0].reset();
-												refreshLayer();
+												//refreshLayer();
 												console.log("Dialog closed");
 											}
 										});
@@ -219,19 +245,20 @@ http://duspviz.mit.edu/web-map-workshop/cartodb-data-collection/# -->
 							                .catch(function(error) {
 							                    console.log("Problem saving the data:", error);
 							                });
-											});
 
-											// var submittedData = layer.toGeoJSON();
-											// 	savedData.properties.useType = uType.value;
-											// 	savedData.properties.useValues = uValues.value;
-											// 	savedData.properties.useComments = uComments.value;
-											//
-											// savedData.addData(submittedData);
+											// Transfer submitted drawing to the CARTO layer
+							        let newData = layer.toGeoJSON();
+							        newData.properties.useType = uType;
+							        newData.properties.useValues = uValues;
+											newData.properties.useComments = uComments;
+							        L.geoJSON(newData, {onEachFeature: addPopup}).addTo(cartoData);
 
-											// Close form dialog
-											dialog.dialog("close");
-   										drawnItems.clearLayers();
-										}
+							    });
+
+										// Close form dialog
+										dialog.dialog("close");
+											drawnItems.clearLayers();
+									}
 
 									</script>
 								</section>
