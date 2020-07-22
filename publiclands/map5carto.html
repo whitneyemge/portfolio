@@ -127,6 +127,9 @@
 										// Add feature group for drawn items
 										var drawnItems = L.featureGroup().addTo(map);
 
+										// Add variable for drawings in database to add to map
+										var savedItems = L.featureGroup().addTo(map);
+
 										// Create and define draw controls
 										var drawControl = new L.Control.Draw({
 											draw : {
@@ -189,12 +192,44 @@
 											// Get and print GeoJSON for each drawn layer
 											drawnItems.eachLayer(function(layer) {
 													let drawing = JSON.stringify(layer.toGeoJSON().geometry);
-													console.log(drawing);
+													let sql =
+														"INSERT INTO [table name] (the_geom, use_type, use_values, use_comments)" +
+														"VALUES (ST_SetSRID(ST_GeomFromGeoJSON('" +
+						                drawing + "'), 4326), '" +
+						                uType + "', '" +
+						                uValues + "', '" +
+														uComments + "')"
+						            	console.log(sql);
+
+													// Send the data
+							            fetch(url, {
+							                method: "POST",
+							                headers: {
+							                    "Content-Type": "application/x-www-form-urlencoded"
+							                },
+							                body: "q=" + encodeURI(sql)
+							            })
+							                .then(function(response) {
+							                    return response.json();
+							                })
+							                .then(function(data) {
+							                    console.log("Data saved:", data);
+							                })
+							                .catch(function(error) {
+							                    console.log("Problem saving the data:", error);
+							                });
 											});
 
-											// Clear drawn items layer
-											dialog.dialog("close");
+											var submittedData = layer.toGeoJSON();
+												savedData.properties.useType = uType.value;
+												savedData.properties.useValues = uValues.value;
+												savedData.properties.useComments = uComments.value;
 
+											savedData.addData(submittedData);
+
+											// Close form dialog
+											dialog.dialog("close");
+   										drawnItems.clearLayers();
 										}
 
 									</script>
