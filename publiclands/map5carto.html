@@ -190,21 +190,16 @@ http://duspviz.mit.edu/web-map-workshop/cartodb-data-collection/# -->
 											var uValues = document.getElementById("useValues").value;
 											var uComments = document.getElementById("useComments").value;
 
-											// Print user name and description
-											console.log(uType);
-											console.log(uValues);
-											console.log(uComments);
-
 											// Get and print GeoJSON for each drawn layer
 											drawnItems.eachLayer(function(layer) {
 													let drawing = JSON.stringify(layer.toGeoJSON().geometry);
 													let sql =
-														"INSERT INTO [table name] (the_geom, use_type, use_values, use_comments)" +
+														"INSERT INTO land_preferences (the_geom, use_type, use_values, use_comments)" +
 														"VALUES (ST_SetSRID(ST_GeomFromGeoJSON('" +
 						                drawing + "'), 4326), '" +
 						                uType + "', '" +
 						                uValues + "', '" +
-														uComments + "')"
+														uComments + "')";
 						            	console.log(sql);
 
 													// Send the data
@@ -226,12 +221,12 @@ http://duspviz.mit.edu/web-map-workshop/cartodb-data-collection/# -->
 							                });
 											});
 
-											var submittedData = layer.toGeoJSON();
-												savedData.properties.useType = uType.value;
-												savedData.properties.useValues = uValues.value;
-												savedData.properties.useComments = uComments.value;
-
-											savedData.addData(submittedData);
+											// var submittedData = layer.toGeoJSON();
+											// 	savedData.properties.useType = uType.value;
+											// 	savedData.properties.useValues = uValues.value;
+											// 	savedData.properties.useComments = uComments.value;
+											//
+											// savedData.addData(submittedData);
 
 											// Close form dialog
 											dialog.dialog("close");
