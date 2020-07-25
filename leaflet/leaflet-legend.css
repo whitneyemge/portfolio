@@ -45,6 +45,7 @@ a.leaflet-legend-toggle i {
 }
 
 .leaflet-legend-item {
+    border: 2px;
     white-space: nowrap;
     padding-bottom: 2px;
 }
@@ -52,6 +53,7 @@ a.leaflet-legend-toggle i {
     display: inline-block;
 }
 .leaflet-legend-color {
+    border: 2px;
     width: 20px;
     heigth: 20px;
     margin-right: 4px;

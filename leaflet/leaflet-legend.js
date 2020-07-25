@@ -2,7 +2,7 @@ L.Control.Legend = L.Control.extend({
     options: {
         position: 'bottomright',
         collapsed: true,
-        buttonHtml: 'legend'
+        buttonHtml: 'LEGEND'
     },
 
     onRemove: function () {
