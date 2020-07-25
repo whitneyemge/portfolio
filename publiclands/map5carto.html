@@ -241,22 +241,180 @@ http://duspviz.mit.edu/web-map-workshop/cartodb-data-collection/# -->
 							        newData.properties.useType = uType;
 							        newData.properties.useValues = uValues;
 											newData.properties.useComments = uComments;
-							        L.geoJSON(newData, {onEachFeature: addPopup}).addTo(cartoData);
+							        L.geoJSON(newData, {
+												style: function(feature) {
+													if (newData.properties.useType == 'Recreation') {
+														return {
+															fillColor: '#004097',
+															color: '#004097',
+															fillOpacity: 0.5
+														};
+													} else if (newData.properties.useType == 'No Recreation') {
+														return {
+															fillColor: '#004097',
+															color: '#ff0000',
+															dashArray: '3',
+															fillOpacity: 0.5
+														};
+													} else if (newData.properties.useType == 'Timber Harvest') {
+														return {
+															fillColor: '#149700',
+															color: '#149700',
+															fillOpacity: 0.5
+														};
+													} else if (newData.properties.useType == 'No Timber Harvest') {
+														return {
+															fillColor: '#149700',
+															color: '#ff0000',
+															dashArray: '3',
+															fillOpacity: 0.5
+														};
+													} else if (newData.properties.useType == 'Mining') {
+														return {
+															fillColor: '#ca0094',
+															color: '#ca0094',
+															fillOpacity: 0.5
+														};
+													} else if (newData.properties.useType == 'No Mining') {
+														return {
+															fillColor: '#ca0094',
+															color: '#ff0000',
+															dashArray: '3',
+															fillOpacity: 0.5
+														};
+													} else if (newData.properties.useType == 'Grazing Livestock') {
+														return {
+															fillColor: '#ff7000',
+															color: '#ff7000',
+															fillOpacity: 0.5
+														};
+													} else if (newData.properties.useType == 'No Grazing Livestock') {
+														return {
+															fillColor: '#ff7000',
+															color: '#ff0000',
+															dashArray: '3',
+															fillOpacity: 0.5
+														};
+													} else if (newData.properties.useType == 'Tourism') {
+														return {
+															fillColor: '#ffe100',
+															color: '#ffe100',
+															fillOpacity: 0.5
+														};
+													} else if (newData.properties.useType == 'No Tourism') {
+														return {
+															fillColor: '#ffe100',
+															color: '#ff0000',
+															dashArray: '3',
+															fillOpacity: 0.5
+														};
+													} else if (newData.properties.useType == 'Conservation') {
+														return {
+															fillColor: '#400097',
+															color: '#400097',
+															fillOpacity: 0.5
+														};
+													} else if (newData.properties.useType == 'No Conservation') {
+														return {
+															fillColor: '#400097',
+															color: '#ff0000',
+															dashArray: '3',
+															fillOpacity: 0.5
+														};
+													}
+												},
 
+												onEachFeature: addPopup
+											}).addTo(cartoData);
 							    });
-
-									// Change color of new geometry added to map
-									// function changeColor() {
-									// 	if uType == 'Recreation':
-									// 		fillColor = 'green';
-									// 	else if uType == 'No Recreation':
-									// 		fillColor = 'red';
-									// };
 
 										// Close form dialog
 										dialog.dialog("close");
 										drawnItems.clearLayers();
-									}
+
+									// Change color of new geometry added to map
+									// function changeColor(newData) {
+									// 	if (newData.properties.useType == 'Recreation') {
+									// 		return {
+									// 			fillColor: '#004097',
+									// 			color: '#004097',
+									// 			fillOpacity: 0.5
+									// 		};
+									// 	} else if (newData.properties.useType == 'No Recreation') {
+									// 		return {
+									// 			fillColor: '#004097',
+									// 			color: '#ff0000',
+									// 			dashArray: '3',
+									// 			fillOpacity: 0.5
+									// 		};
+									// 	} else if (newData.properties.useType == 'Timber Harvest') {
+									// 		return {
+									// 			fillColor: '#149700',
+									// 			color: '#149700',
+									// 			fillOpacity: 0.5
+									// 		};
+									// 	} else if (newData.properties.useType == 'No Timber Harvest') {
+									// 		return {
+									// 			fillColor: '#149700',
+									// 			color: '#ff0000',
+									// 			dashArray: '3',
+									// 			fillOpacity: 0.5
+									// 		};
+									// 	} else if (newData.properties.useType == 'Mining') {
+									// 		return {
+									// 			fillColor: '#ca0094',
+									// 			color: '#ca0094',
+									// 			fillOpacity: 0.5
+									// 		};
+									// 	} else if (newData.properties.useType == 'No Mining') {
+									// 		return {
+									// 			fillColor: '#ca0094',
+									// 			color: '#ff0000',
+									// 			dashArray: '3',
+									// 			fillOpacity: 0.5
+									// 		};
+									// 	} else if (newData.properties.useType == 'Grazing Livestock') {
+									// 		return {
+									// 			fillColor: '#ff7000',
+									// 			color: '#ff7000',
+									// 			fillOpacity: 0.5
+									// 		};
+									// 	} else if (newData.properties.useType == 'No Grazing Livestock') {
+									// 		return {
+									// 			fillColor: '#ff7000',
+									// 			color: '#ff0000',
+									// 			dashArray: '3',
+									// 			fillOpacity: 0.5
+									// 		};
+									// 	} else if (newData.properties.useType == 'Tourism') {
+									// 		return {
+									// 			fillColor: '#ffe100',
+									// 			color: '#ffe100',
+									// 			fillOpacity: 0.5
+									// 		};
+									// 	} else if (newData.properties.useType == 'No Tourism') {
+									// 		return {
+									// 			fillColor: '#ffe100',
+									// 			color: '#ff0000',
+									// 			dashArray: '3',
+									// 			fillOpacity: 0.5
+									// 		};
+									// 	} else if (newData.properties.useType == 'Conservation') {
+									// 		return {
+									// 			fillColor: '#400097',
+									// 			color: '#400097',
+									// 			fillOpacity: 0.5
+									// 		};
+									// 	} else if (newData.properties.useType == 'No Conservation') {
+									// 		return {
+									// 			fillColor: '#400097',
+									// 			color: '#ff0000',
+									// 			dashArray: '3',
+									// 			fillOpacity: 0.5
+									// 		};
+									// 	}
+									// };
+								}
 
 									</script>
 								</section>
