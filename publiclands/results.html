@@ -22,11 +22,6 @@ https://github.com/zostera/leaflet-legend -->
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
 		<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 
-	  <!-- jquery -->
-	  <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-   	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-   	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-
 		<!-- leaflet legend -->
 		<link rel="stylesheet" href="../leaflet/leaflet-legend.css" />
 	  <script src="../leaflet/leaflet-legend.js"></script>
@@ -93,18 +88,104 @@ https://github.com/zostera/leaflet-legend -->
 										// Add feature group for drawn items and saved items
 										//var cartoData = L.layerGroup().addTo(map);
 
-										var cartoUserName = "whitneyemge";
-										var url = "https://" + cartoUserName + ".carto.com/api/v2/sql?format=GeoJSON&q=";
+										var url = "https://whitneyemge.carto.com/api/v2/sql?format=GeoJSON&q=";
 										var sqlQuery = "SELECT the_geom, use_type, use_value_1, use_value_2, use_value_3, use_comments FROM land_preferences";
 
-										fetch(urlGeoJSON + sqlQuery)
+										fetch(url + sqlQuery)
 										    .then(function(response) {
 										        return response.json();
 										    })
 												.then(function(data) {
 										        L.geoJSON(data, {
+															style: function(feature, layer) {
+																if (data.use_type == 'Recreation') {
+																	return {
+																		fillColor: '#004097',
+																		color: '#004097',
+																		fillOpacity: 0.5
+																	};
+																} else if (data.use_type == 'No Recreation') {
+																	return {
+																		fillColor: '#004097',
+																		color: '#ff0000',
+																		dashArray: '3,1',
+																		fillOpacity: 0.5
+																	};
+																} else if (data.use_type == 'Timber Harvest') {
+																	return {
+																		fillColor: '#149700',
+																		color: '#149700',
+																		fillOpacity: 0.5
+																	};
+																} else if (data.use_type == 'No Timber Harvest') {
+																	return {
+																		fillColor: '#149700',
+																		color: '#ff0000',
+																		dashArray: '3,1',
+																		fillOpacity: 0.5
+																	};
+																} else if (data.use_type == 'Mining') {
+																	return {
+																		fillColor: '#ca0094',
+																		color: '#ca0094',
+																		fillOpacity: 0.5
+																	};
+																} else if (data.use_type == 'No Mining') {
+																	return {
+																		fillColor: '#ca0094',
+																		color: '#ff0000',
+																		dashArray: '3,1',
+																		fillOpacity: 0.5
+																	};
+																} else if (data.use_type == 'Grazing Livestock') {
+																	return {
+																		fillColor: '#ff7000',
+																		color: '#ff7000',
+																		fillOpacity: 0.5
+																	};
+																} else if (data.use_type == 'No Grazing Livestock') {
+																	return {
+																		fillColor: '#ff7000',
+																		color: '#ff0000',
+																		dashArray: '3,1',
+																		fillOpacity: 0.5
+																	};
+																} else if (data.use_type == 'Tourism') {
+																	return {
+																		fillColor: '#ffe100',
+																		color: '#ffe100',
+																		fillOpacity: 0.5
+																	};
+																} else if (data.use_type == 'No Tourism') {
+																	return {
+																		fillColor: '#ffe100',
+																		color: '#ff0000',
+																		dashArray: '3,1',
+																		fillOpacity: 0.5
+																	};
+																} else if (data.use_type == 'Conservation') {
+																	return {
+																		fillColor: '#400097',
+																		color: '#400097',
+																		fillOpacity: 0.5
+																	};
+																} else if (data.use_type == 'No Conservation') {
+																	return {
+																		fillColor: '#400097',
+																		color: '#ff0000',
+																		dashArray: '3,1',
+																		fillOpacity: 0.5
+																	};
+																}
+															},
 										            onEachFeature: function(feature, layer) {
-										                layer.bindPopup(feature.properties.use_type);
+										                layer.bindPopup(
+																			"<br>Use Type: " + feature.properties.use_type +
+																			"<br>Value 1: " + feature.properties.use_value_1 +
+																			"<br>Value 2: " + feature.properties.use_value_2 +
+																			"<br>Value 3: " + feature.properties.use_value_3 +
+																			"<br>Comments: " + feature.properties.use_comments
+																		);
 										            }
 										        }).addTo(map);
 										    });
