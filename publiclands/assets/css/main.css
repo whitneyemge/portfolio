@@ -125,6 +125,10 @@ input, select, textarea {
 		font-size: 1em;
 	}
 
+	h5 {
+		font-size: 16px;
+	}
+
 	h6 {
 		font-size: 14px;
 	}
