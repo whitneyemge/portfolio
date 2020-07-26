@@ -95,6 +95,7 @@ https://github.com/zostera/leaflet-legend -->
 													<option>No Conservation</option>
 												</select>
 												<div class="error" id="useErr"></div>
+											<br>
 											<label for="useValues">Values (optional)</label>
 											<h6>Select up to three values that you associate with this area.</h6>
 											<h5>Value 1:</h5>
@@ -242,12 +243,21 @@ https://github.com/zostera/leaflet-legend -->
 									// Validate use type
 									function validateForm() {
 										var uType = document.getElementById("useType").value;
+										var useErr = true;
+
 										if (uType == "Select one") {
 											printError("useErr", "Please select a land use type");
 										} else {
+											printError("useErr", "");
+											useErr = false;
+										}
+
+										if ((useErr == true)) {
+											return false;
+										} else {
 											setData();
 										}
-									}
+									};
 
 									var form = dialog.find("form").on("submit", function (event) {
 										event.preventDefault();
