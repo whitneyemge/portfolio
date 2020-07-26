@@ -86,7 +86,17 @@ https://github.com/zostera/leaflet-legend -->
 											}).addTo(map);
 
 										// Add feature group for drawn items and saved items
-										//var cartoData = L.layerGroup().addTo(map);
+										var cartoData = L.layerGroup().addTo(map);
+
+										function addPopup(feature, layer) {
+										    layer.bindPopup(
+										        "<br>Use Type: " + feature.properties.use_type +
+										        "<br>Value 1: " + feature.properties.use_value_1 +
+														"<br>Value 2: " + feature.properties.use_value_2 +
+														"<br>Value 3: " + feature.properties.use_value_3 +
+														"<br>Comments: " + feature.properties.use_comments
+										    );
+										}
 
 										var url = "https://whitneyemge.carto.com/api/v2/sql?format=GeoJSON&q=";
 										var sqlQuery = "SELECT the_geom, use_type, use_value_1, use_value_2, use_value_3, use_comments FROM land_preferences";
@@ -97,79 +107,79 @@ https://github.com/zostera/leaflet-legend -->
 										    })
 												.then(function(data) {
 										        L.geoJSON(data, {
-															style: function(feature, layer) {
-																if (data.use_type == 'Recreation') {
+															style: function(feature) {
+																if (feature.properties.use_type == 'Recreation') {
 																	return {
 																		fillColor: '#004097',
 																		color: '#004097',
 																		fillOpacity: 0.5
 																	};
-																} else if (data.use_type == 'No Recreation') {
+																} else if (feature.properties.use_type == 'No Recreation') {
 																	return {
 																		fillColor: '#004097',
 																		color: '#ff0000',
 																		dashArray: '3,1',
 																		fillOpacity: 0.5
 																	};
-																} else if (data.use_type == 'Timber Harvest') {
+																} else if (feature.properties.use_type == 'Timber Harvest') {
 																	return {
 																		fillColor: '#149700',
 																		color: '#149700',
 																		fillOpacity: 0.5
 																	};
-																} else if (data.use_type == 'No Timber Harvest') {
+																} else if (feature.properties.use_type == 'No Timber Harvest') {
 																	return {
 																		fillColor: '#149700',
 																		color: '#ff0000',
 																		dashArray: '3,1',
 																		fillOpacity: 0.5
 																	};
-																} else if (data.use_type == 'Mining') {
+																} else if (feature.properties.use_type == 'Mining') {
 																	return {
 																		fillColor: '#ca0094',
 																		color: '#ca0094',
 																		fillOpacity: 0.5
 																	};
-																} else if (data.use_type == 'No Mining') {
+																} else if (feature.properties.use_type == 'No Mining') {
 																	return {
 																		fillColor: '#ca0094',
 																		color: '#ff0000',
 																		dashArray: '3,1',
 																		fillOpacity: 0.5
 																	};
-																} else if (data.use_type == 'Grazing Livestock') {
+																} else if (feature.properties.use_type == 'Grazing Livestock') {
 																	return {
 																		fillColor: '#ff7000',
 																		color: '#ff7000',
 																		fillOpacity: 0.5
 																	};
-																} else if (data.use_type == 'No Grazing Livestock') {
+																} else if (feature.properties.use_type == 'No Grazing Livestock') {
 																	return {
 																		fillColor: '#ff7000',
 																		color: '#ff0000',
 																		dashArray: '3,1',
 																		fillOpacity: 0.5
 																	};
-																} else if (data.use_type == 'Tourism') {
+																} else if (feature.properties.use_type == 'Tourism') {
 																	return {
 																		fillColor: '#ffe100',
 																		color: '#ffe100',
 																		fillOpacity: 0.5
 																	};
-																} else if (data.use_type == 'No Tourism') {
+																} else if (feature.properties.use_type == 'No Tourism') {
 																	return {
 																		fillColor: '#ffe100',
 																		color: '#ff0000',
 																		dashArray: '3,1',
 																		fillOpacity: 0.5
 																	};
-																} else if (data.use_type == 'Conservation') {
+																} else if (feature.properties.use_type == 'Conservation') {
 																	return {
 																		fillColor: '#400097',
 																		color: '#400097',
 																		fillOpacity: 0.5
 																	};
-																} else if (data.use_type == 'No Conservation') {
+																} else if (feature.properties.use_type == 'No Conservation') {
 																	return {
 																		fillColor: '#400097',
 																		color: '#ff0000',
@@ -178,17 +188,12 @@ https://github.com/zostera/leaflet-legend -->
 																	};
 																}
 															},
-										            onEachFeature: function(feature, layer) {
-										                layer.bindPopup(
-																			"<br>Use Type: " + feature.properties.use_type +
-																			"<br>Value 1: " + feature.properties.use_value_1 +
-																			"<br>Value 2: " + feature.properties.use_value_2 +
-																			"<br>Value 3: " + feature.properties.use_value_3 +
-																			"<br>Comments: " + feature.properties.use_comments
-																		);
-										            }
-										        }).addTo(map);
+															onEachFeature: addPopup
+														}).addTo(cartoData);
 										    });
+
+
+
 
 											// Transfer submitted drawing to the CARTO layer
 							        // var newData = layer.toGeoJSON();
