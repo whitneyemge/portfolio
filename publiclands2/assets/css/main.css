@@ -83,7 +83,7 @@ input, select, textarea {
 	}
 
 	body {
-		background: #f2f5f3;
+		background: #fff;
 	}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
@@ -1792,7 +1792,7 @@ input, select, textarea {
 		font-weight: 700;
 		text-transform: uppercase;
 		text-decoration: none;
-		background: #b1ddab;
+		background: #ce9e62;
 		color: #fff;
 		border: 0;
 		line-height: 1em;
@@ -1814,7 +1814,7 @@ input, select, textarea {
 		input[type="reset"]:hover,
 		button:hover,
 		.button:hover {
-			background: #c1edbb;
+			background: #e8c79e;
 		}
 
 		input[type="button"]:active,
@@ -1830,7 +1830,7 @@ input, select, textarea {
 		input[type="reset"].alt,
 		button.alt,
 		.button.alt {
-			background: #c1cac5;
+			background: #9fbccc;
 		}
 
 			input[type="button"].alt:hover,
@@ -1947,12 +1947,12 @@ input, select, textarea {
 				height: 48px;
 				border-radius: 6px;
 				outline: 0;
-				background: #c1cac5;
+				background: #9fbccc;
 				text-align: center;
 			}
 
 				ul.contact li a:before {
-					color: #f2f5f3;
+					color: #fff;
 					font-size: 32px;
 					line-height: 48px;
 				}
@@ -2022,7 +2022,7 @@ input, select, textarea {
 					transition: background-color .2s ease-in-out;
 					display: block;
 					text-align: center;
-					background: #c1cac5;
+					background: #9fbccc;
 					border-radius: 100%;
 					width: 2.25em;
 					height: 2.25em;
@@ -2334,7 +2334,7 @@ input, select, textarea {
 
 			#header .logo p {
 				display: inline;
-				color: #C1CAC5;
+				color: #9fbccc;
 			}
 
 /* Nav */
@@ -2402,17 +2402,17 @@ input, select, textarea {
 			}
 
 			#nav li:hover a, #nav li:hover span {
-				background: #C1CAC5;
+				background: #9fbccc;
 				color: #fff;
 			}
 
 			#nav li.active a, #nav li.active span {
-				background: #C1CAC5;
+				background: #9fbccc;
 				color: #fff;
 			}
 
 			#nav li.current a {
-				background: #b1ddab;
+				background: #4b6777;
 				color: #fff;
 			}
 
@@ -2540,8 +2540,8 @@ input, select, textarea {
 
 	#main {
 		background: #fff;
-		border-top: solid 5px #b1ddab;
-		border-bottom: solid 5px #c1cac5;
+		border-top: solid 5px #4b6777;
+		border-bottom: solid 5px #9fbccc;
 		border-top-width: 35px;
 		border-bottom-width: 10px;
 		padding: 6em 0 6em 0;
@@ -2574,14 +2574,14 @@ input, select, textarea {
 		}
 
 			#footer h2.major span {
-				background: #f2f5f3;
+				background: #fff;
 			}
 
 /* Copyright */
 
 	#copyright {
 		display: inline-block;
-		background: #e7eae8;
+		background: #fff;
 		padding: 0.75em 2em 0.75em 2em;
 		border-radius: 8px;
 		color: #8b9790;
@@ -2823,7 +2823,7 @@ input, select, textarea {
 						position: absolute;
 						left: 0;
 						top: 0;
-						background: #b1ddab;
+						background: #4b6777;
 						width: 44px;
 						height: 44px;
 						content: '\f0c9';
@@ -3104,4 +3104,19 @@ input, select, textarea {
 				font-size: 10pt;
 			}
 
+	}
+
+	#controls {
+	  width: 100%;
+	  margin: 0 auto;
+	  float: left;
+	}
+
+	#form {
+	  margin-top: 5px;
+	  font-size: 12px;
+	  text-align: left;
+	  line-height: 16px;
+	  width:375px;
+	  float: left;
 	}
