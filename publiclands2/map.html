@@ -94,8 +94,7 @@ https://github.com/zostera/leaflet-legend -->
 													<option>Conservation</option>
 													<option>No Conservation</option>
 												</select>
-												<div class="error" id="useErr"></div>
-											<br>
+												<!-- <div class="error" id="useErr"></div> -->
 											<label for="useValues">Values (optional)</label>
 											<h6>Select up to three values that you associate with this area.</h6>
 											<h5>Value 1:</h5>
@@ -219,6 +218,21 @@ https://github.com/zostera/leaflet-legend -->
 										dialog.dialog("open");
 									});
 
+									map.addEventListener("draw:editstart", function(e) {
+									    dialog.dialog("close");
+									});
+									map.addEventListener("draw:deletestart", function(e) {
+									    dialog.dialog("close");
+									});
+									map.addEventListener("draw:editstop", function(e) {
+									    dialog.dialog("open");
+									});
+									map.addEventListener("draw:deletestop", function(e) {
+									    if(drawnItems.getLayers().length > 0) {
+									        dialog.dialog("open");
+									    }
+									});
+
 									var dialog = $("#dialog").dialog({
 										autoOpen: false,
 										width: 350,
@@ -229,7 +243,7 @@ https://github.com/zostera/leaflet-legend -->
 											of: "#map"
 										},
 										buttons: {
-											"Submit": validateForm,
+											"Submit": setData,
 											Cancel: function () {
 												dialog.dialog("close");
 											}
@@ -240,30 +254,31 @@ https://github.com/zostera/leaflet-legend -->
 										}
 									});
 
-									// Validate use type
-									function validateForm() {
-										var uType = document.getElementById("useType").value;
-										var useErr = true;
-
-										if (uType == "Select one") {
-											printError("useErr", "Please select a land use type");
-										} else {
-											printError("useErr", "");
-											useErr = false;
-										}
-
-										if ((useErr == true)) {
-											return false;
-										} else {
-											setData();
-										}
-									};
-
 									var form = dialog.find("form").on("submit", function (event) {
 										event.preventDefault();
-										validateForm();
+										setData();
 									});
 
+									// Validate land use type is selected
+									// function validateForm() {
+									// 	var uType = document.getElementById("useType").value;
+									// 	var useErr = true;
+									//
+									// 	if (uType == "Select one") {
+									// 		printError("useErr", "Please select a land use type");
+									// 	} else {
+									// 		printError("useErr", "");
+									// 		useErr = false;
+									// 	}
+									//
+									// 	if (useErr == true) {
+									// 		return false;
+									// 	} else {
+									// 		setData();
+									// 	}
+									// };
+
+									// Send data to Carto database
 									function setData() {
 										// Get user name and description
 										var uType = document.getElementById("useType").value;
