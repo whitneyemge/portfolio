@@ -3120,3 +3120,7 @@ input, select, textarea {
 	  width:375px;
 	  float: left;
 	}
+	.error {
+	    color: red;
+	    font-size: 12px;
+	}

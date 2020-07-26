@@ -14,7 +14,7 @@ https://github.com/zostera/leaflet-legend -->
 
 <html>
 	<head>
-		<title>TXT by HTML5 UP</title>
+		<title>Land Use Preferences Mapping</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -94,7 +94,7 @@ https://github.com/zostera/leaflet-legend -->
 													<option>Conservation</option>
 													<option>No Conservation</option>
 												</select>
-												<div class="red-text"></div>
+												<div class="error" id="useErr"></div>
 											<label for="useValues">Values (optional)</label>
 											<h6>Select up to three values that you associate with this area.</h6>
 											<h5>Value 1:</h5>
@@ -228,7 +228,7 @@ https://github.com/zostera/leaflet-legend -->
 											of: "#map"
 										},
 										buttons: {
-											"Submit": setData,
+											"Submit": validateForm,
 											Cancel: function () {
 												dialog.dialog("close");
 											}
@@ -239,9 +239,19 @@ https://github.com/zostera/leaflet-legend -->
 										}
 									});
 
+									// Validate use type
+									function validateForm() {
+										var uType = document.getElementById("useType").value;
+										if (uType == "Select one") {
+											printError("useErr", "Please select a land use type");
+										} else {
+											setData();
+										}
+									}
+
 									var form = dialog.find("form").on("submit", function (event) {
 										event.preventDefault();
-										setData();
+										validateForm();
 									});
 
 									function setData() {
@@ -380,8 +390,7 @@ https://github.com/zostera/leaflet-legend -->
 									// Close form dialog
 									dialog.dialog("close");
 									drawnItems.clearLayers();
-
-									}
+								}
 
 									</script>
 
