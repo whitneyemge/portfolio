@@ -203,14 +203,6 @@ https://github.com/zostera/leaflet-legend -->
 											);
 									}
 
-									fetch(urlGeoJSON + sqlQuery)
-											.then(function(response) {
-													return response.json();
-											})
-											.then(function(data) {
-													L.geoJSON(data, {onEachFeature: addPopup}).addTo(cartoData);
-											});
-
 									// Create and define draw controls
 									new L.Control.Draw({
 										draw : {
