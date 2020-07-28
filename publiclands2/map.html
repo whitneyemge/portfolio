@@ -190,7 +190,8 @@ https://github.com/zostera/leaflet-legend -->
 									var drawnItems = L.featureGroup().addTo(map);
 									var cartoData = L.layerGroup().addTo(map);
 
-									var url = "https://whitneyemge.carto.com/api/v2/sql?format=GeoJSON&q=";
+									var url = "http://whitneyemge.cartodb.com/api/v2/sql?";
+									var urlGeoJSON = url + "?format=GeoJSON&q=";
 									var sqlQuery = "SELECT the_geom, use_type, use_value_1, use_value_2, use_value_3, use_comments FROM land_preferences";
 									function addPopup(feature, layer) {
 											layer.bindPopup(
@@ -202,7 +203,7 @@ https://github.com/zostera/leaflet-legend -->
 											);
 									}
 
-									fetch(url + sqlQuery)
+									fetch(urlGeoJSON + sqlQuery)
 											.then(function(response) {
 													return response.json();
 											})
@@ -229,20 +230,20 @@ https://github.com/zostera/leaflet-legend -->
 										dialog.dialog("open");
 									});
 
-									// map.addEventListener("draw:editstart", function(e) {
-									//     dialog.dialog("close");
-									// });
-									// map.addEventListener("draw:deletestart", function(e) {
-									//     dialog.dialog("close");
-									// });
-									// map.addEventListener("draw:editstop", function(e) {
-									//     dialog.dialog("open");
-									// });
-									// map.addEventListener("draw:deletestop", function(e) {
-									//     if(drawnItems.getLayers().length > 0) {
-									//         dialog.dialog("open");
-									//     }
-									// });
+									map.addEventListener("draw:editstart", function(e) {
+									    dialog.dialog("close");
+									});
+									map.addEventListener("draw:deletestart", function(e) {
+									    dialog.dialog("close");
+									});
+									map.addEventListener("draw:editstop", function(e) {
+									    dialog.dialog("open");
+									});
+									map.addEventListener("draw:deletestop", function(e) {
+									    if(drawnItems.getLayers().length > 0) {
+									        dialog.dialog("open");
+									    }
+									});
 
 									var dialog = $("#dialog").dialog({
 										autoOpen: false,
