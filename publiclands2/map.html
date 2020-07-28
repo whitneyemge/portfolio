@@ -188,7 +188,7 @@ https://github.com/zostera/leaflet-legend -->
 
 									// Add feature group for drawn items and saved items
 									var drawnItems = L.featureGroup().addTo(map);
-									var cartoData = L.layerGroup().addTo(map);
+									var sessionData = L.layerGroup().addTo(map);
 
 									var url = "https://whitneyemge.cartodb.com/api/v2/sql";
 									var urlGeoJSON = url + "?format=GeoJSON&q=";
@@ -413,7 +413,7 @@ https://github.com/zostera/leaflet-legend -->
 												}
 											},
 											onEachFeature: addPopup
-										}).addTo(cartoData);
+										}).addTo(sessionData);
 									});
 
 									// Close form dialog
