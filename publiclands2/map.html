@@ -230,20 +230,20 @@ https://github.com/zostera/leaflet-legend -->
 										dialog.dialog("open");
 									});
 
-									map.addEventListener("draw:editstart", function(e) {
-									    dialog.dialog("close");
-									});
-									map.addEventListener("draw:deletestart", function(e) {
-									    dialog.dialog("close");
-									});
-									map.addEventListener("draw:editstop", function(e) {
-									    dialog.dialog("open");
-									});
-									map.addEventListener("draw:deletestop", function(e) {
-									    if(drawnItems.getLayers().length > 0) {
-									        dialog.dialog("open");
-									    }
-									});
+									// map.addEventListener("draw:editstart", function(e) {
+									//     dialog.dialog("close");
+									// });
+									// map.addEventListener("draw:deletestart", function(e) {
+									//     dialog.dialog("close");
+									// });
+									// map.addEventListener("draw:editstop", function(e) {
+									//     dialog.dialog("open");
+									// });
+									// map.addEventListener("draw:deletestop", function(e) {
+									//     if(drawnItems.getLayers().length > 0) {
+									//         dialog.dialog("open");
+									//     }
+									// });
 
 									var dialog = $("#dialog").dialog({
 										autoOpen: false,
