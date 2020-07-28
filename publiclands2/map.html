@@ -190,7 +190,7 @@ https://github.com/zostera/leaflet-legend -->
 									var drawnItems = L.featureGroup().addTo(map);
 									var cartoData = L.layerGroup().addTo(map);
 
-									var url = "http://whitneyemge.cartodb.com/api/v2/sql?";
+									var url = "http://whitneyemge.cartodb.com/api/v2/sql";
 									var urlGeoJSON = url + "?format=GeoJSON&q=";
 									var sqlQuery = "SELECT the_geom, use_type, use_value_1, use_value_2, use_value_3, use_comments FROM land_preferences";
 									function addPopup(feature, layer) {
