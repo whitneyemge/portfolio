@@ -221,6 +221,10 @@ https://github.com/zostera/leaflet-legend -->
 										dialog.dialog("open");
 									});
 
+									drawnItems.on('click', function (e) {
+										dialog.dialog("open");
+									});
+
 									// map.addEventListener("draw:editstart", function(e) {
 									//     dialog.dialog("close");
 									// });
@@ -248,11 +252,14 @@ https://github.com/zostera/leaflet-legend -->
 										buttons: {
 											"Submit": setData,
 											Cancel: function () {
+												form[0].reset();
 												dialog.dialog("close");
+												refreshLayer();
 											}
 										},
 										close: function () {
-											form[0].reset();
+											//form[0].reset();
+											//refreshLayer();
 											console.log("Dialog closed");
 										}
 									});
