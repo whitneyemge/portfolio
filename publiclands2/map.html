@@ -225,23 +225,9 @@ https://github.com/zostera/leaflet-legend -->
 										dialog.dialog("open");
 									});
 
-									// map.addEventListener("draw:editstart", function(e) {
-									//     dialog.dialog("close");
-									// });
-									// map.addEventListener("draw:deletestart", function(e) {
-									//     dialog.dialog("close");
-									// });
-									// map.addEventListener("draw:editstop", function(e) {
-									//     dialog.dialog("open");
-									// });
-									// map.addEventListener("draw:deletestop", function(e) {
-									//     if(drawnItems.getLayers().length > 0) {
-									//         dialog.dialog("open");
-									//     }
-									// });
-
+									// Form for popup
 									var dialog = $("#dialog").dialog({
-										autoOpen: false,
+										autoOpen: false, //Only open when shape is drawn
 										width: 350,
 										modal: true,
 										position: {
@@ -250,17 +236,11 @@ https://github.com/zostera/leaflet-legend -->
 											of: "#map"
 										},
 										buttons: {
-											"Submit": setData,
+											"Submit": setData, //Submit button runs function to send data to CARTO database
 											Cancel: function () {
-												form[0].reset();
-												dialog.dialog("close");
-												refreshLayer();
+												form[0].reset(); //Clear any selections and data from the form
+												dialog.dialog("close"); //Close the popup form
 											}
-										},
-										close: function () {
-											//form[0].reset();
-											//refreshLayer();
-											console.log("Dialog closed");
 										}
 									});
 
