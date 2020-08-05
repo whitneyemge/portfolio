@@ -81,33 +81,49 @@ https://github.com/zostera/leaflet-legend -->
 
 					<div class="col-12">
 
-						<!-- Add map -->
-						<div id='map' style='height: 75vh; z-index: 1;'></div>
+				<!-- Add map -->
+					<div id='map' style='height: 75vh; z-index: 1;'></div>
 
-						<!-- Popup form contents -->
-						 <div id="dialog" title="Tell us About this Area">
-							<form>
-								<fieldset>
-									<label for="useType">Land Use Type (required)</label>
-										<select name="useType" id="useType">
-											<option disabled selected value="">Select one</option>
-											<option>Recreation</option>
-											<option>No Recreation</option>
-											<option>Timber Harvest</option>
-											<option>No Timber Harvest</option>
-											<option>Mining</option>
-											<option>No Mining</option>
-											<option>Grazing Livestock</option>
-											<option>No Grazing Livestock</option>
-											<option>Tourism</option>
-											<option>No Tourism</option>
-											<option>Conservation</option>
-											<option>No Conservation</option>
-										</select>
-									<label for="useValues">Values (optional)</label>
-									<h6>Select up to three values that you associate with this area.</h6>
-									<h5>Value 1:</h5>
-										<select name="useValue1" id="useValue1">
+				<!-- Popup form contents -->
+					<div id="dialog" title="Tell us About this Area">
+						<form>
+							<fieldset>
+								<label for="useType">Land Use Type (required)</label>
+									<select name="useType" id="useType">
+										<option disabled selected value="">Select one</option>
+										<option>Recreation</option>
+										<option>No Recreation</option>
+										<option>Timber Harvest</option>
+										<option>No Timber Harvest</option>
+										<option>Mining</option>
+										<option>No Mining</option>
+										<option>Grazing Livestock</option>
+										<option>No Grazing Livestock</option>
+										<option>Tourism</option>
+										<option>No Tourism</option>
+										<option>Conservation</option>
+										<option>No Conservation</option>
+									</select>
+								<label for="useValues">Values (optional)</label>
+								<h6>Select up to three values that you associate with this area.</h6>
+								<h5>Value 1:</h5>
+									<select name="useValue1" id="useValue1">
+										<option></option>
+										<option>Scenic/aesthetic</option>
+										<option>Recreation</option>
+										<option>Economic</option>
+										<option>Life Sustaining</option>
+										<option>Learning/education/research</option>
+										<option>Biological/conservation</option>
+										<option>Cultural</option>
+										<option>Therapeutic/health</option>
+										<option>Spiritual</option>
+										<option>Intrinsic/existence</option>
+										<option>Identity</option>
+										<option>Wilderness/pristine</option>
+									</select>
+									<h5>Value 2:</h5>
+										<select name="useValue2" id="useValue2">
 											<option></option>
 											<option>Scenic/aesthetic</option>
 											<option>Recreation</option>
@@ -122,8 +138,8 @@ https://github.com/zostera/leaflet-legend -->
 											<option>Identity</option>
 											<option>Wilderness/pristine</option>
 										</select>
-										<h5>Value 2:</h5>
-											<select name="useValue2" id="useValue2">
+										<h5>Value 3:</h5>
+											<select name="useValue3" id="useValue3">
 												<option></option>
 												<option>Scenic/aesthetic</option>
 												<option>Recreation</option>
@@ -138,31 +154,15 @@ https://github.com/zostera/leaflet-legend -->
 												<option>Identity</option>
 												<option>Wilderness/pristine</option>
 											</select>
-											<h5>Value 3:</h5>
-												<select name="useValue3" id="useValue3">
-													<option></option>
-													<option>Scenic/aesthetic</option>
-													<option>Recreation</option>
-													<option>Economic</option>
-													<option>Life Sustaining</option>
-													<option>Learning/education/research</option>
-													<option>Biological/conservation</option>
-													<option>Cultural</option>
-													<option>Therapeutic/health</option>
-													<option>Spiritual</option>
-													<option>Intrinsic/existence</option>
-													<option>Identity</option>
-													<option>Wilderness/pristine</option>
-												</select>
-										<label for="useComments">Comments</label>
-											<textarea id="useComments" name="useComments" rows="4" cols="20"></textarea>
-											<input type="submit" name="submit" value="submit" tabindex="-1" style="position:absolute; top:-1000px">
-									</fieldset>
-								</form>
-							</div>
+									<label for="useComments">Comments</label>
+										<textarea id="useComments" name="useComments" rows="4" cols="20"></textarea>
+										<input type="submit" name="submit" value="submit" tabindex="-1" style="position:absolute; top:-1000px">
+								</fieldset>
+							</form>
+						</div>
 
-							<!-- Begin script -->
-							<script>
+					<!-- Begin script -->
+						<script>
 
 							// Create Leaflet map
 							var map = L.map('map').setView([48.588, -117.870], 9);
@@ -262,10 +262,10 @@ https://github.com/zostera/leaflet-legend -->
 									}
 								});
 
-								// var form = dialog.find("form").on("submit", function (event) {
-								// 	event.preventDefault();
-								// 	setData();
-								// });
+								var form = dialog.find("form").on("submit", function (event) {
+									event.preventDefault();
+									setData();
+								});
 
 								// Validate land use type is selected
 								// function validateForm() {
@@ -288,7 +288,7 @@ https://github.com/zostera/leaflet-legend -->
 
 								// Send data to Carto database
 								function setData() {
-									var uType = document.getElementById("useType").value;
+									var uType = document.getElementById("useType").value;  // set variables for all form data
 									var uValue1 = document.getElementById("useValue1").value;
 									var uValue2 = document.getElementById("useValue2").value;
 									var uValue3 = document.getElementById("useValue3").value;
@@ -306,7 +306,7 @@ https://github.com/zostera/leaflet-legend -->
 												uValue2 + "', '" +
 												uValue3 + "', '" +
 												uComments + "')";
-											console.log(sql);
+											console.log(sql);  // Print data in the console
 
 											// Send the data
 											fetch(url, {
@@ -320,15 +320,15 @@ https://github.com/zostera/leaflet-legend -->
 															return response.json();
 													})
 													.then(function(data) {
-															console.log("Data saved:", data);
+															console.log("Data saved:", data);  // Print success message when data was sent to the database
 													})
 													.catch(function(error) {
-															console.log("Problem saving the data:", error);
+															console.log("Problem saving the data:", error);  // Print error if data was not able to send
 													});
 
-									// Transfer submitted drawing to the CARTO layer to display on the map
+									// Transfer submitted drawing to the CARTO layer to display on the user's map
 									var newData = layer.toGeoJSON();
-									newData.properties.useType = uType;
+									newData.properties.useType = uType;  // Set variables for each piece of input data
 									newData.properties.useValue1 = uValue1;
 									newData.properties.useValue2 = uValue2;
 									newData.properties.useValue3 = uValue3;
@@ -346,7 +346,6 @@ https://github.com/zostera/leaflet-legend -->
 												return {
 													fillColor: '#004097',
 													color: '#ff0000',
-													dashArray: '3,1',
 													fillOpacity: 0.5
 												};
 											} else if (newData.properties.useType == 'Timber Harvest') {
@@ -359,7 +358,6 @@ https://github.com/zostera/leaflet-legend -->
 												return {
 													fillColor: '#149700',
 													color: '#ff0000',
-													dashArray: '3,1',
 													fillOpacity: 0.5
 												};
 											} else if (newData.properties.useType == 'Mining') {
@@ -372,7 +370,6 @@ https://github.com/zostera/leaflet-legend -->
 												return {
 													fillColor: '#ca0094',
 													color: '#ff0000',
-													dashArray: '3,1',
 													fillOpacity: 0.5
 												};
 											} else if (newData.properties.useType == 'Grazing Livestock') {
@@ -385,7 +382,6 @@ https://github.com/zostera/leaflet-legend -->
 												return {
 													fillColor: '#ff7000',
 													color: '#ff0000',
-													dashArray: '3,1',
 													fillOpacity: 0.5
 												};
 											} else if (newData.properties.useType == 'Tourism') {
@@ -398,7 +394,6 @@ https://github.com/zostera/leaflet-legend -->
 												return {
 													fillColor: '#ffe100',
 													color: '#ff0000',
-													dashArray: '3,1',
 													fillOpacity: 0.5
 												};
 											} else if (newData.properties.useType == 'Conservation') {
@@ -411,12 +406,11 @@ https://github.com/zostera/leaflet-legend -->
 												return {
 													fillColor: '#400097',
 													color: '#ff0000',
-													dashArray: '3,1',
 													fillOpacity: 0.5
 												};
 											}
 										},
-										onEachFeature: addPopup
+										onEachFeature: addPopup  // Add popup to display user input data
 									}).addTo(sessionData);
 								});
 
@@ -424,20 +418,19 @@ https://github.com/zostera/leaflet-legend -->
 								dialog.dialog("close");
 								drawnItems.clearLayers();
 							}
-								</script>
+						</script>
 
-			<!-- Add buttons for navigation to home or results pages -->
-				<div class="col-12">
-					<ul class="actions">
-						<li><a href="index.html" class="button large">Finish</a></li>
-						<li><a href="results.html" class="button large">See What Others are Saying</a></li>
-					</ul>
-				</div>
-
-							</div>
+					<!-- Add buttons for navigation to home or results pages -->
+						<div class="col-12">
+							<ul class="actions">
+								<li><a href="index.html" class="button large">Finish</a></li>
+								<li><a href="results.html" class="button large">See What Others are Saying</a></li>
+							</ul>
 						</div>
-					</section>
-			</div>
+					</div>
+				</div>
+			</section>
+		</div>
 
 			<!-- Footer -->
 				<div class="col-12">
