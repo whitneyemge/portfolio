@@ -212,7 +212,7 @@ input, select, textarea {
 		color: #c1cac5;
 	}
 
-/* Form */ 
+/* Form */
 form {
 	margin: 0 0 2rem 0;
 }
@@ -1922,6 +1922,7 @@ form {
 
 		ol li {
 			padding-left: 0.25em;
+			text-align: left;
 		}
 
 /* Divided */
