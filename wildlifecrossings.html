@@ -46,12 +46,12 @@
       <script>
 	var token = "pk.eyJ1IjoiZW1nZXciLCJhIjoiY2sybzlheDB4MDJrdDNwbXp1OXVmN3dseCJ9.ukmQwSpvGDqj0hChY4ZUyQ";
 	      
-        var mymap = L.map('mapid', {fullscreenControl: {pseudoFullscreen: false}}).setView([47.598194, -120.683628], 7);
+        var map = L.map('map', {fullscreenControl: {pseudoFullscreen: false}}).setView([47.598194, -120.683628], 7);
 	
 	var gl = L.mapboxGL({
     	accessToken: token,
     	style: 'mapbox://styles/mapbox/light-v11'      
-		}).addTo(mapid);
+		}).addTo(map);
 
 				//Null variable to hold crossing point data
 				var crossingPoints = null;
